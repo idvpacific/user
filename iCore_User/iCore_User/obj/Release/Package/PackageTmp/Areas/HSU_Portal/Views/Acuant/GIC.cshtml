@@ -1,0 +1,246 @@
+﻿@{
+    Layout = null;
+}
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
+
+        /* Safari */
+        @@-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .centered {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            /* bring your own prefixes */
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="acuant-loader" class="row text-center" style="display:none;">
+        <div class="col-md-12 centered">
+            <div class="loader" style="margin:auto"></div>
+            <div style="margin:auto;font-size:40px;">
+                Please wait ...
+            </div>
+        </div>
+    </div>
+    <div id="camera-btn" class="row text-center" style="display:none;">
+        <div class="col-lg-12 centered">
+            <button class="btn btn-primary col-lg-8" onClick="openCamera()" style="height:250px;min-height:250px;font-size:42px"><i class="fa fa-camera" style="margin-right:20px"></i>Click here to start</button>
+            <button class="btn btn-danger col-lg-8" onClick="CancelCapture()" style="height:250px;min-height:250px;font-size:42px;margin-top:40px"><i class="fa fa-close" style="margin-right:20px"></i>Cancel image capture</button>
+        </div>
+    </div>
+    <div id="camera" style="display:none;">
+        <video id="acuant-player" controls autoplay style="display:none;" playsinline></video>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <canvas id="acuant-video-canvas"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <img src="" style="width:100%;height:auto;display:none;border:none" id="IMG_Result" />
+    </div>
+    <div id="acuant-modal" class="modal-content" style="display: none; margin-top:30%">
+        <span class="close">&times;</span>
+        <div class="row" style="margin:3%">
+            <h3>Live Camera failed to open. Start manual capture</h3>
+        </div>
+        <div class="row text-right" style="margin:3%">
+            <button class="btn btn-success mr-2" onClick="startManualCapture()">Start Manual Capture</button>
+        </div>
+    </div>
+    <script>
+        var Credential = {
+            passive_username: "@ViewBag.Configuration[0].ToString().Trim()",
+            passive_password: "@ViewBag.Configuration[1].ToString().Trim()",
+            id_username: "@ViewBag.Configuration[2].ToString().Trim()",
+            id_password: "@ViewBag.Configuration[3].ToString().Trim()",
+            passive_subscriptionId: "@ViewBag.Configuration[4].ToString().Trim()",
+            acas_endpoint: "@ViewBag.Configuration[5].ToString().Trim()",
+            liveness_endpoint: "@ViewBag.Configuration[6].ToString().Trim()"
+        }
+        const player = document.getElementById('acuant-player');
+        const videoCanvas = document.getElementById('acuant-video-canvas');
+        const videoContext = videoCanvas.getContext('2d');
+        const cameraBtn = document.getElementById('camera-btn');
+        const camera = document.getElementById('camera');
+        const loader = document.getElementById('acuant-loader');
+        var liveCaptureFailed = false
+        var currentResult = {};
+        function onAcuantSdkLoaded() { init(); }
+        function init() {
+            let base64Token = btoa(Credential.id_username + ':' + Credential.id_password);
+            AcuantJavascriptWebSdk.initialize(base64Token, Credential.acas_endpoint, {
+                onSuccess: function () {
+                    showCameraButton();
+                    console.log("intialize succeded");
+                },
+                onFail: function (code, description) {
+                    console.log("intialize failed " + code + ": " + description);
+                }
+            });
+        }
+        function showCameraButton() { cameraBtn.style.display = "block"; }
+        function closeCamera() { camera.style.display = "none"; cameraBtn.style.display = "block"; }
+        function openCamera() { startCamera(); }
+        const options = { text: { NONE: "ALIGN", SMALL_DOCUMENT: "MOVE CLOSER", GOOD_DOCUMENT: null, CAPTURING: "CAPTURING", TAP_TO_CAPTURE: "TAP TO CAPTURE" } }
+        var cameraCallback = {
+            onCaptured: function (response) {
+                loader.style.display = "block";
+                camera.style.display = "none";
+            },
+            onCropped: function (response) {
+                if (response) {
+                    drawImageOnResult(response);
+                }
+                closeCamera();
+                loader.style.display = "none";
+            },
+            onFrameAvailable: function (response) { }
+        }
+        function startCamera() {
+            if (AcuantCamera.isCameraSupported && !liveCaptureFailed) {
+                cameraBtn.style.display = "none";
+                camera.style.display = "block";
+
+                AcuantCameraUI.start(cameraCallback, (error) => {
+                    modal.style.display = "block";
+                    camera.style.display = "none";
+                    liveCaptureFailed = true;
+                }, options);
+            }
+            else {
+                startManualCapture()
+            }
+        }
+        function startManualCapture() {
+            AcuantCamera.startManualCapture({
+                onCropped: function (response) {
+                    loader.style.display = "none";
+                    if (response) {
+                        closeCamera();
+                        drawImageOnResult(response);
+                    }
+                    else {
+                        closeCamera();
+                    }
+                },
+                onCaptured: function (response) {
+                    cameraBtn.style.display = "none";
+                    modal.style.display = "none";
+                    loader.style.display = "block";
+                }
+            });
+        }
+        function end() { AcuantJavascriptWebSdk.end(); }
+        function drawImageOnResult(result) {
+            if (result && result.image) {
+                var image = new Image();
+                image.onload = function () {
+                    let width = result.image.width;
+                    let height = result.image.height;
+                    sharpnessInput.value = result.sharpness;
+                    glareInput.value = result.glare;
+                    dpiInput.value = result.dpi;
+                    canvas.width = width;
+                    canvas.height = height;
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+                    window.scrollTo(0, window.screen.height);
+                };
+                document.getElementById('IMG_Result').src = result.image.data;
+                currentResult = result.image.data;
+                parent.GIC_CallBack("2");
+            }
+        }
+        function CancelCapture() { parent.GIC_CallBack("1"); }
+        var modal = document.getElementById("acuant-modal");
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function () { closeCamera(); modal.style.display = "none"; }
+        window.onclick = function (event) { if (event.target == modal) { closeCamera(); modal.style.display = "none"; } }
+        const acuantConfig = { path: "@Url.Content("~/Theme/webSdk/dist/")" }
+    </script>
+    <script async src="~/Theme/webSdk/dist/AcuantJavascriptWebSdk.min.js" charset="utf-8"></script>
+</body>
+</html>

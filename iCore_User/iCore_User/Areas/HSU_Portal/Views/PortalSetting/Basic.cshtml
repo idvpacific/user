@@ -1,0 +1,582 @@
+﻿@{
+    ViewBag.Title = "Basic Setting";
+    Layout = "~/Areas/HSU_Portal/Views/Shared/_LayoutPortal.cshtml";
+}
+@section CSSStyle {
+    <link rel="stylesheet" type="text/css" href="~/Theme/Base/assets/dropify/dist/css/dropify.min.css" />
+    <style>
+        .ELMT {
+        }
+
+        .zoomEmas {
+            transition: transform .2s;
+        }
+
+            .zoomEmas:hover {
+                transform: scale(1.3);
+            }
+    </style>
+}
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12" style="padding-left:30px">
+                <h2 class="content-header-title float-left mb-0">Portal Setting</h2>
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">General</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-inline" style="width:100%">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" style=""><i class="fa fa-header text-primary" style="margin-right:10px"></i>Header :</h4>
+            </div>
+            <div class="card-content">
+                <form class="card-body card-dashboard" id="DIV1" style="pointer-events:auto;opacity:1">
+                    <div class="col-lg-12">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Template header #1 :
+                        </div>
+                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                            <input type="text" class="form-control" id="TXT_Header_No1" placeholder="" style="width:100%" maxlength="200" value="@ViewBag.DT_R1">
+                            <div class="form-control-position">
+                                <i class="fa fa-header"></i>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Template header #2 :
+                        </div>
+                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                            <input type="text" class="form-control" id="TXT_Header_No2" placeholder="" style="width:100%" maxlength="200" value="@ViewBag.DT_R2">
+                            <div class="form-control-position">
+                                <i class="fa fa-header"></i>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12" style="text-align:right">
+                        <div style="margin-top:20px;display:none" id="Btn_Header_Wait">
+                            <button class="btn btn-primary" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:10px"></span>
+                                Please wait ...
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group" style="margin-top:20px;display:block" id="Btn_Header">
+                            <button type="button" class="btn btn-primary" onclick="Basic_Save('1')"><i class="fa fa-save" style="margin-right:10px"></i>Save data</button>
+                            <button type="button" class="btn btn-info" onclick="Basic_Reload('1')"><i class="fa fa-refresh" style="margin-right:10px"></i>Reload</button>
+                            <button type="button" class="btn btn-danger" onclick="Basic_Clear('1')"><i class="fa fa-trash" style="margin-right:10px"></i>Clear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" style=""><i class="fa fa-text-height text-primary" style="margin-right:10px"></i>Footer :</h4>
+            </div>
+            <div class="card-content">
+                <form class="card-body card-dashboard" id="DIV2" style="pointer-events:auto;opacity:1">
+                    <div class="col-lg-12">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Template footer #1 :
+                        </div>
+                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                            <input type="text" class="form-control" id="TXT_Footer_No1" placeholder="" style="width:100%" maxlength="200" value="@ViewBag.DT_R3">
+                            <div class="form-control-position">
+                                <i class="fa fa-text-height"></i>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Template footer #2 :
+                        </div>
+                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                            <input type="text" class="form-control" id="TXT_Footer_No2" placeholder="" style="width:100%" maxlength="200" value="@ViewBag.DT_R4">
+                            <div class="form-control-position">
+                                <i class="fa fa-text-height"></i>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12" style="text-align:right">
+                        <div style="margin-top:20px;display:none" id="Btn_Footer_Wait">
+                            <button class="btn btn-primary" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:10px"></span>
+                                Please wait ...
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group" style="margin-top:20px;display:block" id="Btn_Footer">
+                            <button type="button" class="btn btn-primary" onclick="Basic_Save('2')"><i class="fa fa-save" style="margin-right:10px"></i>Save data</button>
+                            <button type="button" class="btn btn-info" onclick="Basic_Reload('2')"><i class="fa fa-refresh" style="margin-right:10px"></i>Reload</button>
+                            <button type="button" class="btn btn-danger" onclick="Basic_Clear('2')"><i class="fa fa-trash" style="margin-right:10px"></i>Clear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" style=""><i class="fa fa-xing text-primary" style="margin-right:10px"></i>Other :</h4>
+            </div>
+            <div class="card-content">
+                <form class="card-body card-dashboard" id="DIV3" style="pointer-events:auto;opacity:1">
+                    <div class="col-lg-12">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Your website url :
+                        </div>
+                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                            <input type="text" class="form-control" id="TXT_Domain_Name" placeholder="" style="width:100%" maxlength="200" value="@ViewBag.DT_R5">
+                            <div class="form-control-position">
+                                <i class="fa fa-link"></i>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Domain full address :
+                        </div>
+                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                            <input type="text" class="form-control" id="TXT_Domain_FullAddress" placeholder="" style="width:100%" maxlength="200" value="@ViewBag.DT_R6">
+                            <div class="form-control-position">
+                                <i class="fa fa-external-link"></i>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12" style="text-align:right">
+                        <div style="margin-top:20px;display:none" id="Btn_Domain_Wait">
+                            <button class="btn btn-primary" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:10px"></span>
+                                Please wait ...
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group" style="margin-top:20px;display:block" id="Btn_Domain">
+                            <button type="button" class="btn btn-primary" onclick="Basic_Save('3')"><i class="fa fa-save" style="margin-right:10px"></i>Save data</button>
+                            <button type="button" class="btn btn-info" onclick="Basic_Reload('3')"><i class="fa fa-refresh" style="margin-right:10px"></i>Reload</button>
+                            <button type="button" class="btn btn-danger" onclick="Basic_Clear('3')"><i class="fa fa-trash" style="margin-right:10px"></i>Clear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" style=""><i class="fa fa-image text-primary" style="margin-right:10px"></i>Logo :</h4>
+            </div>
+            <div class="card-content">
+                <div class="card-body card-dashboard form-inline" id="DIV4" style="pointer-events:auto;opacity:1">
+                    <div class="col-lg-6">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Upload new file :
+                        </div>
+                        <input type="file" class="dropify" accept="" data-max-file-size="5M" data-height="125" id="TXT_Logo" />
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Preview :
+                        </div>
+                        @{
+                            string IMGSrc = "";
+                            try
+                            {
+                                var path = Server.MapPath("~/Drive/Hospitality/Logo/" + Session["User_UID"].ToString().Trim() + ".Png");
+                                if (System.IO.File.Exists(path) == false)
+                                {
+                                    path = Server.MapPath("~/Image/Logo/NoImage.png");
+                                }
+                                FileStream fs = new FileStream(path, FileMode.Open);
+                                byte[] byData = new byte[fs.Length];
+                                fs.Read(byData, 0, byData.Length);
+                                fs.Close();
+                                var base64 = Convert.ToBase64String(byData);
+                                IMGSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                            }
+                            catch (Exception)
+                            { }
+                            <img id="TXT_IMG" src="@IMGSrc" onContextMenu="return false;" style="height:135px;width:100%;background-color:white;border:2px #e5e5e5 solid;border-radius:3px" class="zoomEmas" />
+                        }
+                    </div>
+                    <div class="col-lg-12" style="text-align:right">
+                        <div style="margin-top:20px;display:none" id="Btn_Logo_Wait">
+                            <button class="btn btn-primary" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:10px"></span>
+                                Please wait ...
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group" style="margin-top:20px;display:block" id="Btn_Logo">
+                            <button type="button" class="btn btn-primary" onclick="Basic_Save('4')"><i class="fa fa-save" style="margin-right:10px"></i>Save Logo</button>
+                            <button type="button" class="btn btn-danger" onclick="Basic_Clear('4')"><i class="fa fa-trash" style="margin-right:10px"></i>Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" style=""><i class="fa fa-windows text-primary" style="margin-right:10px"></i>Guesty API :</h4>
+            </div>
+            <div class="card-content">
+                <form class="card-body card-dashboard" id="DIV5" style="pointer-events:auto;opacity:1">
+                    <div class="col-lg-12">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Key :
+                        </div>
+                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                            <input type="text" class="form-control" id="TXT_GuestyAPI_Key" placeholder="" style="width:100%" maxlength="200" value="@ViewBag.DT_R7">
+                            <div class="form-control-position">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Secret :
+                        </div>
+                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                            <input type="text" class="form-control" id="TXT_GuestyAPI_Secret" placeholder="" style="width:100%" maxlength="200" value="@ViewBag.DT_R8">
+                            <div class="form-control-position">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12" style="text-align:right">
+                        <div style="margin-top:20px;display:none" id="Btn_GuestyAPI_Wait">
+                            <button class="btn btn-primary" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:10px"></span>
+                                Please wait ...
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group" style="margin-top:20px;display:block" id="Btn_GuestyAPI">
+                            <button type="button" class="btn btn-primary" onclick="Basic_Save('5')"><i class="fa fa-save" style="margin-right:10px"></i>Save data</button>
+                            <button type="button" class="btn btn-info" onclick="Basic_Reload('5')"><i class="fa fa-refresh" style="margin-right:10px"></i>Reload</button>
+                            <button type="button" class="btn btn-danger" onclick="Basic_Clear('5')"><i class="fa fa-trash" style="margin-right:10px"></i>Clear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section JSScript {
+    <script src="~/Theme/Base/assets/dropify/dist/js/dropify.min.js"></script>
+    <script>
+        var R1 = "@ViewBag.DT_R1"; var R2 = "@ViewBag.DT_R2"; var R3 = "@ViewBag.DT_R3"; var R4 = "@ViewBag.DT_R4"; var R5 = "@ViewBag.DT_R5"; var R6 = "@ViewBag.DT_R6"; var R7 = "@ViewBag.DT_R7"; var R8 = "@ViewBag.DT_R8";
+        function Basic_Reload(INO) {
+            switch (INO) {
+                case '1': {
+                    document.getElementById('TXT_Header_No1').value = R1;
+                    document.getElementById('TXT_Header_No2').value = R2;
+                    break;
+                }
+                case '2': {
+                    document.getElementById('TXT_Footer_No1').value = R3;
+                    document.getElementById('TXT_Footer_No2').value = R4;
+                    break;
+                }
+                case '3': {
+                    document.getElementById('TXT_Domain_Name').value = R5;
+                    document.getElementById('TXT_Domain_FullAddress').value = R6;
+                    break;
+                }
+                case '5': {
+                    document.getElementById('TXT_GuestyAPI_Key').value = R7;
+                    document.getElementById('TXT_GuestyAPI_Secret').value = R8;
+                    break;
+                }
+            }
+        }
+        function Basic_Clear(INO) {
+            switch (INO) {
+                case '1': {
+                    document.getElementById('TXT_Header_No1').value = "";
+                    document.getElementById('TXT_Header_No2').value = "";
+                    break;
+                }
+                case '2': {
+                    document.getElementById('TXT_Footer_No1').value = "";
+                    document.getElementById('TXT_Footer_No2').value = "";
+                    break;
+                }
+                case '3': {
+                    document.getElementById('TXT_Domain_Name').value = "";
+                    document.getElementById('TXT_Domain_FullAddress').value = "";
+                    break;
+                }
+                case '4': {
+                    document.getElementById('DIV4').style.opacity = "0.7";
+                    document.getElementById('DIV4').style.pointerEvents = "none";
+                    document.getElementById('Btn_Logo').style.display = "none";
+                    document.getElementById('Btn_Logo_Wait').style.display = "block";
+                    $.ajax({
+                        url: "@Url.Action("BasicSetting_ImageClear", "PortalSetting")", type: "POST", dataType: 'json', contentType: false, processData: false, async: true,
+                        error: function () {
+                            toastr.clear();
+                            document.getElementById('DIV4').style.opacity = "1";
+                            document.getElementById('DIV4').style.pointerEvents = "auto";
+                            document.getElementById('Btn_Logo').style.display = "block";
+                            document.getElementById('Btn_Logo_Wait').style.display = "none";
+                            toastr.error('An error occurred while processing your request', 'An error has occurred! [C02]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                        },
+                        success: function (data)
+                        {
+                            var ErrorCode = ""; var ErrorResult = "";
+                            $.each(data, function (i, item) { ErrorResult = item.Text; ErrorCode = item.Value; });
+                            if (ErrorCode == "0") {
+                                document.getElementById('TXT_IMG').src = "/Image/Logo/NoImage.png";
+                                document.getElementById('DIV4').style.opacity = "1";
+                                document.getElementById('DIV4').style.pointerEvents = "auto";
+                                document.getElementById('Btn_Logo').style.display = "block";
+                                document.getElementById('Btn_Logo_Wait').style.display = "none";
+                                toastr.success(ErrorResult.trim(), 'Congratulations', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                            }
+                            else
+                            {
+                                if (ErrorCode != "2") {
+                                    toastr.clear();
+                                    document.getElementById('DIV4').style.opacity = "1";
+                                    document.getElementById('DIV4').style.pointerEvents = "auto";
+                                    document.getElementById('Btn_Logo').style.display = "block";
+                                    document.getElementById('Btn_Logo_Wait').style.display = "none";
+                                    toastr.error('An error occurred while processing your request', 'An error has occurred! [C03]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                                }
+                                else { window.location.href = "@Url.Action("Logout", "Dashboard", new { id = "", area = "" })"; }
+                            }
+                        }
+                    });
+                    break;
+                }
+                case '5': {
+                    document.getElementById('TXT_GuestyAPI_Key').value = "";
+                    document.getElementById('TXT_GuestyAPI_Secret').value = "";
+                    break;
+                }
+            }
+        }
+        function Basic_Save(INO) {
+            try {
+                var FrmDataPro = new FormData();
+                FrmDataPro.append("A1", INO.trim());
+                switch (INO) {
+                    case '1': {
+                        document.getElementById('DIV1').style.opacity = "0.7";
+                        document.getElementById('DIV1').style.pointerEvents = "none";
+                        document.getElementById('Btn_Header').style.display = "none";
+                        document.getElementById('Btn_Header_Wait').style.display = "block";
+                        FrmDataPro.append("A2", document.getElementById("TXT_Header_No1").value.trim());
+                        FrmDataPro.append("A3", document.getElementById("TXT_Header_No2").value.trim());
+                        FrmDataPro.append("A4", "");
+                        break;
+                    }
+                    case '2': {
+                        document.getElementById('DIV2').style.opacity = "0.7";
+                        document.getElementById('DIV2').style.pointerEvents = "none";
+                        document.getElementById('Btn_Footer').style.display = "none";
+                        document.getElementById('Btn_Footer_Wait').style.display = "block";
+                        FrmDataPro.append("A2", document.getElementById("TXT_Footer_No1").value.trim());
+                        FrmDataPro.append("A3", document.getElementById("TXT_Footer_No2").value.trim());
+                        FrmDataPro.append("A4", "");
+                        break;
+                    }
+                    case '3': {
+                        document.getElementById('DIV3').style.opacity = "0.7";
+                        document.getElementById('DIV3').style.pointerEvents = "none";
+                        document.getElementById('Btn_Domain').style.display = "none";
+                        document.getElementById('Btn_Domain_Wait').style.display = "block";
+                        FrmDataPro.append("A2", document.getElementById("TXT_Domain_Name").value.trim());
+                        FrmDataPro.append("A3", document.getElementById("TXT_Domain_FullAddress").value.trim());
+                        FrmDataPro.append("A4", "");
+                        break;
+                    }
+                    case '4': {
+                        document.getElementById('DIV4').style.opacity = "0.7";
+                        document.getElementById('DIV4').style.pointerEvents = "none";
+                        document.getElementById('Btn_Logo').style.display = "none";
+                        document.getElementById('Btn_Logo_Wait').style.display = "block";
+                        var File1 = $("#TXT_Logo").get(0);
+                        var File1L = File1.files;
+                        FrmDataPro.append("A2", "");
+                        FrmDataPro.append("A3", "");
+                        FrmDataPro.append("A4", File1L[0]);
+                        break;
+                    }
+                    case '5': {
+                        document.getElementById('DIV5').style.opacity = "0.7";
+                        document.getElementById('DIV5').style.pointerEvents = "none";
+                        document.getElementById('Btn_GuestyAPI').style.display = "none";
+                        document.getElementById('Btn_GuestyAPI_Wait').style.display = "block";
+                        FrmDataPro.append("A2", document.getElementById("TXT_GuestyAPI_Key").value.trim());
+                        FrmDataPro.append("A3", document.getElementById("TXT_GuestyAPI_Secret").value.trim());
+                        FrmDataPro.append("A4", "");
+                        break;
+                    }
+                }
+                $.ajax({
+                    url: "@Url.Action("BasicSetting_Save", "PortalSetting")", type: "POST", data: FrmDataPro, dataType: 'json', contentType: false, processData: false, async: true,
+                    error: function () {
+                        toastr.clear();
+                        document.getElementById('DIV1').style.opacity = "1";
+                        document.getElementById('DIV1').style.pointerEvents = "auto";
+                        document.getElementById('Btn_Header').style.display = "block";
+                        document.getElementById('Btn_Header_Wait').style.display = "none";
+                        document.getElementById('DIV2').style.opacity = "1";
+                        document.getElementById('DIV2').style.pointerEvents = "auto";
+                        document.getElementById('Btn_Footer').style.display = "block";
+                        document.getElementById('Btn_Footer_Wait').style.display = "none";
+                        document.getElementById('DIV3').style.opacity = "1";
+                        document.getElementById('DIV3').style.pointerEvents = "auto";
+                        document.getElementById('Btn_Domain').style.display = "block";
+                        document.getElementById('Btn_Domain_Wait').style.display = "none";
+                        document.getElementById('DIV4').style.opacity = "1";
+                        document.getElementById('DIV4').style.pointerEvents = "auto";
+                        document.getElementById('Btn_Logo').style.display = "block";
+                        document.getElementById('Btn_Logo_Wait').style.display = "none";
+                        document.getElementById('DIV5').style.opacity = "1";
+                        document.getElementById('DIV5').style.pointerEvents = "auto";
+                        document.getElementById('Btn_GuestyAPI').style.display = "block";
+                        document.getElementById('Btn_GuestyAPI_Wait').style.display = "none";
+                        toastr.error('An error occurred while processing your request', 'An error has occurred! [C02]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                    },
+                    success: function (data)
+                    {
+                        var ErrorCode = ""; var ErrorResult = "";
+                        $.each(data, function (i, item) { ErrorResult = item.Text; ErrorCode = item.Value; });
+                        if (ErrorCode == "0") {
+                            switch (INO) {
+                                case '1': {
+                                    R1 = document.getElementById('TXT_Header_No1').value.trim();
+                                    R2 = document.getElementById('TXT_Header_No2').value.trim();
+                                    break;
+                                }
+                                case '2': {
+                                    R3 = document.getElementById('TXT_Footer_No1').value.trim();
+                                    R4 = document.getElementById('TXT_Footer_No2').value.trim();
+                                    break;
+                                }
+                                case '3': {
+                                    R5 = document.getElementById('TXT_Domain_Name').value.trim();
+                                    R6 = document.getElementById('TXT_Domain_FullAddress').value.trim();
+                                    break;
+                                }
+                                case '4': {
+                                    document.getElementById('TXT_IMG').src = "";
+                                    if (ErrorResult.indexOf("successfully") > 1) {
+                                        document.getElementById('TXT_IMG').src = "/Image/Logo/NoImage.png";
+                                        document.getElementById('TXT_IMG').src = "/Drive/Hospitality/Logo/@Session["User_UID"].ToString().Trim()" + ".png?" + Math.random().toString().slice(2, 11);
+                                    }
+                                    else {
+                                        document.getElementById('TXT_IMG').src = "/Image/Logo/NoImage.png";
+                                    }
+                                    var drEvent = $('#TXT_Logo').dropify();
+                                    drEvent = drEvent.data('dropify');
+                                    drEvent.resetPreview();
+                                    drEvent.clearElement();
+                                    break;
+                                }
+                                case '5': {
+                                    R7 = document.getElementById('TXT_GuestyAPI_Key').value.trim();
+                                    R8 = document.getElementById('TXT_GuestyAPI_Secret').value.trim();
+                                    break;
+                                }
+                            }
+                            document.getElementById('DIV1').style.opacity = "1";
+                            document.getElementById('DIV1').style.pointerEvents = "auto";
+                            document.getElementById('Btn_Header').style.display = "block";
+                            document.getElementById('Btn_Header_Wait').style.display = "none";
+                            document.getElementById('DIV2').style.opacity = "1";
+                            document.getElementById('DIV2').style.pointerEvents = "auto";
+                            document.getElementById('Btn_Footer').style.display = "block";
+                            document.getElementById('Btn_Footer_Wait').style.display = "none";
+                            document.getElementById('DIV3').style.opacity = "1";
+                            document.getElementById('DIV3').style.pointerEvents = "auto";
+                            document.getElementById('Btn_Domain').style.display = "block";
+                            document.getElementById('Btn_Domain_Wait').style.display = "none";
+                            document.getElementById('DIV4').style.opacity = "1";
+                            document.getElementById('DIV4').style.pointerEvents = "auto";
+                            document.getElementById('Btn_Logo').style.display = "block";
+                            document.getElementById('Btn_Logo_Wait').style.display = "none";
+                            document.getElementById('DIV5').style.opacity = "1";
+                            document.getElementById('DIV5').style.pointerEvents = "auto";
+                            document.getElementById('Btn_GuestyAPI').style.display = "block";
+                            document.getElementById('Btn_GuestyAPI_Wait').style.display = "none";
+                            toastr.success(ErrorResult.trim(), 'Congratulations', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                        }
+                        else
+                        {
+                            if (ErrorCode != "2") {
+                                toastr.clear();
+                                document.getElementById('DIV1').style.opacity = "1";
+                                document.getElementById('DIV1').style.pointerEvents = "auto";
+                                document.getElementById('Btn_Header').style.display = "block";
+                                document.getElementById('Btn_Header_Wait').style.display = "none";
+                                document.getElementById('DIV2').style.opacity = "1";
+                                document.getElementById('DIV2').style.pointerEvents = "auto";
+                                document.getElementById('Btn_Footer').style.display = "block";
+                                document.getElementById('Btn_Footer_Wait').style.display = "none";
+                                document.getElementById('DIV3').style.opacity = "1";
+                                document.getElementById('DIV3').style.pointerEvents = "auto";
+                                document.getElementById('Btn_Domain').style.display = "block";
+                                document.getElementById('Btn_Domain_Wait').style.display = "none";
+                                document.getElementById('DIV4').style.opacity = "1";
+                                document.getElementById('DIV4').style.pointerEvents = "auto";
+                                document.getElementById('Btn_Logo').style.display = "block";
+                                document.getElementById('Btn_Logo_Wait').style.display = "none";
+                                document.getElementById('DIV5').style.opacity = "1";
+                                document.getElementById('DIV5').style.pointerEvents = "auto";
+                                document.getElementById('Btn_GuestyAPI').style.display = "block";
+                                document.getElementById('Btn_GuestyAPI_Wait').style.display = "none";
+                                toastr.error(ErrorResult.trim(), 'An error has occurred! [C03]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                            }
+                            else { window.location.href = "@Url.Action("Logout", "Dashboard", new { id = "", area = "" })"; }
+                        }
+                    }
+                });
+            } catch (e) {
+                document.getElementById('DIV1').style.opacity = "1";
+                document.getElementById('DIV1').style.pointerEvents = "auto";
+                document.getElementById('Btn_Header').style.display = "block";
+                document.getElementById('Btn_Header_Wait').style.display = "none";
+                document.getElementById('DIV2').style.opacity = "1";
+                document.getElementById('DIV2').style.pointerEvents = "auto";
+                document.getElementById('Btn_Footer').style.display = "block";
+                document.getElementById('Btn_Footer_Wait').style.display = "none";
+                document.getElementById('DIV3').style.opacity = "1";
+                document.getElementById('DIV3').style.pointerEvents = "auto";
+                document.getElementById('Btn_Domain').style.display = "block";
+                document.getElementById('Btn_Domain_Wait').style.display = "none";
+                document.getElementById('DIV4').style.opacity = "1";
+                document.getElementById('DIV4').style.pointerEvents = "auto";
+                document.getElementById('Btn_Logo').style.display = "block";
+                document.getElementById('Btn_Logo_Wait').style.display = "none";
+                document.getElementById('DIV5').style.opacity = "1";
+                document.getElementById('DIV5').style.pointerEvents = "auto";
+                document.getElementById('Btn_GuestyAPI').style.display = "block";
+                document.getElementById('Btn_GuestyAPI_Wait').style.display = "none";
+                toastr.error('An error occurred while processing your request', 'An error has occurred! [C01]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+            }
+        }
+        $(document).ready(function () {
+            $('.dropify').dropify({
+                messages: {
+                    'default': 'Drag and drop a file here or click',
+                    'replace': 'Drag and drop or click to replace',
+                    'remove': 'Remove',
+                    'error': 'Ooops, something wrong happended.'
+                }
+            });
+        });
+    </script>
+}

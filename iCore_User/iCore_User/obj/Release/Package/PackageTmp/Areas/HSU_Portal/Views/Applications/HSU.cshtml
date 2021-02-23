@@ -1,0 +1,182 @@
+﻿@{
+    ViewBag.Title = "Direct Link - All Application";
+    Layout = "~/Areas/HSU_Portal/Views/Shared/_LayoutPortal.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/tables/datatable/datatables.min.css">
+<link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/extensions/sweetalert2.min.css">
+<link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/forms/select/select2.min.css">
+<style>
+    table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after {
+        left: 10px
+    }
+
+    .MenuToolbox:after {
+        content: '\2807';
+        font-size: 22px;
+    }
+
+    tr:hover {
+        background-color: rgba(235, 234, 234, 0.76) !important;
+    }
+
+    .lds-ripple {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+
+        .lds-ripple div {
+            position: absolute;
+            border: 4px solid #006abc;
+            opacity: 1;
+            border-radius: 50%;
+            animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        }
+
+            .lds-ripple div:nth-child(2) {
+                animation-delay: -0.5s;
+            }
+
+    @@keyframes lds-ripple {
+        0% {
+            top: 36px;
+            left: 36px;
+            width: 0;
+            height: 0;
+            opacity: 1;
+        }
+
+        100% {
+            top: 0px;
+            left: 0px;
+            width: 72px;
+            height: 72px;
+            opacity: 0;
+        }
+    }
+</style>
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12" style="padding-left:30px">
+                <h2 class="content-header-title float-left mb-0">Application</h2>
+                <h2 class="content-header-title float-left mb-0" style="font-size:14px">[ Direct Link ]</h2>
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">All Document</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="Sec_Table">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title" style=""><i class="fa fa-list text-primary" style="margin-right:10px"></i>All Applications list <span style="font-size:12px;">[ <a href="javascript:void(0)" onclick="ReloadGrid()"><i class="fa fa-refresh"></i> Reload</a> ]</span> :</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body card-dashboard">
+                        <div class="col-lg-12" id="Table_HSU_Wait" style="display:none;text-align:center;padding:20px">
+                            <div class="lds-ripple"><div></div><div></div></div>
+                        </div>
+                        <div class="table-responsive" style="display:none;opacity:0.7;pointer-events:none" id="Table_HSU">
+                            <table id="HSU_Application" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="padding-left:30px">Name</th>
+                                        <th style="padding-left:30px">Email address</th>
+                                        <th style="padding-left:30px;width:150px">Tracking Code</th>
+                                        <th style="padding-left:30px;width:150px">Status</th>
+                                        <th style="padding-left:30px;width:100px">Register date</th>
+                                        <th style="padding-left:30px;width:100px">Last update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th style="padding-left:30px">Name</th>
+                                        <th style="padding-left:30px">Email address</th>
+                                        <th style="padding-left:30px;width:150px">Tracking Code</th>
+                                        <th style="padding-left:30px;width:150px">Status</th>
+                                        <th style="padding-left:30px;width:100px">Register date</th>
+                                        <th style="padding-left:30px;width:100px">Last update</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section JSScript {
+    <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script>
+        $(".select2").select2({ dropdownAutoWidth: true, width: '100%' });
+        $('#HSU_Application').DataTable();
+        function ReloadGrid() {
+            try {
+                document.getElementById("Table_HSU").style.opacity = "0.7";
+                document.getElementById("Table_HSU").style.pointerEvents = "none";
+                document.getElementById("Table_HSU").style.display = "block";
+                document.getElementById("Table_HSU_Wait").style.display = "block";
+                $.ajax({
+                    url: "@Url.Action("HSU_Grid", "Applications")", type: "POST", dataType: 'json', contentType: false, processData: false, async: true,
+                    error: function () {
+                        document.getElementById("Table_HSU_Wait").style.display = "none";
+                        document.getElementById("Table_HSU").style.opacity = "1";
+                        document.getElementById("Table_HSU").style.pointerEvents = "auto";
+                        toastr.error('An error occurred while processing your request to reload direct link applications list', 'An error has occurred! [C02]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                    },
+                    success: function (data)
+                    {
+                        var ErrorCode = ""; var ErrorResult = "";
+                        $.each(data, function (i, item) { ErrorResult = item.Text; ErrorCode = item.Value; });
+                        if (ErrorCode == "0")
+                        {
+                            toastr.success("direct link application information list successfully synced", 'Congratulations', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeBUrlrltton": true, "timeOut": 8000 });
+                            document.getElementById("Table_HSU_Wait").style.display = "none";
+                            document.getElementById("Table_HSU").style.opacity = "1";
+                            document.getElementById("Table_HSU").style.pointerEvents = "auto";
+                            $('#HSU_Application').DataTable().destroy();
+                            $('#HSU_Application').find('tbody').empty();
+                            $('#HSU_Application').find('tbody').append(ErrorResult);
+                            $('#HSU_Application').DataTable({
+                                "order": [[4, "desc"]]
+                            }).draw();
+                            oTable = $('#HSU_Application').DataTable();
+                            oTable.fnPageChange(0);
+                        }
+                        else
+                        {
+                            if (ErrorCode != "2") {
+                                document.getElementById("Table_HSU_Wait").style.display = "none";
+                                document.getElementById("Table_HSU").style.opacity = "1";
+                                document.getElementById("Table_HSU").style.pointerEvents = "auto";
+                                toastr.error(ErrorResult.trim(), 'An error has occurred! [C03]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                            }
+                            else { window.location.href = "@Url.Action("Logout", "Dashboard", new { id = "", area = "" })"; }
+                        }
+                    }
+                });
+            } catch (e) {
+                document.getElementById("Table_HSU_Wait").style.display = "none";
+                document.getElementById("Table_HSU").style.opacity = "1";
+                document.getElementById("Table_HSU").style.pointerEvents = "auto";
+                toastr.error('An error occurred while processing your request to reload direct link applications list', 'An error has occurred! [C01]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+            }
+        }
+        function HSU_Application_Show(AUID) { var hsuurl = '@Url.Action("HSU_Application", "Applications", new { id="EMAS843EMAS", area= "HSU_Portal" })'; hsuurl = hsuurl.replace("EMAS843EMAS", AUID); window.open(hsuurl, '_blank'); }
+        $(document).ready(function () { ReloadGrid(); });
+    </script>
+}

@@ -1,0 +1,942 @@
+﻿@using System.Data;
+@using iCore_Administrator.Modules
+@using RestSharp;
+@{
+    ViewBag.Title = "Direct Link - Show Application";
+    Layout = "~/Areas/HSU_Portal/Views/Shared/_LayoutPortal.cshtml";
+    SQL_Tranceiver Sq = new SQL_Tranceiver();
+}
+<link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/tables/datatable/datatables.min.css">
+<link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/extensions/sweetalert2.min.css">
+<link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/forms/select/select2.min.css">
+<style>
+    table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after {
+        left: 10px
+    }
+
+    .MenuToolbox:after {
+        content: '\2807';
+        font-size: 22px;
+    }
+
+    tr:hover {
+        background-color: rgba(235, 234, 234, 0.76) !important;
+    }
+
+    .lds-ripple {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+
+        .lds-ripple div {
+            position: absolute;
+            border: 4px solid #006abc;
+            opacity: 1;
+            border-radius: 50%;
+            animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        }
+
+            .lds-ripple div:nth-child(2) {
+                animation-delay: -0.5s;
+            }
+
+    @@keyframes lds-ripple {
+        0% {
+            top: 36px;
+            left: 36px;
+            width: 0;
+            height: 0;
+            opacity: 1;
+        }
+
+        100% {
+            top: 0px;
+            left: 0px;
+            width: 72px;
+            height: 72px;
+            opacity: 0;
+        }
+    }
+
+    .sidepanel {
+        width: 300px;
+        position: fixed;
+        z-index: 1;
+        height: auto;
+        top: 160px;
+        right: -300px;
+        background-color: #183851;
+        overflow-x: hidden;
+        transition: 0.5s;
+        border-radius: 10px 0px 0px 10px;
+        -webkit-box-shadow: 1px 9px 22px -4px rgba(0,0,0,0.71);
+        box-shadow: 1px 9px 22px -4px rgba(0,0,0,0.71);
+        opacity: 0.95;
+        padding-bottom: 20px
+    }
+
+        .sidepanel .closebtn {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            font-size: 20px;
+            margin-bottom: 0px;
+            padding: 0px
+        }
+</style>
+<form id="mySidepanel" class="sidepanel">
+    <div class="closebtn"><i class="fa fa-close" onclick="closeNav()" style="cursor:pointer"></i> <i class="fa fa-refresh" onclick="ResetNav()" style="cursor:pointer;font-size:16px"></i></div>
+    <div style="padding-left:15px;padding-right:10px;margin-top:35px">
+        <div style="margin-left:10px;color:white;min-width:200px;margin-bottom:5px">Application Status <span style="right:20px;position:absolute;cursor:pointer" onclick="SaveEdit('1')">[ <i class="fa fa-save"></i> Save ]</span></div>
+        <select class="select2 form-control" id="Edit_S">
+            <option value="1" @ViewBag.ST1>Pending</option>
+            <option value="2" @ViewBag.ST2>Review</option>
+            <option value="3" @ViewBag.ST3>Failed</option>
+            <option value="4" @ViewBag.ST4>Passed</option>
+        </select>
+    </div>
+    <div style="padding-left:20px;padding-right:10px;color:whitesmoke;margin-top:10px">
+        @Html.Raw(ViewBag.ValiLog)
+    </div>
+    @if (ViewBag.ISGuesty == "1")
+    {
+        <hr style="background-color:darkgray" />
+        <div style="padding-left:15px;padding-right:10px;margin-top:10px">
+            <div style="margin-left:10px;color:white;min-width:200px;margin-bottom:5px">Guesty Status <span style="right:20px;position:absolute;cursor:pointer" onclick="SaveEdit('2')">[ <i class="fa fa-save"></i> Save ]</span></div>
+            <select class="select2 form-control" id="Edit_G">
+                <option value="1" selected>Approve</option>
+                <option value="2">Decline</option>
+            </select>
+        </div>
+    }
+</form>
+<section>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"><i class="fa fa-sticky-note-o text-primary"></i> Basic information</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body form-inline">
+                        <div class="divider divider-left col-lg-12">
+                            <div class="divider-text">Form information : </div>
+                        </div>
+                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Form name : <span class="text-primary">@ViewBag.DT_Form[3].ToString().Trim()</span></h5>
+                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Template : <span class="text-primary">@ViewBag.DT_Form[6].ToString().Trim()</span></h5>
+                        <h5 class="col-lg-12 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Description : <span class="text-primary">@ViewBag.DT_Form[4].ToString().Trim()</span></h5>
+                        <div class="divider divider-left col-lg-12">
+                            <div class="divider-text">Application basic data : </div>
+                        </div>
+                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Application unique ID : <span class="text-primary">@ViewBag.DT_App[1].ToString().Trim()</span></h5>
+                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Register IP : <span class="text-primary">@ViewBag.DT_App[4].ToString().Trim()</span></h5>
+                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Register Browser : <span class="text-primary">@ViewBag.DT_App[5].ToString().Trim()</span></h5>
+                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Register date : <span class="text-primary">@ViewBag.DT_App[11].ToString().Trim().Substring(0, 10)</span></h5>
+                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Register time : <span class="text-primary">@ViewBag.DT_App[12].ToString().Trim()</span></h5>
+                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Last update : <span class="text-primary">@ViewBag.DT_App[13].ToString().Trim().Substring(0, 10)</span></h5>
+                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Last update time : <span class="text-primary">@ViewBag.DT_App[14].ToString().Trim()</span></h5>
+                        @{
+                            string BackgroundColor = "bg-warning";
+                            switch (ViewBag.DT_App[9].ToString().Trim())
+                            {
+                                case "1": { BackgroundColor = "bg-warning"; break; }
+                                case "2": { BackgroundColor = "bg-info"; break; }
+                                case "3": { BackgroundColor = "bg-danger"; break; }
+                                case "4": { BackgroundColor = "bg-success"; break; }
+                            }
+                            <div style="margin-top:10px;padding:20px;border:1px solid gray;" class="col-lg-12 form-inline rounded text-center @BackgroundColor colors-container">
+                                <h5 class="col-lg-6 text-dark" style="margin-top:8px">Tracking code : <span class="text-white">@ViewBag.DT_App[25].ToString().Trim()</span></h5>
+                                <h5 class="col-lg-5 text-dark" style="margin-top:8px">Application status : <span class="text-white">@ViewBag.DT_App[10].ToString().Trim()</span></h5>
+                                <h5 class="col-lg-1 text-dark" style="margin-top:8px"><span style="margin-left:10px;cursor:pointer" onclick="openNav()"> [ <i class="fa fa-pencil"></i> Edit ]</span></h5>
+                            </div>
+                        }
+                        <div class="divider divider-left col-lg-12">
+                            <div class="divider-text"><i class="fa fa-exclamation-triangle text-danger"></i> Validation log :</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <ul>
+                                @{
+                                    try
+                                    {
+                                        string MessAll = ViewBag.DT_App[33].ToString().Trim();
+                                        string[] SepMess = MessAll.Split('$');
+                                        int Logvalid = 0;
+                                        foreach (string StrD in SepMess)
+                                        {
+                                            if (StrD.Trim() != "")
+                                            {
+                                                Logvalid = 1;
+                                                <li>@StrD.Trim()</li>
+                                            }
+                                        }
+                                        if (Logvalid == 0)
+                                        {
+                                            <li>No messages have been registered for this application</li>
+                                        }
+                                    }
+                                    catch (Exception)
+                                    {
+                                        <li>Error during load log data</li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div style="width:100%;height:auto;padding:0px;margin:0px" class="form-inline">
+    @{
+        try
+        {
+            DataTable DT_Sections = new DataTable();
+            DT_Sections = Sq.Get_DTable_TSQL(DataBase_Selector.Administrator, "Select Section_ID,Width,Icon,Name From Users_05_Hospitality_SingleUser_RegisterForms_Section Where (Group_ID = '" + ViewBag.DT_App[2].ToString().Trim() + "') And (Status_Code = '1') And (Removed = '0') Order By Row_Index,Name");
+            foreach (System.Data.DataRow RW in DT_Sections.Rows)
+            {
+                <section id="Frame_ID_@RW[0].ToString().Trim()" class="col-lg-@RW[1].ToString().Trim()">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="content-header-left col-md-9 col-12">
+                                        <div class="row breadcrumbs-top">
+                                            <div class="col-12" style="padding-left:10px">
+                                                <h2 class="content-header-title float-left mb-0"><i class="fa @RW[2].ToString().Trim()" style="margin-right:10px"></i></h2>
+                                                <div class="breadcrumb-wrapper col-12">
+                                                    <ol class="breadcrumb" id="Breadcrumb_Items" style="pointer-events:auto;opacity:1">
+                                                        <li class="breadcrumb-item active text-bold-600">@RW[3].ToString().Trim()</li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body card-dashboard form-inline" style="padding-bottom:35px;align-items:flex-start;">
+                                        @{
+                                            try
+                                            {
+                                                DataTable DT_Value = new DataTable();
+                                                System.Data.DataTable DT_Element = new System.Data.DataTable();
+                                                DT_Element = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select * From Users_06_Hospitality_SingleUser_RegisterForms_Elements Where (Group_ID = '" + ViewBag.DT_App[2].ToString().Trim() + "') And (Section_ID = '" + RW[0].ToString().Trim() + "') And (Status_Code = '1') And (Removed = '0') Order By Element_Row_Index,Element_Tag_Name,Ins_Date,Ins_Time");
+                                                try
+                                                {
+                                                    string ClsElmn = "";
+                                                    foreach (System.Data.DataRow ElRw in DT_Element.Rows)
+                                                    {
+                                                        try
+                                                        {
+                                                            DT_Value = new DataTable();
+                                                            DT_Value = Sq.Get_DTable_TSQL(DataBase_Selector.Administrator, "Select * From Users_09_Hospitality_SingleUser_Application_Elements Where (App_ID = '" + ViewBag.DT_App[0].ToString().Trim() + "') And (Element_ID = '" + ElRw[0].ToString().Trim() + "')");
+                                                            <div class="col-lg-@ElRw[7].ToString().Trim()" id="ELMNT_@ElRw[0].ToString().Trim()_@ElRw[3].ToString().Trim()" style="margin-top:10px">
+                                                                @{
+                                                                    switch (ElRw[3].ToString().Trim())
+                                                                    {
+                                                                        case "1"://Input
+                                                                            {
+                                                                                string TxtAlign = "Left";
+                                                                                string FW = "normal";
+                                                                                string FS = "normal";
+                                                                                string InputType = "text";
+                                                                                string IT_Class = "";
+                                                                                string IT_ObjectRef = "";
+                                                                                string PXS = "px";
+                                                                                string IconWO = "";
+                                                                                switch (ElRw[37].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { TxtAlign = "Left"; break; }
+                                                                                    case "2": { TxtAlign = "center"; break; }
+                                                                                    case "3": { TxtAlign = "right"; break; }
+                                                                                }
+                                                                                switch (ElRw[48].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                    case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                    case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                    case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                                }
+                                                                                switch (ElRw[39].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { InputType = "text"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                    case "2": { InputType = "password"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                    case "3": { InputType = "text"; IT_Class = ""; IT_ObjectRef = "2"; break; }
+                                                                                    case "4": { InputType = "text"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                    case "5": { InputType = "text"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                    case "6": { InputType = "date"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                    case "7": { InputType = "text"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                    case "8": { InputType = "time"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+
+                                                                                }
+                                                                                if (ElRw[44].ToString().Trim() != "")
+                                                                                {
+                                                                                    IconWO = "has-icon-left";
+                                                                                }
+                                                                                <div class="text-bold-300 font-medium-1" id="ELTXT_@ElRw[0].ToString().Trim()" style="margin-top:10px;margin-left:5px">
+                                                                                    @ElRw[32].ToString().Trim()
+                                                                                </div>
+                                                                                <fieldset class="form-group position-relative @IconWO input-divider-left" style="width:100%">
+                                                                                    @if (ElRw[35].ToString().Trim() == "1")
+                                                                                    {
+                                                                                        switch (IT_ObjectRef)
+                                                                                        {
+                                                                                            case "1":
+                                                                                                {
+                                                                                                    <input type="@InputType" class="form-control @ClsElmn @IT_Class" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()" readonly="readonly" value="@DT_Value.Rows[0][5].ToString().Trim()">
+                                                                                                    break;
+                                                                                                }
+                                                                                            case "2":
+                                                                                                {
+                                                                                                    <input type="@InputType" class="form-control @ClsElmn @IT_Class" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()" readonly="readonly" value="@DT_Value.Rows[0][5].ToString().Trim()">
+                                                                                                    break;
+                                                                                                }
+                                                                                        }
+
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        switch (IT_ObjectRef)
+                                                                                        {
+                                                                                            case "1":
+                                                                                                {
+                                                                                                    <textarea class="form-control @IT_Class @ClsElmn" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()" readonly="readonly">@DT_Value.Rows[0][5].ToString().Trim()</textarea>
+                                                                                                    break;
+                                                                                                }
+                                                                                            case "2":
+                                                                                                {
+                                                                                                    <textarea class="form-control @IT_Class @ClsElmn" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()" readonly="readonly">@DT_Value.Rows[0][5].ToString().Trim()</textarea>
+                                                                                                    break;
+                                                                                                }
+                                                                                        }
+                                                                                    }
+                                                                                    @if (ElRw[44].ToString().Trim() != "")
+                                                                                    {
+                                                                                        <div class="form-control-position">
+                                                                                            <i class="fa @ElRw[44].ToString().Trim()"></i>
+                                                                                        </div>
+                                                                                    }
+                                                                                </fieldset>
+                                                                                <input type="hidden" id="INTP_EL_@ElRw[0].ToString().Trim()" value="@ElRw[39].ToString().Trim()" />
+                                                                                <input type="hidden" id="INVD_EL_@ElRw[0].ToString().Trim()" value="@ElRw[41].ToString().Trim()" />
+                                                                                <input type="hidden" id="FDTP_EL_@ElRw[0].ToString().Trim()" value="@ElRw[50].ToString().Trim()" />
+                                                                                <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[43].ToString().Trim()" />
+                                                                                break;
+                                                                            }
+                                                                        case "2"://Checkboc
+                                                                            {
+                                                                                string checkedP = "";
+                                                                                string CheckColor = "primary";
+                                                                                string PXs = "px";
+                                                                                string TxtAlign = "Left";
+                                                                                string FW = "normal";
+                                                                                string FS = "normal";
+                                                                                string CSize = "";
+                                                                                if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                                {
+                                                                                    <div class="form-inline" style="width:100%">
+                                                                                        <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                        <div class="text-bold-300 font-medium-1" id="ELTXT_@ElRw[0].ToString().Trim()" style="margin-left:5px">
+                                                                                            @ElRw[33].ToString().Trim()
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                if (DT_Value.Rows[0][4].ToString().Trim().ToLower() == "true")
+                                                                                {
+                                                                                    checkedP = "checked";
+                                                                                }
+                                                                                switch (ElRw[45].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { CheckColor = "primary"; break; }
+                                                                                    case "2": { CheckColor = "info"; break; }
+                                                                                    case "3": { CheckColor = "success"; break; }
+                                                                                    case "4": { CheckColor = "danger"; break; }
+                                                                                    case "5": { CheckColor = "warning"; break; }
+                                                                                }
+                                                                                switch (ElRw[36].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { TxtAlign = "Left"; break; }
+                                                                                    case "2": { TxtAlign = "center"; break; }
+                                                                                    case "3": { TxtAlign = "right"; break; }
+                                                                                }
+                                                                                switch (ElRw[43].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                    case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                    case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                    case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                                }
+                                                                                switch (ElRw[47].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { CSize = "vs-checkbox-sm"; break; }
+                                                                                    case "2": { CSize = ""; break; }
+                                                                                    case "3": { CSize = "vs-checkbox-lg"; break; }
+                                                                                }
+
+                                                                                <fieldset>
+                                                                                    <div class="vs-checkbox-con vs-checkbox-@CheckColor">
+                                                                                        <input type="checkbox" @checkedP class="@ClsElmn" value="false" id="ELC_@ElRw[0].ToString().Trim()" style="pointer-events:none;cursor:default">
+                                                                                        <span class="vs-checkbox @CSize" style="pointer-events:none;cursor:default">
+                                                                                            <span class="vs-checkbox--check" style="pointer-events:none;cursor:default">
+                                                                                                @if (ElRw[48].ToString().Trim() == "")
+                                                                                                {
+                                                                                                    <i class="vs-icon feather icon-check"></i>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <i class="vs-icon fa @ElRw[48].ToString().Trim()"></i>
+                                                                                                }
+                                                                                            </span>
+                                                                                        </span>
+                                                                                        <span style="font-size:@ElRw[41].ToString().Trim()@PXs;font-weight:@FW;font-style:@FS;width:100%;text-align:@TxtAlign">@ElRw[34].ToString().Trim()</span>
+                                                                                    </div>
+                                                                                </fieldset>
+                                                                                <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[40].ToString().Trim()" />
+                                                                                break;
+                                                                            }
+                                                                        case "3"://Toggle
+                                                                            {
+                                                                                string CheckColor = "primary";
+                                                                                string CheckSize = "";
+                                                                                string Pxs = "px";
+                                                                                string PreChecked = "";
+                                                                                string FW = "normal";
+                                                                                string FS = "normal";
+                                                                                switch (ElRw[42].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { CheckColor = "primary"; break; }
+                                                                                    case "2": { CheckColor = "info"; break; }
+                                                                                    case "3": { CheckColor = "success"; break; }
+                                                                                    case "4": { CheckColor = "danger"; break; }
+                                                                                    case "5": { CheckColor = "warning"; break; }
+                                                                                }
+                                                                                switch (ElRw[44].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { CheckSize = ""; ; break; }
+                                                                                    case "2": { CheckSize = "switch-md"; ; break; }
+                                                                                    case "3": { CheckSize = "switch-lg"; ; break; }
+                                                                                }
+                                                                                if (DT_Value.Rows[0][4].ToString().Trim().ToLower() == "true")
+                                                                                {
+                                                                                    PreChecked = "checked";
+                                                                                }
+                                                                                switch (ElRw[40].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                    case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                    case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                    case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                                }
+                                                                                <div class="custom-control custom-switch @CheckSize custom-switch-@CheckColor mr-2 mb-1" style="pointer-events:none !important;cursor:default !important;">
+                                                                                    @if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                                    {
+                                                                                        <div class="mb-0 form-inline" style="width:100%;pointer-events:none !important;cursor:default !important;">
+                                                                                            <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()" style="pointer-events: none !important; cursor: default !important;"></i>
+                                                                                            <div class="text-bold-300 font-medium-1" id="ELTXT_@ElRw[0].ToString().Trim()" style="margin-left:5px;pointer-events:none !important;cursor:default !important;">
+                                                                                                @ElRw[33].ToString().Trim()
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    }
+                                                                                    <input type="checkbox" class="custom-control-input @ClsElmn" id="ELO_@ElRw[0].ToString().Trim()" @PreChecked disabled style="pointer-events: none !important; cursor: default !important;">
+                                                                                    <label class="custom-control-label" for="ELO_@ElRw[0].ToString().Trim()" style="pointer-events: none !important; cursor: default !important;">
+                                                                                        <span class="switch-icon-left"><i class="fa @ElRw[45].ToString().Trim()" style="font-size:@ElRw[38].ToString().Trim()@Pxs;pointer-events:none !important;cursor:default !important;"></i></span>
+                                                                                        <span class="switch-icon-right"><i class="fa @ElRw[46].ToString().Trim()" style="font-size:@ElRw[38].ToString().Trim()@Pxs;pointer-events:none !important;cursor:default !important;"></i></span>
+                                                                                        <span class="switch-text-left" style="font-size:@ElRw[38].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS;pointer-events:none !important;cursor:default !important;">@ElRw[47].ToString().Trim()</span>
+                                                                                        <span class="switch-text-right" style="font-size:@ElRw[38].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS;pointer-events:none !important;cursor:default !important;">@ElRw[48].ToString().Trim()</span>
+                                                                                    </label>
+                                                                                </div>
+                                                                                <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[37].ToString().Trim()" />
+                                                                                break;
+                                                                            }
+                                                                        case "4"://RadioButton
+                                                                            {
+                                                                                string FrmInline = "";
+                                                                                string Pxs = "px";
+                                                                                string FW = "normal";
+                                                                                string FS = "normal";
+                                                                                string AllColor = "";
+                                                                                string LstColor = "";
+                                                                                string RadioSize = "";
+                                                                                string ColSz = "";
+                                                                                string RadCheck = "";
+                                                                                string Unln = "_";
+                                                                                switch (ElRw[42].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                    case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                    case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                    case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                                }
+                                                                                if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                                {
+                                                                                    <div class="mb-0 form-inline" style="width:100%;padding-bottom:10px">
+                                                                                        <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                        <div class="text-bold-300 font-medium-1" id="ELTXT_@ElRw[0].ToString().Trim()" style="margin-left:5px">
+                                                                                            @ElRw[33].ToString().Trim()
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                if (ElRw[46].ToString().Trim() == "1")
+                                                                                {
+                                                                                    switch (ElRw[42].ToString().Trim())
+                                                                                    {
+                                                                                        case "1": { AllColor = "primary"; break; }
+                                                                                        case "2": { AllColor = "info"; break; }
+                                                                                        case "3": { AllColor = "success"; break; }
+                                                                                        case "4": { AllColor = "danger"; break; }
+                                                                                        case "5": { AllColor = "warning"; break; }
+                                                                                    }
+                                                                                }
+                                                                                switch (ElRw[50].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { RadioSize = "vs-radio-sm"; break; }
+                                                                                    case "2": { RadioSize = ""; break; }
+                                                                                    case "3": { RadioSize = "vs-radio-lg"; break; }
+                                                                                }
+                                                                                if (ElRw[44].ToString().Trim() == "1") { FrmInline = "form-inline"; }
+                                                                                <div style="width:100%;padding:0px" class="@FrmInline">
+
+                                                                                    @for (int i = 1; i < 13; i++)
+                                                                                    {
+                                                                                        if (ElRw[55 + ((i - 1) * 5)].ToString().Trim() != "")
+                                                                                        {
+                                                                                            if (FrmInline.Trim() != "") { ColSz = "col-lg-" + ElRw[54 + ((i - 1) * 5)].ToString().Trim(); }
+                                                                                            LstColor = "primary";
+                                                                                            RadCheck = "";
+                                                                                            if (AllColor == "")
+                                                                                            {
+                                                                                                switch (ElRw[52 + ((i - 1) * 5)].ToString().Trim())
+                                                                                                {
+                                                                                                    case "1": { LstColor = "primary"; break; }
+                                                                                                    case "2": { LstColor = "info"; break; }
+                                                                                                    case "3": { LstColor = "success"; break; }
+                                                                                                    case "4": { LstColor = "danger"; break; }
+                                                                                                    case "5": { LstColor = "warning"; break; }
+                                                                                                }
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                LstColor = AllColor;
+                                                                                            }
+                                                                                            DT_Value = new DataTable();
+                                                                                            DT_Value = Sq.Get_DTable_TSQL(DataBase_Selector.Administrator, "Select Element_Value From Users_09_Hospitality_SingleUser_Application_Elements Where (App_ID = '" + ViewBag.DT_App[0].ToString().Trim() + "') And (Element_ID = '" + ElRw[0].ToString().Trim() + "') And (Element_Full_ID = '" + "ELR_" + ElRw[0].ToString().Trim() + "_" + i + "')");
+                                                                                            if (DT_Value.Rows[0][0].ToString().Trim().ToLower() == "true")
+                                                                                            {
+                                                                                                RadCheck = "checked";
+                                                                                            }
+                                                                                            <fieldset class="@ColSz" style="pointer-events:none;cursor:default">
+                                                                                                <div class="vs-radio-con vs-radio-@LstColor" style="padding-left:10px">
+                                                                                                    <input type="radio" class="@ClsElmn" name="RD_N_@ElRw[0].ToString().Trim()" id="ELR_@ElRw[0].ToString().Trim()@Unln@i" @RadCheck value="false">
+                                                                                                    <span class="vs-radio @RadioSize">
+                                                                                                        <span class="vs-radio--border"></span>
+                                                                                                        <span class="vs-radio--circle"></span>
+                                                                                                    </span>
+                                                                                                    <span style="font-size:@ElRw[40].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS">@ElRw[55 + ((i - 1) * 5)].ToString().Trim()</span>
+                                                                                                </div>
+                                                                                            </fieldset>
+                                                                                        }
+                                                                                    }
+                                                                                </div>
+                                                                                <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[35].ToString().Trim()" />
+                                                                                break;
+                                                                            }
+                                                                        case "5"://Dropdown
+                                                                            {
+                                                                                if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                                {
+                                                                                    <div class="form-inline" style="width:100%">
+                                                                                        <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                        <div class="text-bold-300 font-medium-1" id="ELTXT_@ElRw[0].ToString().Trim()" style="margin-left:5px">
+                                                                                            @ElRw[33].ToString().Trim()
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                <input type="text" class="form-control" id="ELD_@ElRw[0].ToString().Trim()" style="width:100%" readonly="readonly" value="@DT_Value.Rows[0][5].ToString().Trim()">
+                                                                                <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[36].ToString().Trim()" />
+                                                                                <input type="hidden" id="Country_EL_@ElRw[0].ToString().Trim()" value="@ElRw[71].ToString().Trim()" />
+                                                                                break;
+                                                                            }
+                                                                        case "6"://Upload
+                                                                            {
+                                                                                if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                                {
+                                                                                    <div class="form-inline" style="width:100%">
+                                                                                        <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                        <div class="text-bold-300 font-medium-1" id="ELTXT_@ElRw[0].ToString().Trim()" style="margin-left:5px">
+                                                                                            @ElRw[33].ToString().Trim()
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                if (ElRw[45].ToString().Trim() == "3")
+                                                                                {
+                                                                                    <div class="col-lg-12 form-inline" style="padding:0px">
+                                                                                        <div class="col-lg-4">
+                                                                                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                                                                                Status :
+                                                                                            </div>
+                                                                                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                                                                                <input type="text" class="form-control" id="ELG_T1_@ElRw[0].ToString().Trim()" placeholder="" style="width:100%;text-align:center" readonly="readonly" value="@DT_Value.Rows[0][6].ToString().Trim()">
+                                                                                                <div class="form-control-position">
+                                                                                                    <i class="fa fa-search"></i>
+                                                                                                </div>
+                                                                                            </fieldset>
+                                                                                        </div>
+                                                                                        <div class="col-lg-4">
+                                                                                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                                                                                Score :
+                                                                                            </div>
+                                                                                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                                                                                <input type="text" class="form-control" id="ELG_T2_@ElRw[0].ToString().Trim()" placeholder="" style="width:100%;text-align:center" readonly="readonly" value="@DT_Value.Rows[0][7].ToString().Trim()">
+                                                                                                <div class="form-control-position">
+                                                                                                    <i class="fa fa-calculator"></i>
+                                                                                                </div>
+                                                                                            </fieldset>
+                                                                                        </div>
+                                                                                        <div class="col-lg-4">
+                                                                                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                                                                                Assessment :
+                                                                                            </div>
+                                                                                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                                                                                <input type="text" class="form-control" id="ELG_T3_@ElRw[0].ToString().Trim()" placeholder="" style="width:100%;text-align:center" readonly="readonly" value="@DT_Value.Rows[0][8].ToString().Trim()">
+                                                                                                <div class="form-control-position">
+                                                                                                    <i class="fa fa-info"></i>
+                                                                                                </div>
+                                                                                            </fieldset>
+                                                                                        </div>
+                                                                                        <div class="col-lg-12">
+                                                                                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                                                                                Message :
+                                                                                            </div>
+                                                                                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                                                                                <input type="text" class="form-control" id="ELG_T4_@ElRw[0].ToString().Trim()" placeholder="" style="width:100%" readonly="readonly" value="@DT_Value.Rows[0][11].ToString().Trim() - @DT_Value.Rows[0][9].ToString().Trim()">
+                                                                                                <div class="form-control-position">
+                                                                                                    <i class="fa fa-sticky-note"></i>
+                                                                                                </div>
+                                                                                            </fieldset>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if (ElRw[43].ToString().Trim() == "1")
+                                                                                    {
+                                                                                        if (((DT_Value.Rows[0][24].ToString().Trim().ToLower() == "jpg") || (DT_Value.Rows[0][24].ToString().Trim().ToLower() == "jpeg") || (DT_Value.Rows[0][24].ToString().Trim().ToLower() == "png") || (DT_Value.Rows[0][24].ToString().Trim().ToLower() == "gif")) || (DT_Value.Rows[0][23].ToString().Trim().ToLower() == "blob"))
+                                                                                        {
+                                                                                            string FileTP = "jpg";
+                                                                                            if (DT_Value.Rows[0][24].ToString().Trim() != "") { FileTP = DT_Value.Rows[0][24].ToString().Trim().ToLower(); }
+                                                                                            var client = new RestClient(ViewBag.UserPanelURL + "/UIMG/RFIMG/" + ViewBag.DT_App[0].ToString().Trim() + "$" + ElRw[0].ToString().Trim() + "$" + FileTP + "$" + ViewBag.SecretKey);
+                                                                                            client.Timeout = -1;
+                                                                                            var request = new RestRequest(Method.POST);
+                                                                                            byte[] response = client.DownloadData(request);
+                                                                                            var base64 = Convert.ToBase64String(response);
+                                                                                            string IMGSrc = String.Format("data:image/png;base64,{0}", base64);
+                                                                                            <img id="ELU_IMG_@ElRw[0].ToString().Trim()" onclick="ShowRealSize(this.id)" src="@IMGSrc" style="border-radius:10px;height:200px;width:auto;cursor:pointer" />
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            string FileURLDnld = ViewBag.UserPanelURL + "/UIMG/RFFD/" + ViewBag.DT_App[0].ToString().Trim() + "$" + ElRw[0].ToString().Trim() + "$" + ViewBag.SecretKey;
+                                                                                            <span>
+                                                                                                It is not possible to preview this type of file, <a href="@FileURLDnld" target="_blank">Click here</a> to download the file [Type : @DT_Value.Rows[0][24].ToString().Trim().ToUpper()].
+                                                                                            </span>
+                                                                                        }
+
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        string DocStatus = "Unknown";
+                                                                                        try
+                                                                                        {
+                                                                                            DataTable DT_DocStatus = new DataTable();
+                                                                                            DT_DocStatus = Sq.Get_DTable_TSQL(DataBase_Selector.Administrator, "Select Result_Text From Users_12_Hospitality_SingleUser_Application_Validation Where (App_ID = '" + ViewBag.DT_App[0].ToString().Trim() + "') And (Element_ID = '" + ElRw[0].ToString().Trim() + "')");
+                                                                                            DocStatus = DT_DocStatus.Rows[0][0].ToString().Trim();
+                                                                                        }
+                                                                                        catch (Exception)
+                                                                                        { }
+                                                                                        string FileTP = "jpg";
+                                                                                        if (DT_Value.Rows[0][24].ToString().Trim() != "") { FileTP = DT_Value.Rows[0][24].ToString().Trim().ToLower(); }
+                                                                                        var client = new RestClient(ViewBag.UserPanelURL + "/UIMG/RFIMGVD/" + ViewBag.DT_App[0].ToString().Trim() + "$" + ElRw[0].ToString().Trim() + "$" + FileTP + "$" + ViewBag.SecretKey);
+                                                                                        client.Timeout = -1;
+                                                                                        var request = new RestRequest(Method.POST);
+                                                                                        byte[] response = client.DownloadData(request);
+                                                                                        var base64 = Convert.ToBase64String(response);
+                                                                                        string IMGSrc = String.Format("data:image/png;base64,{0}", base64);
+                                                                                        DataTable DT_OCRRes = new DataTable();
+                                                                                        DT_OCRRes = Sq.Get_DTable_TSQL(DataBase_Selector.Administrator, "Select Document_Key,Document_Value From Users_11_Hospitality_SingleUser_Application_Acuant_Result Where (App_ID = '" + ViewBag.DT_App[0].ToString().Trim() + "') And (Element_ID = '" + ElRw[0].ToString().Trim() + "') Order By Document_ID");
+                                                                                        <img id="ELU_IMG_@ElRw[0].ToString().Trim()" onclick="ShowRealSize(this.id)" src="@IMGSrc" style="border-radius:10px;height:200px;width:auto;cursor:pointer" />
+                                                                                        <h5 class="col-lg-6 text-dark" style="margin-top:10px"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Document status : <span class="text-primary">@DocStatus</span></h5>
+                                                                                        <div class="table-responsive" style="margin-top:20px">
+                                                                                            <h6 class="text-dark"> -| Document Result :</h6>
+                                                                                            <table class="table table-striped mb-0">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th scope="col">Document Key</th>
+                                                                                                        <th scope="col">Document Value</th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    @try
+                                                                                                    {
+                                                                                                        foreach (DataRow RSROCR in DT_OCRRes.Rows)
+                                                                                                        {
+                                                                                                            <tr>
+                                                                                                                <th scope="row">@RSROCR[0].ToString().Trim()</th>
+                                                                                                                <td>@RSROCR[1].ToString().Trim()</td>
+                                                                                                            </tr>
+                                                                                                        }
+                                                                                                    }
+                                                                                                    catch (Exception)
+                                                                                                    { }
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+
+                                                                                        if ((ElRw[43].ToString().Trim() == "3") || (ElRw[43].ToString().Trim() == "5") || (ElRw[43].ToString().Trim() == "7"))
+                                                                                        {
+                                                                                            DataTable DT_DocAlrt = new DataTable();
+                                                                                            DT_DocAlrt = Sq.Get_DTable_TSQL(DataBase_Selector.Administrator, "Select Alert_Text From Users_10_Hospitality_SingleUser_Application_Acuant_Alert Where (App_ID = '" + ViewBag.DT_App[0].ToString().Trim() + "') And (Element_ID = '" + ElRw[0].ToString().Trim() + "') Order By Alert_Text");
+                                                                                            <div class="table-responsive" style="margin-top:20px">
+                                                                                                <h6 class="text-dark"> -| Document Validation :</h6>
+                                                                                                <table class="table table-striped mb-0">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th scope="col">Document Alert</th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody>
+                                                                                                        @try
+                                                                                                        {
+                                                                                                            foreach (DataRow RSROCRA in DT_DocAlrt.Rows)
+                                                                                                            {
+                                                                                                                <tr>
+                                                                                                                    <td scope="row">@RSROCRA[0].ToString().Trim()</td>
+                                                                                                                </tr>
+                                                                                                            }
+                                                                                                        }
+                                                                                                        catch (Exception)
+                                                                                                        { }
+                                                                                                    </tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                                break;
+                                                                            }
+                                                                        case "14"://Group Input
+                                                                            {
+                                                                                bool Coll1 = false; bool Coll2 = false; bool Coll3 = false; bool Coll4 = false; bool Coll5 = false; bool Coll6 = false;
+                                                                                if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                                {
+                                                                                    <div class="form-inline" style="width:100%">
+                                                                                        <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                        <div class="text-bold-300 font-medium-1" id="ELTXT_@ElRw[0].ToString().Trim()" style="margin-left:5px">
+                                                                                            @ElRw[33].ToString().Trim()
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                <div class="table-responsive" style="margin-top:10px">
+                                                                                    <table class="table table-hover">
+                                                                                        <thead style="background-color:lightgray">
+                                                                                            <tr>
+                                                                                                @if (ElRw[37].ToString().Trim() != "")
+                                                                                                {
+                                                                                                    Coll1 = true;
+                                                                                                    <th>@ElRw[37].ToString().Trim()</th>
+                                                                                                }
+                                                                                                @if (ElRw[41].ToString().Trim() != "")
+                                                                                                {
+                                                                                                    Coll2 = true;
+                                                                                                    <th>@ElRw[41].ToString().Trim()</th>
+                                                                                                }
+                                                                                                @if (ElRw[45].ToString().Trim() != "")
+                                                                                                {
+                                                                                                    Coll3 = true;
+                                                                                                    <th>@ElRw[45].ToString().Trim()</th>
+                                                                                                }
+                                                                                                @if (ElRw[49].ToString().Trim() != "")
+                                                                                                {
+                                                                                                    Coll4 = true;
+                                                                                                    <th>@ElRw[49].ToString().Trim()</th>
+                                                                                                }
+                                                                                                @if (ElRw[53].ToString().Trim() != "")
+                                                                                                {
+                                                                                                    Coll5 = true;
+                                                                                                    <th>@ElRw[53].ToString().Trim()</th>
+                                                                                                }
+                                                                                                @if (ElRw[57].ToString().Trim() != "")
+                                                                                                {
+                                                                                                    Coll6 = true;
+                                                                                                    <th>@ElRw[57].ToString().Trim()</th>
+                                                                                                }
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            @{
+                                                                                                try
+                                                                                                {
+                                                                                                    foreach (System.Data.DataRow DRGI in DT_Value.Rows)
+                                                                                                    {
+                                                                                                        <tr>
+                                                                                                            @if (Coll1 == true)
+                                                                                                            {
+                                                                                                                <td>@DRGI[6].ToString().Trim()</td>
+                                                                                                            }
+                                                                                                            @if (Coll2 == true)
+                                                                                                            {
+                                                                                                                <td>@DRGI[7].ToString().Trim()</td>
+                                                                                                            }
+                                                                                                            @if (Coll3 == true)
+                                                                                                            {
+                                                                                                                <td>@DRGI[8].ToString().Trim()</td>
+                                                                                                            }
+                                                                                                            @if (Coll4 == true)
+                                                                                                            {
+                                                                                                                <td>@DRGI[9].ToString().Trim()</td>
+                                                                                                            }
+                                                                                                            @if (Coll5 == true)
+                                                                                                            {
+                                                                                                                <td>@DRGI[10].ToString().Trim()</td>
+                                                                                                            }
+                                                                                                            @if (Coll6 == true)
+                                                                                                            {
+                                                                                                                <td>@DRGI[11].ToString().Trim()</td>
+                                                                                                            }
+                                                                                                        </tr>
+                                                                                                    }
+                                                                                                }
+                                                                                                catch (Exception) { }
+                                                                                            }
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                                break;
+                                                                            }
+                                                                    }
+                                                                    try
+                                                                    {
+                                                                        DataTable DT_ConditionsMessage = new DataTable();
+                                                                        DT_ConditionsMessage = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Condition_Title,Condition_Text,Ins_Date,Ins_Time From Users_13_Hospitality_SingleUser_Application_ConditionMessage Where (App_ID = '" + ViewBag.DT_App[0].ToString().Trim() + "') And (Element_ID = '" + ElRw[0].ToString().Trim() + "') And (User_Show = '1') Order By Ins_Date,Ins_Time");
+                                                                        foreach (DataRow RW_CM in DT_ConditionsMessage.Rows)
+                                                                        {
+                                                                            <span class="col-lg-12 form-inline" style="margin-top:5px">
+                                                                                <span class="text-primary" style="font-weight:bold;font-size:12px">
+                                                                                    @RW_CM[0].ToString().Trim() :
+                                                                                </span>
+                                                                                <span style="font-size:12px;margin-left:10px">
+                                                                                    @RW_CM[1].ToString().Trim() [ @RW_CM[2].ToString().Substring(0, 10).Trim() - @RW_CM[3].ToString().Trim() ]
+                                                                                </span>
+                                                                            </span>
+                                                                        }
+                                                                    }
+                                                                    catch (Exception) { }
+                                                                }
+                                                            </div>
+                                                        }
+                                                        catch (Exception) { }
+                                                    }
+                                                }
+                                                catch (Exception) { }
+                                            }
+                                            catch (Exception) { }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            }
+        }
+        catch (Exception)
+        {
+            <section style="width:100%;height:auto">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="content-header-left col-md-9 col-12">
+                                    <div class="row breadcrumbs-top">
+                                        <div class="col-12" style="padding-left:10px">
+                                            <h2 class="content-header-title float-left mb-0 text-italic text-danger">Form loading error</h2>
+                                            <div class="breadcrumb-wrapper col-12">
+                                                <ol class="breadcrumb" id="Breadcrumb_Items" style="pointer-events:auto;opacity:1">
+                                                    <li class="breadcrumb-item active">No data founded for this form</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body card-dashboard" style="padding-bottom:1px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+</div>
+<div id="IMGRSIMGMDL" class="modal"> <span class="close" onclick="CloseModal()" style="font-size:50px;cursor:pointer;width:50px;text-align:center">&times;</span> <img class="modal-content" id="IMGModal"> </div>
+@section JSScript {
+    <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script>
+        $(".select2").select2({ dropdownAutoWidth: true, width: '100%' });
+        function ShowRealSize(IMGCode) { var IMGC = document.getElementById(IMGCode); var modalImg = document.getElementById("IMGModal"); modalImg.src = IMGC.src; $("#IMGRSIMGMDL").modal(); }
+        function CloseModal() { $("#IMGRSIMGMDL").modal("hide"); }
+
+        function openNav() { document.getElementById("mySidepanel").style.right = "0px"; }
+        function closeNav() { document.getElementById("mySidepanel").style.right = "-300px"; }
+        function ResetNav() { document.getElementById("mySidepanel").reset(); $(".select2").select2({ dropdownAutoWidth: true, width: '100%' });}
+        function SaveEdit(WID) {
+            try {
+                toastr.clear();
+                toastr.info('The system is processing your request', 'Please wait ...', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                var SID = "0"; var URL = "";
+                if (WID == '1') { var SID = $("#Edit_S :selected").val().trim(); var URL = "@Url.Action("Application_ChangeStatus", "Applications", new { id="", area= "HSU_Portal" })"; } else { var SID = $("#Edit_G :selected").val().trim(); var URL = "@Url.Action("Application_ChangeGuesty", "Applications", new { id="", area= "HSU_Portal" })"; }
+                var FrmDataPro = new FormData();
+                FrmDataPro.append("AID", "@ViewBag.AID");
+                FrmDataPro.append("SID", SID);
+                $.ajax({
+                    url: URL, type: "POST", data: FrmDataPro, dataType: 'json', contentType: false, processData: false, async: true,
+                    error: function () {
+                        toastr.clear();
+                        toastr.error('An error occurred while processing your request', 'An error has occurred! [C02]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                    },
+                    success: function (data)
+                    {
+                        var ErrorCode = ""; var ErrorResult = "";
+                        $.each(data, function (i, item) { ErrorResult = item.Text; ErrorCode = item.Value; });
+                        if (ErrorCode == "0")
+                        {
+                            if (WID == '1') {
+                                location.reload();
+                            }
+                            else {
+                                toastr.clear();
+                                toastr.success(ErrorResult.trim(), 'Congratulations', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                            }
+                        }
+                        else
+                        {
+                            if (ErrorCode != "2") {
+                                toastr.clear();
+                                toastr.error(ErrorResult.trim(), 'An error has occurred! [C03]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                            }
+                            else { window.location.href = "@Url.Action("Logout", "Dashboard", new { id = "", area = "" })"; }
+                        }
+                    }
+                });
+            } catch (e) {
+                toastr.clear();
+                toastr.error('An error occurred while processing your request', 'An error has occurred! [C01]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+            }
+        }
+    </script>
+}

@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "IDV User Portal";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<div class="card-header pb-1">
+    <div class="card-title">
+        <h4 class="mb-0 text-primary">IDV Pacific <span style="font-size:10px">[ User Portal ]</span></h4>
+    </div>
+</div>
+<p class="px-2">Welcome back, please login to your account in IDV Pacific user portal.</p>
+<div class="card-content">
+    <div class="card-body pt-1">
+        <form id="FrmLogin" style="opacity:1;pointer-events:auto">
+            <fieldset class="form-label-group form-group position-relative has-icon-left">
+                <input type="text" class="form-control" id="US_Username" placeholder="Username or Email address" onfocus="this.setSelectionRange(0, this.value.length)">
+                <div class="form-control-position">
+                    <i class="feather icon-user"></i>
+                </div>
+                <label for="US_Username">Admin Username</label>
+            </fieldset>
+            <fieldset class="form-label-group position-relative has-icon-left">
+                <input type="password" class="form-control" id="US_Password" placeholder="Password" onfocus="this.setSelectionRange(0, this.value.length)">
+                <div class="form-control-position">
+                    <i class="feather icon-lock"></i>
+                </div>
+                <label for="US_Password">Password</label>
+            </fieldset>
+            <div class="form-group d-flex justify-content-between align-items-center">
+                <div class="text-left"><a href="@Url.Action("Index","Login",new{ area="",id="" })" class="card-link">- Forgot your password?</a></div>
+            </div>
+            <button type="button" class="btn btn-primary float-right btn-inline" id="BtnLogin" onclick="LoginAdmin()">Login to portal</button>
+        </form>
+    </div>
+</div>
+<div class="login-footer">
+    <div class="divider">
+        <div class="divider-text">< ></div>
+    </div>
+    <div class="footer-btn d-inline">
+        <div class="form-group d-flex justify-content-between align-items-center" style="font-size:12px">
+            <div class="text-left" style="font-weight:bold">IDV Pacific Pty Ltd</div>
+            <div class="text-right text-primary" style="">All right reserved © @DateTime.Now.Year</div>
+        </div>
+    </div>
+</div>
+@section JSScript {
+    <script>
+        function LoginAdmin() {
+            try {
+                document.getElementById("FrmLogin").style.opacity = "0.7";
+                document.getElementById("FrmLogin").style.pointerEvents = "none";
+                document.getElementById("BtnLogin").innerText = "Please Wait";
+                var formData = new FormData();
+                formData.append("Username", document.getElementById("US_Username").value.trim());
+                formData.append("Password", document.getElementById("US_Password").value.trim());
+                $.ajax({
+                    url: "@Url.Action("User_Request", "Login")", type: "POST", data: formData, dataType: 'json', contentType: false, processData: false, async: true,
+                    error: function () {
+                        document.getElementById("FrmLogin").style.opacity = "1";
+                        document.getElementById("FrmLogin").style.pointerEvents = "auto";
+                        document.getElementById("BtnLogin").innerText = "Login to portal";
+                        document.getElementById('US_Username').focus();
+                        toastr.clear();
+                        toastr.error('An error occurred while processing your request', 'An error has occurred! [C02]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                    },
+                    success: function (data)
+                    {
+                        var ErrorCode = ""; var ErrorResult = "";
+                        $.each(data, function (i, item) { ErrorResult = item.Text; ErrorCode = item.Value; });
+                        if (ErrorCode == "0")
+                        {
+                            var BaseUrl = "@Url.Action("Index","Dashboard",new { id="", area= "HSU_Portal" })";
+                            window.location.href = BaseUrl;
+                        }
+                        else
+                        {
+                            if (ErrorCode != "2") {
+                                document.getElementById("FrmLogin").style.opacity = "1";
+                                document.getElementById("FrmLogin").style.pointerEvents = "auto";
+                                document.getElementById("BtnLogin").innerText = "Login to portal";
+                                document.getElementById('US_Username').focus();
+                                toastr.clear();
+                                toastr.error(ErrorResult.trim(), 'An error has occurred! [C03]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                            }
+                            else { window.location.href = "@Url.Action("Logout", "Dashboard", new { id = "", area = "" })"; }
+                        }
+                    }
+                });
+            } catch (e) {
+                document.getElementById("FrmLogin").style.opacity = "1";
+                document.getElementById("FrmLogin").style.pointerEvents = "auto";
+                document.getElementById("BtnLogin").innerText = "Login to portal";
+                document.getElementById('US_Username').focus();
+                toastr.error('An error occurred while processing your request', 'An error has occurred! [C01]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+            }
+        }
+        document.getElementById('US_Username').addEventListener("keyup", function (event) { if (event.key === "Enter") { document.getElementById('US_Password').focus();}});
+        document.getElementById('US_Password').addEventListener("keyup", function (event) { if (event.key === "Enter") { LoginAdmin(); }});
+        window.addEventListener("load", function () { this.document.getElementById('US_Username').focus(); });
+    </script>
+}

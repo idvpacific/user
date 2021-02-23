@@ -1,0 +1,1565 @@
+﻿@{
+    iCore_Administrator.Modules.SQL_Tranceiver Sq = new iCore_Administrator.Modules.SQL_Tranceiver();
+    ViewBag.Title = "Section Preview [ " + ViewBag.DT_SecFinder[1].ToString().Trim() + " ]";
+    Layout = "~/Areas/HSU_Portal/Views/Shared/_LayoutPortal.cshtml";
+}
+@section CSSStyle {
+    <link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/extensions/sweetalert2.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/forms/select/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Theme/Base/assets/dropify/dist/css/dropify.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/extensions/plyr.css">
+    <link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/css/plugins/extensions/media-plyr.css">
+    <style>
+        .ELMT {
+        }
+
+        .zoomEmas {
+            transition: transform .2s;
+        }
+
+            .zoomEmas:hover {
+                transform: scale(1.5);
+            }
+
+        .centerEmas {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+
+        .ELMNTTXTGOOGLE {
+        }
+
+        .ELMNTGI {
+        }
+    </style>
+}
+<section id="Frame_GroupInfo">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="content-header-left col-md-9 col-12">
+                        <div class="row breadcrumbs-top">
+                            <div class="col-12" style="padding-left:10px">
+                                <h2 class="content-header-title float-left mb-0">@ViewBag.DT_Group[0][0].ToString().Trim()</h2>
+                                <div class="breadcrumb-wrapper col-12">
+                                    <ol class="breadcrumb" id="Breadcrumb_Items" style="pointer-events:auto;opacity:1">
+                                        <li class="breadcrumb-item active">Form basic information in section preview mode</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-body card-dashboard form-inline" style="padding-bottom:35px;">
+                        <div class="col-lg-6 form-inline"><h5>Form Description : </h5><h6 style="margin-left:10px" class="text-primary">@ViewBag.DT_Group[0][1].ToString().Trim()</h6></div>
+                        <div class="col-lg-3 form-inline"><h5>Form Status : </h5><h6 style="margin-left:10px" class="text-primary">@ViewBag.DT_Group[0][2].ToString().Trim()</h6></div>
+                        <div class="col-lg-3 form-inline"><h5>Form Template : </h5><h6 style="margin-left:10px" class="text-primary">@ViewBag.DT_Group[0][3].ToString().Trim()</h6></div>
+                        <div class="col-lg-3 form-inline"><h5>Section Name : </h5><h6 style="margin-left:10px" class="text-primary">@ViewBag.DT_SecFinder[1].ToString().Trim()</h6></div>
+                        <div class="col-lg-3 form-inline"><h5>Section Order No. #</h5><h6 style="margin-left:10px" class="text-primary">@ViewBag.DT_SecFinder[2].ToString().Trim()</h6></div>
+                        <div class="col-lg-3 form-inline"><h5>Section Width : </h5><h6 style="margin-left:10px" class="text-primary">@ViewBag.DT_SecFinder[3].ToString().Trim()</h6></div>
+                        <div class="col-lg-3 form-inline"><h5>Section Status : </h5><h6 style="margin-left:10px" class="text-primary">@ViewBag.DT_SecFinder[4].ToString().Trim()</h6></div>
+                        <div class="col-lg-12 form-inline"><h5 class="text-italic text-danger">Note : </h5><h6 style="margin-left:10px" class="text-primary">This frame will only be displayed to your in preview mode.</h6></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="form-inline" style="width:100%;height:auto;padding-top:20px;border:1px solid #ebebeb;border-radius:10px;margin-bottom:20px;background-color:#f7f7f7;display:none" id="Page_iFrame">
+    <iframe src="" id="iFrameAC" style="width:100%;height:100%;border:none;min-height:700px"></iframe>
+</div>
+<div class="form-inline" style="width:100%;height:auto;padding-top:20px;border:1px solid #ebebeb;border-radius:10px;margin-bottom:20px;background-color:#f7f7f7;display:block" id="Page_Master">
+    @if (ViewBag.DT_Sections != null)
+    {
+        foreach (System.Data.DataRow RW in ViewBag.DT_Sections)
+        {
+            <section id="Frame_ID_@RW[0].ToString().Trim()" class="col-lg-@RW[1].ToString().Trim()">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="content-header-left col-md-9 col-12">
+                                    <div class="row breadcrumbs-top">
+                                        <div class="col-12" style="padding-left:10px">
+                                            <h2 class="content-header-title float-left mb-0"><i class="fa @RW[2].ToString().Trim()"></i></h2>
+                                            <div class="breadcrumb-wrapper col-12">
+                                                <ol class="breadcrumb" id="Breadcrumb_Items" style="pointer-events:auto;opacity:1">
+                                                    <li class="breadcrumb-item active text-bold-600">@RW[3].ToString().Trim()</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body card-dashboard form-inline" style="padding-bottom:35px;">
+                                    @{
+                                        try
+                                        {
+                                            System.Data.DataTable DT_Element = new System.Data.DataTable();
+                                            DT_Element = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select * From Users_06_Hospitality_SingleUser_RegisterForms_Elements Where (Group_ID = '" + ViewBag.DT_Group[0][4].ToString().Trim() + "') And (Section_ID = '" + RW[0].ToString().Trim() + "') And (Status_Code = '1') And (Removed = '0') Order By Element_Row_Index,Element_Tag_Name,Ins_Date,Ins_Time");
+                                            try
+                                            {
+                                                string ClsElmn = "";
+                                                foreach (System.Data.DataRow ElRw in DT_Element.Rows)
+                                                {
+                                                    try
+                                                    {
+                                                        ClsElmn = "";
+                                                        if ((ElRw[3].ToString().Trim() == "1") || (ElRw[3].ToString().Trim() == "2") || (ElRw[3].ToString().Trim() == "3") || (ElRw[3].ToString().Trim() == "4") || (ElRw[3].ToString().Trim() == "5") || (ElRw[3].ToString().Trim() == "6") || (ElRw[3].ToString().Trim() == "10")) { ClsElmn = "ELMT"; }
+                                                        <div class="col-lg-@ElRw[7].ToString().Trim() @ClsElmn" id="ELMNT_@ElRw[0].ToString().Trim()_@ElRw[3].ToString().Trim()" style="margin-top:10px">
+                                                            @{
+                                                                switch (ElRw[3].ToString().Trim())
+                                                                {
+                                                                    case "1"://Input
+                                                                        {
+                                                                            string OnFocus_GoogleAdd = "";
+                                                                            string GoogleSugAddress = "";
+                                                                            string TxtAlign = "Left";
+                                                                            string FW = "normal";
+                                                                            string FS = "normal";
+                                                                            string InputType = "text";
+                                                                            string IT_Class = "";
+                                                                            string IT_ObjectRef = "";
+                                                                            string PXS = "px";
+                                                                            string IconWO = "";
+                                                                            switch (ElRw[37].ToString().Trim())
+                                                                            {
+                                                                                case "1": { TxtAlign = "Left"; break; }
+                                                                                case "2": { TxtAlign = "center"; break; }
+                                                                                case "3": { TxtAlign = "right"; break; }
+                                                                            }
+                                                                            switch (ElRw[48].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                            }
+                                                                            switch (ElRw[39].ToString().Trim())
+                                                                            {
+                                                                                case "1": { InputType = "text"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                case "2": { InputType = "password"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                case "3": { InputType = "text"; IT_Class = ""; IT_ObjectRef = "2"; break; }
+                                                                                case "4": { InputType = "text"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                case "5": { InputType = "text"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                case "6": { InputType = "date"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                case "7": { InputType = "text"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+                                                                                case "8": { InputType = "time"; IT_Class = ""; IT_ObjectRef = "1"; break; }
+
+                                                                            }
+                                                                            if (ElRw[44].ToString().Trim() != "")
+                                                                            {
+                                                                                IconWO = "has-icon-left";
+                                                                            }
+                                                                            if (ElRw[50].ToString().Trim() == "9")
+                                                                            {
+                                                                                OnFocus_GoogleAdd = "geolocate()";
+                                                                                GoogleSugAddress = "ELMNTTXTGOOGLE";
+                                                                            }
+                                                                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                                                                @ElRw[32].ToString().Trim()
+                                                                            </div>
+                                                                            <fieldset class="form-group position-relative @IconWO input-divider-left" style="width:100%">
+                                                                                @if (ElRw[35].ToString().Trim() == "1")
+                                                                                {
+                                                                                    switch (IT_ObjectRef)
+                                                                                    {
+                                                                                        case "1":
+                                                                                            {
+                                                                                                <input type="@InputType" class="form-control  @IT_Class @GoogleSugAddress" onfocus="@OnFocus_GoogleAdd" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()">
+                                                                                                break;
+                                                                                            }
+                                                                                        case "2":
+                                                                                            {
+                                                                                                <input type="@InputType" class="form-control @IT_Class @GoogleSugAddress" onfocus="@OnFocus_GoogleAdd" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()">
+                                                                                                break;
+                                                                                            }
+                                                                                    }
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    switch (IT_ObjectRef)
+                                                                                    {
+                                                                                        case "1":
+                                                                                            {
+                                                                                                <textarea class="form-control @IT_Class @GoogleSugAddress" id="ELI_@ElRw[0].ToString().Trim()" onfocus="@OnFocus_GoogleAdd" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()"></textarea>
+                                                                                                break;
+                                                                                            }
+                                                                                        case "2":
+                                                                                            {
+                                                                                                <textarea class="form-control @IT_Class @GoogleSugAddress" onfocus="@OnFocus_GoogleAdd" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()"></textarea>
+                                                                                                break;
+                                                                                            }
+                                                                                    }
+                                                                                }
+                                                                                @if (ElRw[44].ToString().Trim() != "")
+                                                                                {
+                                                                                    <div class="form-control-position">
+                                                                                        <i class="fa @ElRw[44].ToString().Trim()"></i>
+                                                                                    </div>
+                                                                                }
+                                                                            </fieldset>
+                                                                            <input type="hidden" id="Val_EL_@ElRw[0].ToString().Trim()" value="@ElRw[41].ToString().Trim()" />
+                                                                            <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[43].ToString().Trim()" />
+                                                                            break;
+                                                                        }
+                                                                    case "2"://Checkboc
+                                                                        {
+                                                                            string checkedP = "";
+                                                                            string CheckColor = "primary";
+                                                                            string PXs = "px";
+                                                                            string TxtAlign = "Left";
+                                                                            string FW = "normal";
+                                                                            string FS = "normal";
+                                                                            string CSize = "";
+                                                                            if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                            {
+                                                                                <div class="form-inline" style="width:100%">
+                                                                                    <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                    <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                        @ElRw[33].ToString().Trim()
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                            if (ElRw[38].ToString().Trim() == "2")
+                                                                            {
+                                                                                checkedP = "checked";
+                                                                            }
+                                                                            switch (ElRw[45].ToString().Trim())
+                                                                            {
+                                                                                case "1": { CheckColor = "primary"; break; }
+                                                                                case "2": { CheckColor = "info"; break; }
+                                                                                case "3": { CheckColor = "success"; break; }
+                                                                                case "4": { CheckColor = "danger"; break; }
+                                                                                case "5": { CheckColor = "warning"; break; }
+                                                                            }
+                                                                            switch (ElRw[36].ToString().Trim())
+                                                                            {
+                                                                                case "1": { TxtAlign = "Left"; break; }
+                                                                                case "2": { TxtAlign = "center"; break; }
+                                                                                case "3": { TxtAlign = "right"; break; }
+                                                                            }
+                                                                            switch (ElRw[43].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                            }
+                                                                            switch (ElRw[47].ToString().Trim())
+                                                                            {
+                                                                                case "1": { CSize = "vs-checkbox-sm"; break; }
+                                                                                case "2": { CSize = ""; break; }
+                                                                                case "3": { CSize = "vs-checkbox-lg"; break; }
+                                                                            }
+
+                                                                            <fieldset>
+                                                                                <div class="vs-checkbox-con vs-checkbox-@CheckColor">
+                                                                                    <input type="checkbox" @checkedP value="false" id="ELC_@ElRw[0].ToString().Trim()">
+                                                                                    <span class="vs-checkbox @CSize">
+                                                                                        <span class="vs-checkbox--check">
+                                                                                            @if (ElRw[48].ToString().Trim() == "")
+                                                                                            {
+                                                                                                <i class="vs-icon feather icon-check"></i>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <i class="vs-icon fa @ElRw[48].ToString().Trim()"></i>
+                                                                                            }
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span style="font-size:@ElRw[41].ToString().Trim()@PXs;font-weight:@FW;font-style:@FS;width:100%;text-align:@TxtAlign">@ElRw[34].ToString().Trim()</span>
+                                                                                </div>
+                                                                            </fieldset>
+                                                                            <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[40].ToString().Trim()" />
+                                                                            break;
+                                                                        }
+                                                                    case "3"://Toggle
+                                                                        {
+                                                                            string CheckColor = "primary";
+                                                                            string CheckSize = "";
+                                                                            string Pxs = "px";
+                                                                            string PreChecked = "";
+                                                                            string FW = "normal";
+                                                                            string FS = "normal";
+                                                                            switch (ElRw[42].ToString().Trim())
+                                                                            {
+                                                                                case "1": { CheckColor = "primary"; break; }
+                                                                                case "2": { CheckColor = "info"; break; }
+                                                                                case "3": { CheckColor = "success"; break; }
+                                                                                case "4": { CheckColor = "danger"; break; }
+                                                                                case "5": { CheckColor = "warning"; break; }
+                                                                            }
+                                                                            switch (ElRw[44].ToString().Trim())
+                                                                            {
+                                                                                case "1": { CheckSize = ""; ; break; }
+                                                                                case "2": { CheckSize = "switch-md"; ; break; }
+                                                                                case "3": { CheckSize = "switch-lg"; ; break; }
+                                                                            }
+                                                                            if (ElRw[35].ToString().Trim() == "2")
+                                                                            {
+                                                                                PreChecked = "checked";
+                                                                            }
+                                                                            switch (ElRw[40].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                            }
+                                                                            <div class="custom-control custom-switch @CheckSize custom-switch-@CheckColor mr-2 mb-1">
+                                                                                @if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                                {
+                                                                                    <div class="mb-0 form-inline" style="width:100%">
+                                                                                        <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                        <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                            @ElRw[33].ToString().Trim()
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                <input type="checkbox" class="custom-control-input" id="ELT_@ElRw[0].ToString().Trim()" @PreChecked>
+                                                                                <label class="custom-control-label" for="ELT_@ElRw[0].ToString().Trim()">
+                                                                                    <span class="switch-icon-left"><i class="fa @ElRw[45].ToString().Trim()" style="font-size:@ElRw[38].ToString().Trim()@Pxs"></i></span>
+                                                                                    <span class="switch-icon-right"><i class="fa @ElRw[46].ToString().Trim()" style="font-size:@ElRw[38].ToString().Trim()@Pxs"></i></span>
+                                                                                    <span class="switch-text-left" style="font-size:@ElRw[38].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS">@ElRw[47].ToString().Trim()</span>
+                                                                                    <span class="switch-text-right" style="font-size:@ElRw[38].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS">@ElRw[48].ToString().Trim()</span>
+                                                                                </label>
+                                                                            </div>
+                                                                            <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[37].ToString().Trim()" />
+                                                                            break;
+                                                                        }
+                                                                    case "4"://RadioButton
+                                                                        {
+                                                                            string FrmInline = "";
+                                                                            string Pxs = "px";
+                                                                            string FW = "normal";
+                                                                            string FS = "normal";
+                                                                            string AllColor = "";
+                                                                            string LstColor = "";
+                                                                            string RadioSize = "";
+                                                                            string ColSz = "";
+                                                                            string RadCheck = "";
+                                                                            switch (ElRw[42].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                            }
+                                                                            if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                            {
+                                                                                <div class="mb-0 form-inline" style="width:100%;padding-bottom:10px">
+                                                                                    <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                    <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                        @ElRw[33].ToString().Trim()
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                            if (ElRw[46].ToString().Trim() == "1")
+                                                                            {
+                                                                                switch (ElRw[42].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { AllColor = "primary"; break; }
+                                                                                    case "2": { AllColor = "info"; break; }
+                                                                                    case "3": { AllColor = "success"; break; }
+                                                                                    case "4": { AllColor = "danger"; break; }
+                                                                                    case "5": { AllColor = "warning"; break; }
+                                                                                }
+                                                                            }
+                                                                            switch (ElRw[50].ToString().Trim())
+                                                                            {
+                                                                                case "1": { RadioSize = "vs-radio-sm"; break; }
+                                                                                case "2": { RadioSize = ""; break; }
+                                                                                case "3": { RadioSize = "vs-radio-lg"; break; }
+                                                                            }
+                                                                            if (ElRw[44].ToString().Trim() == "1") { FrmInline = "form-inline"; }
+                                                                            <div style="width:100%;padding:0px" class="@FrmInline">
+
+                                                                                @for (int i = 1; i < 13; i++)
+                                                                                {
+                                                                                    if (ElRw[55 + ((i - 1) * 5)].ToString().Trim() != "")
+                                                                                    {
+                                                                                        if (FrmInline.Trim() != "") { ColSz = "col-lg-" + ElRw[54 + ((i - 1) * 5)].ToString().Trim(); }
+                                                                                        LstColor = "primary";
+                                                                                        RadCheck = "";
+                                                                                        if (AllColor == "")
+                                                                                        {
+                                                                                            switch (ElRw[52 + ((i - 1) * 5)].ToString().Trim())
+                                                                                            {
+                                                                                                case "1": { LstColor = "primary"; break; }
+                                                                                                case "2": { LstColor = "info"; break; }
+                                                                                                case "3": { LstColor = "success"; break; }
+                                                                                                case "4": { LstColor = "danger"; break; }
+                                                                                                case "5": { LstColor = "warning"; break; }
+                                                                                            }
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            LstColor = AllColor;
+                                                                                        }
+                                                                                        if (ElRw[37].ToString().Trim() == "2")
+                                                                                        {
+                                                                                            if (i.ToString().Trim() == ElRw[39].ToString().Trim())
+                                                                                            {
+                                                                                                RadCheck = "checked";
+                                                                                            }
+                                                                                        }
+                                                                                        <fieldset class="@ColSz">
+                                                                                            <div class="vs-radio-con vs-radio-@LstColor" style="padding-left:10px">
+                                                                                                <input type="radio" name="RD_N_@ElRw[0].ToString().Trim()" id="ELR_@ElRw[0].ToString().Trim()R_@i" @RadCheck value="false">
+                                                                                                <span class="vs-radio @RadioSize">
+                                                                                                    <span class="vs-radio--border"></span>
+                                                                                                    <span class="vs-radio--circle"></span>
+                                                                                                </span>
+                                                                                                <span style="font-size:@ElRw[40].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS">@ElRw[55 + ((i - 1) * 5)].ToString().Trim()</span>
+                                                                                            </div>
+                                                                                        </fieldset>
+                                                                                    }
+                                                                                }
+                                                                            </div>
+                                                                            <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[35].ToString().Trim()" />
+                                                                            break;
+                                                                        }
+                                                                    case "5"://Dropdown
+                                                                        {
+                                                                            string Pxs = "px";
+                                                                            string FW = "normal";
+                                                                            string FS = "normal";
+                                                                            switch (ElRw[39].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                            }
+                                                                            if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                            {
+                                                                                <div class="form-inline" style="width:100%">
+                                                                                    <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                    <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                        @ElRw[33].ToString().Trim()
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                            <select class="select2 form-control" id="ELD_@ElRw[0].ToString().Trim()">
+                                                                                @if (ElRw[34].ToString().Trim() != "")
+                                                                                {
+                                                                                    <option value="0" style="font-size:@ElRw[37].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS">@ElRw[34].ToString().Trim()</option>
+                                                                                }
+                                                                                @if (ElRw[71].ToString().Trim() == "1")
+                                                                                {
+                                                                                    for (int i = 1; i < 31; i++)
+                                                                                    {
+                                                                                        if (ElRw[39 + i].ToString().Trim() != "")
+                                                                                        {
+                                                                                            <option value="@i" style="font-size:@ElRw[37].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS">@ElRw[39 + i].ToString().Trim()</option>
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    System.Data.DataTable DTCountry = new System.Data.DataTable();
+                                                                                    DTCountry = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select * From Users_07_Hospitality_SingleUser_RegisterForms_Countries Order By Name");
+                                                                                    foreach (System.Data.DataRow RwC in DTCountry.Rows)
+                                                                                    {
+                                                                                        <option value="@RwC[2].ToString().Trim()_@RwC[1].ToString().Trim()" style="font-size:@ElRw[37].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS">@RwC[1].ToString().Trim()</option>
+                                                                                    }
+                                                                                }
+                                                                            </select>
+                                                                            <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[36].ToString().Trim()" />
+                                                                            <input type="hidden" id="Country_EL_@ElRw[0].ToString().Trim()" value="@ElRw[71].ToString().Trim()" />
+                                                                            break;
+                                                                        }
+                                                                    case "6"://Upload
+                                                                        {
+                                                                            string FileSC = "M";
+                                                                            string ExFileType = "";
+                                                                            string PxT = "px";
+                                                                            string DPITx = "_DPI";
+                                                                            if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                            {
+                                                                                <div class="form-inline" style="width:100%">
+                                                                                    <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                    <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                        @ElRw[33].ToString().Trim()
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                            switch (ElRw[40].ToString().Trim())
+                                                                            {
+                                                                                case "1": { ExFileType = "*/*"; break; }
+                                                                                case "2": { ExFileType = "image/x-png,image/gif,image/jpeg,image/jpg"; break; }
+                                                                                case "3": { ExFileType = "application/pdf"; break; }
+                                                                            }
+                                                                            if (ElRw[41].ToString().Trim() != "")
+                                                                            {
+                                                                                <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                    @ElRw[41].ToString().Trim()
+                                                                                </div>
+                                                                            }
+                                                                            if (ElRw[45].ToString().Trim() == "1")//Normal select file
+                                                                            {
+                                                                                <input type="file" class="dropify" accept="@ExFileType" data-max-file-size="@ElRw[37].ToString().Trim()@FileSC" data-height="@ElRw[38].ToString().Trim()" id="ELU_@ElRw[0].ToString().Trim()" />
+                                                                            }
+                                                                            if (ElRw[45].ToString().Trim() == "2")//Guided image capture
+                                                                            {
+                                                                                <div class="col-lg-12" style="text-align:center;padding-right:0px;padding-left:0px">
+                                                                                    <a href="Javascript:void()" class="btn btn-primary" onclick="StartGC('1', 'ELG_@ElRw[0].ToString().Trim()', 'ELG_@ElRw[0].ToString().Trim()@DPITx', '', '', '', '', '')" style="width:100%;margin-top:5px"><i class="fa fa-camera" style="margin-right:10px"></i> Click here to start image capture</a>
+                                                                                </div>
+                                                                                <div class="col-lg-12" style="margin-top:5px;border-radius:5px;text-align:center;border: 1px lightgray solid;height:@ElRw[38].ToString().Trim()@PxT">
+                                                                                    <div style="height:@ElRw[38].ToString().Trim()@PxT;width:auto;padding:0px">
+                                                                                        <img scr="" class="img-fluid zoomEmas" style="height:100%;width:auto" id="ELG_@ElRw[0].ToString().Trim()" />
+                                                                                    </div>
+                                                                                    <input type="hidden" value="0" id="ELG_@ElRw[0].ToString().Trim()@DPITx" />
+                                                                                </div>
+                                                                            }
+                                                                            if (ElRw[45].ToString().Trim() == "3") //Passive liveness test
+                                                                            {
+                                                                                <div class="col-lg-12" style="text-align:center;padding-right:0px;padding-left:0px">
+                                                                                    <a href="Javascript:void()" class="btn btn-primary" onclick="StartGC('2', 'ELG_T1_@ElRw[0].ToString().Trim()', 'ELG_T2_@ElRw[0].ToString().Trim()', 'ELG_T3_@ElRw[0].ToString().Trim()', 'ELG_T4_@ElRw[0].ToString().Trim()', 'ELG_T5_@ElRw[0].ToString().Trim()', 'ELG_T6_@ElRw[0].ToString().Trim()', 'ELG_T7_@ElRw[0].ToString().Trim()')" style="width:100%;margin-top:5px"><i class="fa fa-camera" style="margin-right:10px"></i> Click here to start image capture</a>
+                                                                                </div>
+                                                                                <div class="col-lg-12 form-inline" style="min-height:@ElRw[38].ToString().Trim()@PxT;padding:0px">
+                                                                                    <div class="col-lg-12">
+                                                                                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                                                                            Status :
+                                                                                        </div>
+                                                                                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                                                                            <input type="text" class="form-control" id="ELG_T1_@ElRw[0].ToString().Trim()" placeholder="" style="width:100%;text-align:center" maxlength="200" readonly="readonly" value="Wait for result">
+                                                                                            <div class="form-control-position">
+                                                                                                <i class="fa fa-search"></i>
+                                                                                            </div>
+                                                                                        </fieldset>
+                                                                                    </div>
+                                                                                    <div class="col-lg-6">
+                                                                                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                                                                            Score :
+                                                                                        </div>
+                                                                                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                                                                            <input type="text" class="form-control" id="ELG_T2_@ElRw[0].ToString().Trim()" placeholder="" style="width:100%;text-align:center" maxlength="200" readonly="readonly" value="0 %">
+                                                                                            <div class="form-control-position">
+                                                                                                <i class="fa fa-calculator"></i>
+                                                                                            </div>
+                                                                                        </fieldset>
+                                                                                    </div>
+                                                                                    <div class="col-lg-6">
+                                                                                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                                                                            Assessment :
+                                                                                        </div>
+                                                                                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                                                                            <input type="text" class="form-control" id="ELG_T3_@ElRw[0].ToString().Trim()" placeholder="" style="width:100%;text-align:center" maxlength="200" readonly="readonly">
+                                                                                            <div class="form-control-position">
+                                                                                                <i class="fa fa-info"></i>
+                                                                                            </div>
+                                                                                        </fieldset>
+                                                                                    </div>
+                                                                                    <div class="col-lg-12">
+                                                                                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                                                                            Message :
+                                                                                        </div>
+                                                                                        <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                                                                            <input type="text" class="form-control" id="ELG_T4_@ElRw[0].ToString().Trim()" placeholder="" style="width:100%" maxlength="200" readonly="readonly">
+                                                                                            <div class="form-control-position">
+                                                                                                <i class="fa fa-sticky-note"></i>
+                                                                                            </div>
+                                                                                        </fieldset>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <input type="hidden" value="" id="ELG_T5_@ElRw[0].ToString().Trim()" />
+                                                                                <input type="hidden" value="" id="ELG_T6_@ElRw[0].ToString().Trim()" />
+                                                                                <input type="hidden" value="" id="ELG_T7_@ElRw[0].ToString().Trim()" />
+                                                                            }
+                                                                            <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[35].ToString().Trim()" />
+                                                                            break;
+                                                                        }
+                                                                    case "7"://Download
+                                                                        {
+                                                                            string Pxs = "px";
+                                                                            string FW = "normal";
+                                                                            string FS = "normal";
+                                                                            string TextColor = "primary";
+                                                                            string FileAddress = "#";
+                                                                            switch (ElRw[37].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                            }
+                                                                            switch (ElRw[39].ToString().Trim())
+                                                                            {
+                                                                                case "1": { TextColor = "primary"; break; }
+                                                                                case "2": { TextColor = "info"; break; }
+                                                                                case "3": { TextColor = "success"; break; }
+                                                                                case "4": { TextColor = "danger"; break; }
+                                                                                case "5": { TextColor = "warning"; break; }
+                                                                            }
+                                                                            if (ElRw[40].ToString().Trim() != "")
+                                                                            {
+                                                                                FileAddress = ElRw[40].ToString().Trim();
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                FileAddress = Url.Action("DownloadDnldRF", "Tools", new { id = "RegForm-" + ViewBag.DT_Group[0][4].ToString().Trim() + "-" + RW[0].ToString().Trim() + "-" + ElRw[0].ToString().Trim() + "-" + ElRw[3].ToString().Trim(), area = "HSU_Portal" });
+                                                                            }
+                                                                            <div class="form-inline" style="width:100%">
+                                                                                @if (ElRw[32].ToString().Trim() != "")
+                                                                                {<i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()" style="margin-right:5px"></i>}
+                                                                                <div class="text-@TextColor" style="font-size:@ElRw[35].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS">
+                                                                                    @ElRw[33].ToString().Trim() [ <a href="@FileAddress" target="_blank">Download</a> ]
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="text-bold-300 font-medium-1">
+                                                                                @ElRw[34].ToString().Trim()
+                                                                            </div>
+                                                                            break;
+                                                                        }
+                                                                    case "8"://Player
+                                                                        {
+                                                                            string FileFormatVS = "";
+                                                                            string FileAddress = "";
+                                                                            string AdvFSC = "";
+                                                                            string AdvAPL = "";
+                                                                            if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                            {
+                                                                                <div class="form-inline" style="width:100%">
+                                                                                    <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                    <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                        @ElRw[33].ToString().Trim()
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                            if (ElRw[34].ToString().Trim() != "")
+                                                                            {
+                                                                                <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                    @ElRw[34].ToString().Trim()
+                                                                                </div>
+                                                                            }
+                                                                            switch (ElRw[38].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FileFormatVS = "video/mp4"; break; }
+                                                                                case "2": { FileFormatVS = "video/webm"; break; }
+                                                                                case "3": { FileFormatVS = "audio/mp3"; break; }
+                                                                                case "4": { FileFormatVS = "audio/ogg"; break; }
+                                                                            }
+                                                                            if (ElRw[42].ToString().Trim() != "2")
+                                                                            {
+                                                                                AdvFSC = "allowfullscreen";
+                                                                            }
+                                                                            if (ElRw[44].ToString().Trim() != "2")
+                                                                            {
+                                                                                AdvAPL = "allow=\"autoplay\"";
+                                                                            }
+                                                                            switch (ElRw[40].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FileAddress = Url.Action("VideoPlayerRF", "Tools", new { id = "", area = "HSU_Portal" }) + "?FID=" + "RegForm-" + ViewBag.DT_Group[0][4].ToString().Trim() + "-" + RW[0].ToString().Trim() + "-" + ElRw[0].ToString().Trim() + "-" + ElRw[3].ToString().Trim(); break; }
+                                                                                case "2": { FileAddress = ElRw[45].ToString().Trim(); break; }
+                                                                                case "3": { FileAddress = ElRw[45].ToString().Trim(); break; }
+                                                                            }
+                                                                            if (ElRw[36].ToString().Trim() == "1")
+                                                                            {
+                                                                                if (ElRw[40].ToString().Trim() != "3")
+                                                                                {
+                                                                                    <video class="player" id="PlrV_@ElRw[0].ToString().Trim()" playsinline controls @AdvFSC @AdvAPL style="width:100%">
+                                                                                        <source src="@FileAddress" type="@FileFormatVS" />
+                                                                                    </video>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="player" id="PlrV_@ElRw[0].ToString().Trim()">
+                                                                                        <iframe src="@FileAddress?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                                                                                                @AdvFSC
+                                                                                                allowtransparency="true"
+                                                                                                @AdvAPL style="width:100%">
+                                                                                        </iframe>
+                                                                                    </div>
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <audio class="player" id="PlrS_@ElRw[0].ToString().Trim()" controls @AdvAPL style="width:100%">
+                                                                                    <source src="@FileAddress" type="@FileFormatVS" />
+                                                                                </audio>
+                                                                            }
+                                                                            break;
+                                                                        }
+                                                                    case "9"://Image
+                                                                        {
+                                                                            string imageAlign = "text-align:left";
+                                                                            string ImageClass = "";
+                                                                            if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                            {
+                                                                                <div class="mb-0 form-inline" style="width:100%;padding-bottom:10px">
+                                                                                    <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                    <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                        @ElRw[33].ToString().Trim()
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                            if (ElRw[34].ToString().Trim() != "")
+                                                                            {
+                                                                                <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                    @ElRw[34].ToString().Trim()
+                                                                                </div>
+                                                                            }
+                                                                            switch (ElRw[36].ToString().Trim())
+                                                                            {
+                                                                                case "1": { imageAlign = "text-align:left"; break; }
+                                                                                case "2": { imageAlign = "text-align:center"; break; }
+                                                                                case "3": { imageAlign = "text-align:right"; break; }
+                                                                            }
+                                                                            if (ElRw[38].ToString().Trim() == "3") { imageAlign = ""; }
+                                                                            <div style="width:100%;@imageAlign">
+                                                                                @switch (ElRw[38].ToString().Trim())
+                                                                                {
+                                                                                    case "1":
+                                                                                        {
+                                                                                            for (int i = 1; i < 9; i++)
+                                                                                            {
+                                                                                                string ShowCode = "width:auto;height:auto;";
+                                                                                                var path = Server.MapPath("~/Drive/Hospitality/RegisterForms/" + ElRw[0].ToString());
+                                                                                                var imagepath = path + "/I9_" + i + ".IDV";
+                                                                                                if (System.IO.File.Exists(imagepath) == true)
+                                                                                                {
+                                                                                                    FileStream fs = new FileStream(imagepath, FileMode.Open);
+                                                                                                    byte[] byData = new byte[fs.Length];
+                                                                                                    fs.Read(byData, 0, byData.Length);
+                                                                                                    fs.Close();
+                                                                                                    var base64 = Convert.ToBase64String(byData);
+                                                                                                    string IMGSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                                                                    switch (ElRw[40 + ((i - 1) * 3)].ToString().Trim())
+                                                                                                    {
+                                                                                                        case "1": { ShowCode = "width:auto;height:auto;"; break; }
+                                                                                                        case "2": { ShowCode = "width:auto;height:" + ElRw[41 + ((i - 1) * 3)].ToString().Trim() + "px;"; break; }
+                                                                                                        case "3": { ShowCode = "width:100%;height:100%;"; break; }
+                                                                                                        case "4": { ShowCode = "width:auto;height:" + ElRw[41 + ((i - 1) * 3)].ToString().Trim() + "px;"; ImageClass = "zoomEmas"; break; }
+                                                                                                        case "5": { ShowCode = "width:auto;height:" + ElRw[41 + ((i - 1) * 3)].ToString().Trim() + "px;"; ImageClass = "centerEmas"; break; }
+                                                                                                    }
+                                                                                                    <img src="@IMGSrc" class="@ImageClass" onContextMenu="return false;" style="padding:10px;@ShowCode" />
+                                                                                                }
+                                                                                            }
+                                                                                            break;
+                                                                                        }
+                                                                                    case "2":
+                                                                                        {
+                                                                                            for (int i = 1; i < 9; i++)
+                                                                                            {
+                                                                                                string ShowCode = "width:auto;height:auto;";
+                                                                                                var path = Server.MapPath("~/Drive/Hospitality/RegisterForms/" + ElRw[0].ToString());
+                                                                                                var imagepath = path + "/I9_" + i + ".IDV";
+                                                                                                if (System.IO.File.Exists(imagepath) == true)
+                                                                                                {
+                                                                                                    FileStream fs = new FileStream(imagepath, FileMode.Open);
+                                                                                                    byte[] byData = new byte[fs.Length];
+                                                                                                    fs.Read(byData, 0, byData.Length);
+                                                                                                    fs.Close();
+                                                                                                    var base64 = Convert.ToBase64String(byData);
+                                                                                                    string IMGSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                                                                    switch (ElRw[40 + ((i - 1) * 3)].ToString().Trim())
+                                                                                                    {
+                                                                                                        case "1": { ShowCode = "width:auto;height:auto;"; break; }
+                                                                                                        case "2": { ShowCode = "width:auto;height:" + ElRw[41 + ((i - 1) * 3)].ToString().Trim() + "px;"; break; }
+                                                                                                        case "3": { ShowCode = "width:100%;height:100%;"; break; }
+                                                                                                        case "4": { ShowCode = "width:auto;height:" + ElRw[41 + ((i - 1) * 3)].ToString().Trim() + "px;"; ImageClass = "zoomEmas"; break; }
+                                                                                                        case "5": { ShowCode = "width:auto;height:" + ElRw[41 + ((i - 1) * 3)].ToString().Trim() + "px;"; ImageClass = "centerEmas"; break; }
+                                                                                                    }
+                                                                                                    <img src="@IMGSrc" class="@ImageClass" onContextMenu="return false;" style="padding:10px;@ShowCode" /><br />
+                                                                                                }
+                                                                                            }
+                                                                                            break;
+                                                                                        }
+                                                                                    case "3":
+                                                                                        {
+                                                                                            <div id="CarEMAS_@ElRw[0].ToString().Trim()" class="carousel slide" data-ride="carousel" style="width:100%">
+                                                                                                <ol class="carousel-indicators">
+
+                                                                                                    @{
+                                                                                                        bool FirstImageBtn = false;
+                                                                                                        string FirstImageTagBtn = "";
+                                                                                                        int ImgCounter = 0;
+                                                                                                        string ImgCounterIndex = "0";
+                                                                                                        for (int i = 1; i < 9; i++)
+                                                                                                        {
+                                                                                                            var path = Server.MapPath("~/Drive/Hospitality/RegisterForms/" + ElRw[0].ToString());
+                                                                                                            var imagepath = path + "/I9_" + i + ".IDV";
+                                                                                                            if (System.IO.File.Exists(imagepath) == true)
+                                                                                                            {
+                                                                                                                ImgCounter++;
+                                                                                                                ImgCounterIndex = (ImgCounter - 1).ToString();
+                                                                                                                if (FirstImageBtn == false) { FirstImageBtn = true; FirstImageTagBtn = "active"; } else { FirstImageTagBtn = ""; }
+                                                                                                                <li data-target="#CarEMAS_@ElRw[0].ToString().Trim()" data-slide-to="@ImgCounterIndex" class="@FirstImageTagBtn"></li>
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                </ol>
+                                                                                                <div class="carousel-inner" role="listbox">
+                                                                                                    @{
+                                                                                                        bool FirstImage = false;
+                                                                                                        string FirstImageTag = "";
+                                                                                                        for (int i = 1; i < 9; i++)
+                                                                                                        {
+                                                                                                            string ShowCode = "width:auto;height:auto;";
+                                                                                                            var path = Server.MapPath("~/Drive/Hospitality/RegisterForms/" + ElRw[0].ToString());
+                                                                                                            var imagepath = path + "/I9_" + i + ".IDV";
+                                                                                                            if (System.IO.File.Exists(imagepath) == true)
+                                                                                                            {
+                                                                                                                FileStream fs = new FileStream(imagepath, FileMode.Open);
+                                                                                                                byte[] byData = new byte[fs.Length];
+                                                                                                                fs.Read(byData, 0, byData.Length);
+                                                                                                                fs.Close();
+                                                                                                                var base64 = Convert.ToBase64String(byData);
+                                                                                                                string IMGSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                                                                                switch (ElRw[40 + ((i - 1) * 3)].ToString().Trim())
+                                                                                                                {
+                                                                                                                    case "1": { ShowCode = "width:auto;height:auto;"; break; }
+                                                                                                                    case "2": { ShowCode = "width:auto;height:" + ElRw[41 + ((i - 1) * 3)].ToString().Trim() + "px;"; break; }
+                                                                                                                    case "3": { ShowCode = "width:100%;height:100%;"; break; }
+                                                                                                                    case "4": { ShowCode = "width:auto;height:" + ElRw[41 + ((i - 1) * 3)].ToString().Trim() + "px;"; ImageClass = "zoomEmas"; break; }
+                                                                                                                    case "5": { ShowCode = "width:auto;height:" + ElRw[41 + ((i - 1) * 3)].ToString().Trim() + "px;"; ImageClass = "centerEmas"; break; }
+                                                                                                                }
+                                                                                                                if (FirstImage == false) { FirstImage = true; FirstImageTag = "active"; } else { FirstImageTag = ""; }
+                                                                                                                <div class="carousel-item @FirstImageTag">
+                                                                                                                    <img src="@IMGSrc" class="img-fluid @ImageClass" onContextMenu="return false;" style="@ShowCode" />
+                                                                                                                </div>
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                </div>
+                                                                                                <a class="carousel-control-prev" href="#CarEMAS_@ElRw[0].ToString().Trim()" role="button" data-slide="prev">
+                                                                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                                                    <span class="sr-only">Previous</span>
+                                                                                                </a>
+                                                                                                <a class="carousel-control-next" href="#CarEMAS_@ElRw[0].ToString().Trim()" role="button" data-slide="next">
+                                                                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                                                    <span class="sr-only">Next</span>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                            break;
+                                                                                        }
+                                                                                    case "4":
+                                                                                        {
+                                                                                            for (int i = 1; i < 9; i++)
+                                                                                            {
+                                                                                                var path = Server.MapPath("~/Drive/Hospitality/RegisterForms/" + ElRw[0].ToString());
+                                                                                                var imagepath = path + "/I9_" + i + ".IDV";
+                                                                                                if (System.IO.File.Exists(imagepath) == true)
+                                                                                                {
+                                                                                                    FileStream fs = new FileStream(imagepath, FileMode.Open);
+                                                                                                    byte[] byData = new byte[fs.Length];
+                                                                                                    fs.Read(byData, 0, byData.Length);
+                                                                                                    fs.Close();
+                                                                                                    var base64 = Convert.ToBase64String(byData);
+                                                                                                    string IMGSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                                                                    <div class="avatar mr-1 avatar-xl" style="pointer-events:none">
+                                                                                                        <img src="@IMGSrc" onContextMenu="return false;">
+                                                                                                    </div>
+                                                                                                }
+                                                                                            }
+                                                                                            break;
+                                                                                        }
+                                                                                    case "5":
+                                                                                        {
+                                                                                            for (int i = 1; i < 9; i++)
+                                                                                            {
+                                                                                                var path = Server.MapPath("~/Drive/Hospitality/RegisterForms/" + ElRw[0].ToString());
+                                                                                                var imagepath = path + "/I9_" + i + ".IDV";
+                                                                                                if (System.IO.File.Exists(imagepath) == true)
+                                                                                                {
+                                                                                                    FileStream fs = new FileStream(imagepath, FileMode.Open);
+                                                                                                    byte[] byData = new byte[fs.Length];
+                                                                                                    fs.Read(byData, 0, byData.Length);
+                                                                                                    fs.Close();
+                                                                                                    var base64 = Convert.ToBase64String(byData);
+                                                                                                    string IMGSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                                                                    <img src="@IMGSrc" onContextMenu="return false;" onclick="ShowRealSize(this)" style="border-radius:5px;width:150px;height:auto;cursor:pointer">
+                                                                                                }
+                                                                                            }
+                                                                                            break;
+                                                                                        }
+                                                                                }
+                                                                            </div>
+                                                                            break;
+                                                                        }
+                                                                    case "10"://T&C
+                                                                        {
+                                                                            string FW1 = "normal";
+                                                                            string FS1 = "normal";
+                                                                            string FW2 = "normal";
+                                                                            string FS2 = "normal";
+                                                                            string TextSize = "px";
+                                                                            string FntColor1 = "primary";
+                                                                            string FntColor2 = "primary";
+                                                                            switch (ElRw[38].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW1 = "normal"; FS1 = "normal"; break; }
+                                                                                case "2": { FW1 = "bold"; FS1 = "normal"; break; }
+                                                                                case "3": { FW1 = "normal"; FS1 = "italic"; break; }
+                                                                                case "4": { FW1 = "bold"; FS1 = "italic"; break; }
+                                                                            }
+                                                                            switch (ElRw[46].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW2 = "normal"; FS2 = "normal"; break; }
+                                                                                case "2": { FW2 = "bold"; FS2 = "normal"; break; }
+                                                                                case "3": { FW2 = "normal"; FS2 = "italic"; break; }
+                                                                                case "4": { FW2 = "bold"; FS2 = "italic"; break; }
+                                                                            }
+                                                                            switch (ElRw[40].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FntColor1 = "primary"; break; }
+                                                                                case "2": { FntColor1 = "info"; break; }
+                                                                                case "3": { FntColor1 = "success"; break; }
+                                                                                case "4": { FntColor1 = "danger"; break; }
+                                                                                case "5": { FntColor1 = "warning"; break; }
+                                                                            }
+                                                                            switch (ElRw[48].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FntColor2 = "primary"; break; }
+                                                                                case "2": { FntColor2 = "info"; break; }
+                                                                                case "3": { FntColor2 = "success"; break; }
+                                                                                case "4": { FntColor2 = "danger"; break; }
+                                                                                case "5": { FntColor2 = "warning"; break; }
+                                                                            }
+                                                                            if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                            {
+                                                                                <div class="mb-0 form-inline" style="width:100%;padding-bottom:10px">
+                                                                                    <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                    <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                        @ElRw[33].ToString().Trim()
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                            if (ElRw[34].ToString().Trim() != "")
+                                                                            {
+                                                                                <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                    @ElRw[34].ToString().Trim()
+                                                                                </div>
+                                                                            }
+                                                                            if (ElRw[35].ToString().Trim() != "")
+                                                                            {
+                                                                                <fieldset style="margin-top:10px" class="form-inline">
+                                                                                    <div class="vs-checkbox-con vs-checkbox-@FntColor1">
+                                                                                        <input type="checkbox" value="false" id="ELTC1_@ElRw[0].ToString().Trim()">
+                                                                                        <span class="vs-checkbox">
+                                                                                            <span class="vs-checkbox--check">
+                                                                                                <i class="vs-icon feather icon-check"></i>
+                                                                                            </span>
+                                                                                        </span>
+                                                                                        <span class="text-dark" style="font-size:@ElRw[36].ToString().Trim()@TextSize;font-weight:@FW1;font-style:@FS1">
+                                                                                            @ElRw[35].ToString().Trim()
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <span style="font-size:@ElRw[36].ToString().Trim()@TextSize;font-weight:@FW1;font-style:@FS1;margin-left:10px">
+                                                                                        [ <a class="text-@FntColor1" href="@ElRw[41].ToString().Trim()" target="_blank">@ElRw[42].ToString().Trim()</a> ]
+                                                                                    </span>
+                                                                                </fieldset>
+                                                                            }
+                                                                            if (ElRw[43].ToString().Trim() != "")
+                                                                            {
+                                                                                <fieldset style="margin-top:10px" class="form-inline">
+                                                                                    <div class="vs-checkbox-con vs-checkbox-@FntColor2">
+                                                                                        <input type="checkbox" value="false" id="ELTC2_@ElRw[0].ToString().Trim()">
+                                                                                        <span class="vs-checkbox">
+                                                                                            <span class="vs-checkbox--check">
+                                                                                                <i class="vs-icon feather icon-check"></i>
+                                                                                            </span>
+                                                                                        </span>
+                                                                                        <span class="text-dark" style="font-size:@ElRw[44].ToString().Trim()@TextSize;font-weight:@FW2;font-style:@FS2">
+                                                                                            @ElRw[43].ToString().Trim()
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <span style="font-size:@ElRw[44].ToString().Trim()@TextSize;font-weight:@FW2;font-style:@FS2;margin-left:10px">
+                                                                                        [ <a class="text-@FntColor2" href="@ElRw[49].ToString().Trim()" target="_blank">@ElRw[50].ToString().Trim()</a> ]
+                                                                                    </span>
+                                                                                </fieldset>
+                                                                            }
+                                                                            break;
+                                                                        }
+                                                                    case "11"://Text
+                                                                        {
+                                                                            string TxtAlign = "Left";
+                                                                            string Pxs = "px";
+                                                                            string CheckColor = "";
+                                                                            string FW = "normal";
+                                                                            string FS = "normal";
+                                                                            string TxtAlign2 = "Left";
+                                                                            string CheckColor2 = "";
+                                                                            string FW2 = "normal";
+                                                                            string FS2 = "normal";
+                                                                            string Textcontent = "";
+                                                                            switch (ElRw[38].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                            }
+                                                                            switch (ElRw[40].ToString().Trim())
+                                                                            {
+                                                                                case "1": { CheckColor = "text-primary"; break; }
+                                                                                case "2": { CheckColor = "text-info"; break; }
+                                                                                case "3": { CheckColor = "text-success"; break; }
+                                                                                case "4": { CheckColor = "text-danger"; break; }
+                                                                                case "5": { CheckColor = "text-warning"; break; }
+                                                                                case "6": { CheckColor = ""; break; }
+                                                                            }
+                                                                            switch (ElRw[35].ToString().Trim())
+                                                                            {
+                                                                                case "1": { TxtAlign = "Left"; break; }
+                                                                                case "2": { TxtAlign = "center"; break; }
+                                                                                case "3": { TxtAlign = "right"; break; }
+                                                                            }
+                                                                            switch (ElRw[46].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW2 = "normal"; FS2 = "normal"; break; }
+                                                                                case "2": { FW2 = "bold"; FS2 = "normal"; break; }
+                                                                                case "3": { FW2 = "normal"; FS2 = "italic"; break; }
+                                                                                case "4": { FW2 = "bold"; FS2 = "italic"; break; }
+                                                                            }
+                                                                            switch (ElRw[48].ToString().Trim())
+                                                                            {
+                                                                                case "1": { CheckColor2 = "text-primary"; break; }
+                                                                                case "2": { CheckColor2 = "text-info"; break; }
+                                                                                case "3": { CheckColor2 = "text-success"; break; }
+                                                                                case "4": { CheckColor2 = "text-danger"; break; }
+                                                                                case "5": { CheckColor2 = "text-warning"; break; }
+                                                                                case "6": { CheckColor2 = ""; break; }
+                                                                            }
+                                                                            switch (ElRw[43].ToString().Trim())
+                                                                            {
+                                                                                case "1": { TxtAlign2 = "Left"; Textcontent = ""; break; }
+                                                                                case "2": { TxtAlign2 = "center"; Textcontent = ""; break; }
+                                                                                case "3": { TxtAlign2 = "right"; Textcontent = ""; break; }
+                                                                                case "4": { TxtAlign2 = "justify"; Textcontent = "start"; break; }
+                                                                                case "5": { TxtAlign2 = "justify"; Textcontent = "center"; break; }
+                                                                                case "6": { TxtAlign2 = "justify"; Textcontent = "end"; break; }
+                                                                            }
+                                                                            if (ElRw[32].ToString().Trim() != "")
+                                                                            {
+                                                                                <div class="@CheckColor" style="width:100%;font-size:@ElRw[36].ToString().Trim()@Pxs;font-style:@FS;font-weight:@FW;text-align:@TxtAlign"><i class="fa @ElRw[32].ToString().Trim()" style="margin-right:10px"></i>@ElRw[33].ToString().Trim()</div>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <div class="@CheckColor" style="width:100%;font-size:@ElRw[36].ToString().Trim()@Pxs;font-style:@FS;font-weight:@FW;text-align:@TxtAlign">@ElRw[33].ToString().Trim()</div>
+                                                                            }
+                                                                            if (Textcontent == "")
+                                                                            {
+                                                                                <div class="@CheckColor2" style="width:100%;font-size:@ElRw[44].ToString().Trim()@Pxs;font-style:@FS2;font-weight:@FW2;text-align:@TxtAlign2">@ElRw[41].ToString().Trim()</div>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <div class="@CheckColor2" style="width:100%;font-size:@ElRw[44].ToString().Trim()@Pxs;font-style:@FS2;font-weight:@FW2;text-align:@TxtAlign2;text-align-last:@Textcontent">@ElRw[41].ToString().Trim()</div>
+                                                                            }
+                                                                            break;
+                                                                        }
+                                                                    case "12"://Text List
+                                                                        {
+                                                                            string TxtAlign = "Left";
+                                                                            string Pxs = "px";
+                                                                            string CheckColor = "";
+                                                                            string FW = "normal";
+                                                                            string FS = "normal";
+                                                                            string TxtAlign2 = "Left";
+                                                                            string CheckColor2 = "";
+                                                                            string FW2 = "normal";
+                                                                            string FS2 = "normal";
+                                                                            string Textcontent = "";
+                                                                            string ListStyle = "";
+                                                                            string ListRowIcon = "";
+                                                                            string ListType = "";
+                                                                            int NeedIcon = 0;
+                                                                            int PerRowIcon = 0;
+                                                                            string FW3 = "normal";
+                                                                            string FS3 = "normal";
+                                                                            switch (ElRw[38].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW = "normal"; FS = "normal"; break; }
+                                                                                case "2": { FW = "bold"; FS = "normal"; break; }
+                                                                                case "3": { FW = "normal"; FS = "italic"; break; }
+                                                                                case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                            }
+                                                                            switch (ElRw[40].ToString().Trim())
+                                                                            {
+                                                                                case "1": { CheckColor = "text-primary"; break; }
+                                                                                case "2": { CheckColor = "text-info"; break; }
+                                                                                case "3": { CheckColor = "text-success"; break; }
+                                                                                case "4": { CheckColor = "text-danger"; break; }
+                                                                                case "5": { CheckColor = "text-warning"; break; }
+                                                                                case "6": { CheckColor = ""; break; }
+                                                                            }
+                                                                            switch (ElRw[35].ToString().Trim())
+                                                                            {
+                                                                                case "1": { TxtAlign = "Left"; break; }
+                                                                                case "2": { TxtAlign = "center"; break; }
+                                                                                case "3": { TxtAlign = "right"; break; }
+                                                                            }
+                                                                            switch (ElRw[46].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW2 = "normal"; FS2 = "normal"; break; }
+                                                                                case "2": { FW2 = "bold"; FS2 = "normal"; break; }
+                                                                                case "3": { FW2 = "normal"; FS2 = "italic"; break; }
+                                                                                case "4": { FW2 = "bold"; FS2 = "italic"; break; }
+                                                                            }
+                                                                            switch (ElRw[48].ToString().Trim())
+                                                                            {
+                                                                                case "1": { CheckColor2 = "text-primary"; break; }
+                                                                                case "2": { CheckColor2 = "text-info"; break; }
+                                                                                case "3": { CheckColor2 = "text-success"; break; }
+                                                                                case "4": { CheckColor2 = "text-danger"; break; }
+                                                                                case "5": { CheckColor2 = "text-warning"; break; }
+                                                                                case "6": { CheckColor2 = ""; break; }
+                                                                            }
+                                                                            switch (ElRw[43].ToString().Trim())
+                                                                            {
+                                                                                case "1": { TxtAlign2 = "Left"; Textcontent = ""; break; }
+                                                                                case "2": { TxtAlign2 = "center"; Textcontent = ""; break; }
+                                                                                case "3": { TxtAlign2 = "right"; Textcontent = ""; break; }
+                                                                                case "4": { TxtAlign2 = "justify"; Textcontent = "start"; break; }
+                                                                                case "5": { TxtAlign2 = "justify"; Textcontent = "center"; break; }
+                                                                                case "6": { TxtAlign2 = "justify"; Textcontent = "end"; break; }
+                                                                            }
+                                                                            if (ElRw[32].ToString().Trim() != "")
+                                                                            {
+                                                                                <div class="@CheckColor" style="width:100%;font-size:@ElRw[36].ToString().Trim()@Pxs;font-style:@FS;font-weight:@FW;text-align:@TxtAlign"><i class="fa @ElRw[32].ToString().Trim()" style="margin-right:10px"></i>@ElRw[33].ToString().Trim()</div>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <div class="@CheckColor" style="width:100%;font-size:@ElRw[36].ToString().Trim()@Pxs;font-style:@FS;font-weight:@FW;text-align:@TxtAlign">@ElRw[33].ToString().Trim()</div>
+                                                                            }
+                                                                            if (Textcontent == "")
+                                                                            {
+                                                                                <div class="@CheckColor2" style="width:100%;font-size:@ElRw[44].ToString().Trim()@Pxs;font-style:@FS2;font-weight:@FW2;text-align:@TxtAlign2">@ElRw[41].ToString().Trim()</div>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <div class="@CheckColor2" style="width:100%;font-size:@ElRw[44].ToString().Trim()@Pxs;font-style:@FS2;font-weight:@FW2;text-align:@TxtAlign2;text-align-last:@Textcontent">@ElRw[41].ToString().Trim()</div>
+                                                                            }
+                                                                            switch (ElRw[50].ToString().Trim())
+                                                                            {
+                                                                                case "1": { ListStyle = "list-unstyled"; ListRowIcon = ""; ListType = ""; NeedIcon = 0; PerRowIcon = 0; break; }
+                                                                                case "2": { ListStyle = "list-style list-style-circle"; ListRowIcon = ""; ListType = ""; NeedIcon = 0; PerRowIcon = 0; break; }
+                                                                                case "3": { ListStyle = "list-style list-style-square"; ListRowIcon = ""; ListType = ""; NeedIcon = 0; PerRowIcon = 0; break; }
+                                                                                case "4": { ListStyle = "list-style"; ListRowIcon = ""; ListType = "1"; NeedIcon = 0; PerRowIcon = 0; break; }
+                                                                                case "5": { ListStyle = "list-style"; ListRowIcon = ""; ListType = "a"; NeedIcon = 0; PerRowIcon = 0; break; }
+                                                                                case "6": { ListStyle = "list-style"; ListRowIcon = ""; ListType = "A"; NeedIcon = 0; PerRowIcon = 0; break; }
+                                                                                case "7": { ListStyle = "list-style"; ListRowIcon = ""; ListType = "i"; NeedIcon = 0; PerRowIcon = 0; break; }
+                                                                                case "8": { ListStyle = "list-style"; ListRowIcon = ""; ListType = "I"; NeedIcon = 0; PerRowIcon = 0; break; }
+                                                                                case "9": { ListStyle = "list-style-icons"; ListRowIcon = ElRw[51].ToString().Trim(); ListType = ""; NeedIcon = 1; PerRowIcon = 0; break; }
+                                                                                case "10": { ListStyle = "list-style-icons"; ListRowIcon = ""; ListType = ""; NeedIcon = 1; PerRowIcon = 1; break; }
+                                                                            }
+                                                                            switch (ElRw[54].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW3 = "normal"; FS3 = "normal"; break; }
+                                                                                case "2": { FW3 = "bold"; FS3 = "normal"; break; }
+                                                                                case "3": { FW3 = "normal"; FS3 = "italic"; break; }
+                                                                                case "4": { FW3 = "bold"; FS3 = "italic"; break; }
+                                                                            }
+                                                                            <ol class="@ListStyle" type="@ListType" style="width:100%">
+                                                                                @for (int n = 0; n < 15; n++)
+                                                                                {
+                                                                                    if (ElRw[56 + (n * 4)].ToString().Trim() != "")
+                                                                                    {
+                                                                                        <li style="font-size:@ElRw[52].ToString().Trim()@Pxs;font-weight:@FW3;font-style:@FS3">
+                                                                                            @if (ElRw[57 + (n * 4)].ToString().Trim() == "")
+                                                                                            {
+                                                                                                if (NeedIcon == 0)
+                                                                                                {
+                                                                                                    @ElRw[56 + (n * 4)].ToString().Trim()
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    if (PerRowIcon == 0)
+                                                                                                    {
+                                                                                                        <i class="fa @ListRowIcon"></i> @ElRw[56 + (n * 4)].ToString().Trim()
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <i class="fa @ElRw[55 + (n * 4)].ToString().Trim()"></i> @ElRw[56 + (n * 4)].ToString().Trim()
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                if (ElRw[58 + (n * 4)].ToString().Trim() != "")
+                                                                                                {
+                                                                                                    if (NeedIcon == 0)
+                                                                                                    {
+                                                                                                        @ElRw[56 + (n * 4)].ToString().Trim() <a href="@ElRw[57 + (n * 4)].ToString().Trim()" target="_blank">@ElRw[58 + (n * 4)].ToString().Trim()</a>
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        if (PerRowIcon == 0)
+                                                                                                        {
+                                                                                                            <i class="fa @ListRowIcon"></i> @ElRw[56 + (n * 4)].ToString().Trim() <a href="@ElRw[57 + (n * 4)].ToString().Trim()" target="_blank">@ElRw[58 + (n * 4)].ToString().Trim()</a>
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            <i class="fa @ElRw[55 + (n * 4)].ToString().Trim()"></i> @ElRw[56 + (n * 4)].ToString().Trim() <a href="@ElRw[57 + (n * 4)].ToString().Trim()" target="_blank">@ElRw[58 + (n * 4)].ToString().Trim()</a>
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <a href="@ElRw[57 + (n * 4)].ToString().Trim()" target="_blank">
+                                                                                                        @if (NeedIcon == 0)
+                                                                                                        {
+                                                                                                            @ElRw[56 + (n * 4)].ToString().Trim()
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            if (PerRowIcon == 0)
+                                                                                                            {
+                                                                                                                <i class="fa @ListRowIcon"></i> @ElRw[56 + (n * 4)].ToString().Trim()
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                <i class="fa @ElRw[55 + (n * 4)].ToString().Trim()"></i> @ElRw[56 + (n * 4)].ToString().Trim()
+                                                                                                            }
+                                                                                                        }
+                                                                                                    </a>
+                                                                                                }
+                                                                                            }
+                                                                                        </li>
+                                                                                    }
+                                                                                }
+                                                                            </ol>
+                                                                            break;
+                                                                        }
+                                                                    case "13"://Divider
+                                                                        {
+                                                                            if (ElRw[33].ToString().Trim() == "1")
+                                                                            {
+                                                                                <hr />
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                string Divider_Style = "";
+                                                                                string Divider_Text = "";
+                                                                                string Divider_TextPos = "";
+                                                                                string Divider_Color = "";
+                                                                                string Divider_Icon = "";
+                                                                                switch (ElRw[35].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { Divider_Style = ""; break; }
+                                                                                    case "2": { Divider_Style = "divider-dotted"; break; }
+                                                                                    case "3": { Divider_Style = "divider-dashed"; break; }
+                                                                                }
+                                                                                Divider_Text = ElRw[36].ToString().Trim();
+                                                                                switch (ElRw[38].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { Divider_TextPos = "divider-left"; break; }
+                                                                                    case "2": { Divider_TextPos = "divider-left-center"; break; }
+                                                                                    case "3": { Divider_TextPos = ""; break; }
+                                                                                    case "4": { Divider_TextPos = "divider-right-center"; break; }
+                                                                                    case "5": { Divider_TextPos = "divider-right"; break; }
+                                                                                }
+
+                                                                                switch (ElRw[40].ToString().Trim())
+                                                                                {
+                                                                                    case "1": { Divider_Color = ""; break; }
+                                                                                    case "2": { Divider_Color = "divider-primary"; break; }
+                                                                                    case "3": { Divider_Color = "divider-info"; break; }
+                                                                                    case "4": { Divider_Color = "divider-success"; break; }
+                                                                                    case "5": { Divider_Color = "divider-danger"; break; }
+                                                                                    case "6": { Divider_Color = "divider-warning"; break; }
+                                                                                    case "7": { Divider_Color = "divider-dark"; break; }
+                                                                                    case "8": { Divider_Color = "divider-light"; break; }
+                                                                                }
+                                                                                Divider_Icon = ElRw[41].ToString().Trim();
+                                                                                <div class="divider @Divider_Style @Divider_TextPos @Divider_Color">
+                                                                                    @if (Divider_Icon == "")
+                                                                                    {
+                                                                                        <div class="divider-text">@Divider_Text</div>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <div class="divider-text"><i class="fa @Divider_Icon"></i>@Divider_Text</div>
+                                                                                    }
+                                                                                </div>
+                                                                            }
+                                                                            break;
+                                                                        }
+                                                                    case "14":// Group Input
+                                                                        {
+                                                                            if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
+                                                                            {
+                                                                                <div class="form-inline" style="width:100%">
+                                                                                    <i class="text-bold-300 font-medium-1 fa @ElRw[32].ToString().Trim()"></i>
+                                                                                    <div class="text-bold-300 font-medium-1" style="margin-left:5px">
+                                                                                        @ElRw[33].ToString().Trim()
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                            <div id="GroupInput_@ElRw[0].ToString().Trim()" style="width:100%;margin-top:10px;padding:0px">
+                                                                            </div>
+                                                                            <div class="col-lg-12" style="text-align:right;margin-top:15px">
+                                                                                @if (ElRw[34].ToString().Trim() != "")
+                                                                                {
+                                                                                    <a href="Javascript:void()" class="btn btn-primary" onclick="CreateGroupinput('@ElRw[0].ToString().Trim()')"><i class="fa fa-plus" style="margin-right:10px"></i>@ElRw[34].ToString().Trim()</a>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <a href="Javascript:void()" class="btn btn-primary" onclick="CreateGroupinput('@ElRw[0].ToString().Trim()')"><i class="fa fa-plus" style="margin-right:10px"></i>Add New</a>
+                                                                                }
+                                                                            </div>
+                                                                            <input type="hidden" id="DI_GroupInput_@ElRw[0].ToString().Trim()" value="0" />
+                                                                            break;
+                                                                        }
+                                                                }
+                                                            }
+                                                            @if ((ElRw[26].ToString().Trim() != "") || (ElRw[27].ToString().Trim() != ""))
+                                                            {
+                                                                <div>
+                                                                    @if (ElRw[21].ToString().Trim() != "")
+                                                                    {<i class="text-primary fa @ElRw[21].ToString().Trim()"></i>}
+
+                                                                    @if (ElRw[23].ToString().Trim() != "")
+                                                                    {<span style="font-weight:normal;font-size:12px">@ElRw[23].ToString().Trim()</span>}
+                                                                    @if (ElRw[22].ToString().Trim() != "")
+                                                                    {
+                                                                        <a href="@Url.Action("DownloadAttachFileRF","Tools",new { id="RegForm" + "-" + ElRw[1].ToString().Trim() + "-" + ElRw[2].ToString().Trim() + "-" + ElRw[0].ToString().Trim(),area="HSU_Portal" })" target="_blank">@ElRw[22].ToString().Trim()</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="@Url.Action("DownloadAttachFileRF","Tools",new { id="RegForm" + "-" + ElRw[1].ToString().Trim() + "-" + ElRw[2].ToString().Trim() + "-" + ElRw[0].ToString().Trim(),area="HSU_Portal" })" target="_blank">Download</a>
+                                                                    }
+                                                                    @if (ElRw[24].ToString().Trim() != "")
+                                                                    {<span style="font-weight:normal;font-size:12px">@ElRw[24].ToString().Trim()</span>}
+                                                                    @if (ElRw[25].ToString().Trim() != "")
+                                                                    {<br /> <span style="font-weight:normal;font-size:12px">@ElRw[25].ToString().Trim()</span>}
+                                                                </div>
+                                                            }
+                                                            @if ((ElRw[19].ToString().Trim() != "") || (ElRw[20].ToString().Trim() != ""))
+                                                            {
+                                                                <div>
+                                                                    @if (ElRw[17].ToString().Trim() != "")
+                                                                    {<i class="text-primary fa @ElRw[17].ToString().Trim()"></i>}
+                                                                    @if (ElRw[18].ToString().Trim() != "")
+                                                                    {<span style="font-weight:normal;font-size:12px">@ElRw[18].ToString().Trim()</span>}
+                                                                    [
+                                                                    @if (ElRw[20].ToString().Trim() != "")
+                                                                    {
+                                                                        <a href="@ElRw[19].ToString().Trim()" target="_blank">@ElRw[20].ToString().Trim()</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="@ElRw[19].ToString().Trim()" target="_blank">Download</a>
+                                                                    }
+                                                                    ]
+                                                                </div>
+                                                            }
+                                                            @if ((ElRw[30].ToString().Trim() != "") || (ElRw[31].ToString().Trim() != ""))
+                                                            {
+                                                                <div>
+                                                                    @if (ElRw[29].ToString().Trim() != "")
+                                                                    {<i class="text-primary fa @ElRw[29].ToString().Trim()"></i>}
+                                                                    @if (ElRw[30].ToString().Trim() != "")
+                                                                    {<span class="text-primary" style="font-weight:bold;margin-left:5px;font-size:14px">@ElRw[30].ToString().Trim()</span>}
+                                                                    @if (ElRw[31].ToString().Trim() != "")
+                                                                    {<span style="font-weight:normal;font-size:12px">@ElRw[31].ToString().Trim()</span>}
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    }
+                                                    catch (Exception) { }
+                                                }
+                                            }
+                                            catch (Exception) { }
+                                        }
+                                        catch (Exception) { }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+    else
+    {
+        <section id="Frame_PreviewError">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="content-header-left col-md-9 col-12">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12" style="padding-left:10px">
+                                        <h2 class="content-header-title float-left mb-0 text-italic text-danger">Preview Error</h2>
+                                        <div class="breadcrumb-wrapper col-12">
+                                            <ol class="breadcrumb" id="Breadcrumb_Items" style="pointer-events:auto;opacity:1">
+                                                <li class="breadcrumb-item active">No sections defined for this form</li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body card-dashboard" style="padding-bottom:1px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+</div>
+<div class="modal fade text-center" id="IMGZoomEmas" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary white" style="border-radius:7px 7px 0px 0px">
+                <h5 class="modal-title">Image Viewer</h5>
+            </div>
+            <div class="modal-body">
+                <img id="IMGBaseZoom" style="width:100%;height:auto" />
+            </div>
+            <div class="modal-footer" style="opacity:1;pointer-events:auto">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section JSScript {
+    <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="~/Theme/Base/assets/dropify/dist/js/dropify.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/media/plyr.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/media/plyr.polyfilled.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=@ViewBag.Google_API_Place"></script>
+    <script>
+        var V1 = ""; var V2 = ""; var V3 = ""; var V4 = ""; var V5 = ""; var V6 = ""; var V7 = ""; var autocomplete;
+        $(".select2").select2({ dropdownAutoWidth: true, width: '100%' });
+        function ShowRealSize(BaseIMGC) { var modalImg = document.getElementById("IMGBaseZoom"); modalImg.src = BaseIMGC.src; $('#IMGZoomEmas').modal('show'); }
+        function StartGC(WID, VV1, VV2, VV3, VV4, VV5, VV6, VV7) {
+            try {
+                V1 = ""; V2 = ""; V3 = ""; V4 = ""; V5 = ""; V6 = ""; V7 = "";
+                if (WID == '1') {
+                    document.getElementById(VV1).src = "";
+                    document.getElementById(VV2).value = "0";
+                    document.getElementById('iFrameAC').src = "@Url.Action("GIC", "Acuant", new { id="", area= "HSU_Portal" })";
+                }
+                else {
+                    document.getElementById(VV1).value = "Wait for result";
+                    document.getElementById(VV2).value = "0 %";
+                    document.getElementById(VV3).value = "";
+                    document.getElementById(VV4).value = "";
+                    document.getElementById(VV5).value = "";
+                    document.getElementById(VV6).value = "";
+                    document.getElementById(VV7).value = "";
+                    document.getElementById('iFrameAC').src = "@Url.Action("LNT", "Acuant", new { id="", area= "HSU_Portal" })";
+                }
+                V1 = VV1; V2 = VV2; V3 = VV3; V4 = VV4; V5 = VV5; V6 = VV6; V7 = VV7;
+                document.getElementById('Page_Master').style.display = "none";
+                document.getElementById('Page_iFrame').style.display = "block";
+            } catch (e) {
+                document.getElementById('Page_iFrame').style.display = "none";
+                document.getElementById('iFrameAC').src = "";
+                if (WID == '1') {
+                    document.getElementById(VV1).src = "";
+                    document.getElementById(VV2).value = "0";
+                }
+                else {
+                    document.getElementById(VV1).value = "Wait for result";
+                    document.getElementById(VV2).value = "0 %";
+                    document.getElementById(VV3).value = "";
+                    document.getElementById(VV4).value = "";
+                    document.getElementById(VV5).value = "";
+                    document.getElementById(VV6).value = "";
+                    document.getElementById(VV7).value = "";
+                }
+                V1 = ""; V2 = ""; V3 = ""; V4 = ""; V5 = ""; V6 = ""; V7 = "";
+                document.getElementById('Page_Master').style.display = "block";
+            }
+        }
+        function GIC_CallBack(WID) {
+            try {
+                if (WID == "1") {
+                    document.getElementById('Page_iFrame').style.display = "none";
+                    document.getElementById('iFrameAC').src = "";
+                    document.getElementById(V1).src = "";
+                    document.getElementById(V2).value = "0";
+                    V1 = ""; V2 = ""; V3 = ""; V4 = ""; V5 = ""; V6 = ""; V7 = "";
+                    document.getElementById('Page_Master').style.display = "block";
+                }
+                else {
+                    document.getElementById(V1).src = "";
+                    document.getElementById(V2).value = "0";
+                    var iframe = document.getElementById('iFrameAC');
+                    var elmnt = iframe.contentWindow.document.getElementById('IMG_Result');
+                    document.getElementById(V1).src = elmnt.src;
+                    document.getElementById(V2).value = "1";
+                    V1 = ""; V2 = ""; V3 = ""; V4 = ""; V5 = ""; V6 = ""; V7 = "";
+                    document.getElementById('Page_iFrame').style.display = "none";
+                    document.getElementById('iFrameAC').src = "";
+                    document.getElementById('Page_Master').style.display = "block";
+                }
+            } catch (e) {
+                document.getElementById('Page_iFrame').style.display = "none";
+                document.getElementById('iFrameAC').src = "";
+                document.getElementById(V1).src = "";
+                document.getElementById(V2).value = "0";
+                V1 = ""; V2 = ""; V3 = ""; V4 = ""; V5 = ""; V6 = ""; V7 = "";
+                document.getElementById('Page_Master').style.display = "block";
+            }
+        }
+        function LNT_CallBack(WID, IsError, Score, LivenessAssessment, TransactionId, ErrorCode, Error) {
+            try {
+                if (WID == "1") {
+                    document.getElementById('Page_iFrame').style.display = "none";
+                    document.getElementById('iFrameAC').src = "";
+                    document.getElementById(V1).value = " Wait for result";
+                    document.getElementById(V2).value = "0 %";
+                    document.getElementById(V3).value = "";
+                    document.getElementById(V4).value = "";
+                    document.getElementById(V5).value = "";
+                    document.getElementById(V6).value = "";
+                    document.getElementById(V7).value = "";
+                    V1 = ""; V2 = ""; V3 = ""; V4 = ""; V5 = ""; V6 = ""; V7 = "";
+                    document.getElementById('Page_Master').style.display = "block";
+                }
+                else {
+                    if (IsError == "0") {
+                        document.getElementById(V1).value = "Done";
+                    }
+                    else {
+                        document.getElementById(V1).value = "Failed";
+                    }
+                    document.getElementById(V2).value = Score + " %";
+                    document.getElementById(V3).value = LivenessAssessment;
+                    document.getElementById(V4).value = Error;
+                    document.getElementById(V5).value = IsError;
+                    document.getElementById(V6).value = ErrorCode;
+                    document.getElementById(V7).value = TransactionId;
+                    V1 = ""; V2 = ""; V3 = ""; V4 = ""; V5 = ""; V6 = ""; V7 = "";
+                    document.getElementById('Page_iFrame').style.display = "none";
+                    document.getElementById('iFrameAC').src = "";
+                    document.getElementById('Page_Master').style.display = "block";
+                }
+            } catch (e) {
+                document.getElementById('Page_iFrame').style.display = "none";
+                document.getElementById('iFrameAC').src = "";
+                document.getElementById(V1).value = " Wait for result";
+                document.getElementById(V2).value = "0 %";
+                document.getElementById(V3).value = "";
+                document.getElementById(V4).value = "";
+                document.getElementById(V5).value = "";
+                document.getElementById(V6).value = "";
+                document.getElementById(V7).value = "";
+                V1 = ""; V2 = ""; V3 = ""; V4 = ""; V5 = ""; V6 = ""; V7 = "";
+                document.getElementById('Page_Master').style.display = "block";
+            }
+        }
+        $(document).ready(function () { const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p)); });
+        function initAutocomplete() { Array.from(document.getElementsByClassName('ELMNTTXTGOOGLE')).forEach(function (element) { autocomplete = new google.maps.places.Autocomplete((element), { types: ['geocode'] }); }); }
+        function geolocate() { if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(function (position) { var geolocation = { lat: position.coords.latitude, lng: position.coords.longitude }; var circle = new google.maps.Circle({ center: geolocation, radius: position.coords.accuracy }); autocomplete.setBounds(circle.getBounds()); }); } }
+        $(document).ready(function () { $('.dropify').dropify({ messages: { 'default': 'Drag and drop a file here or click', 'replace': 'Drag and drop or click to replace', 'remove': 'Remove', 'error': 'Ooops, something wrong happended.' } }); google.maps.event.addDomListener(window, "load", initAutocomplete); });
+        function CreateGroupinput(EID) { var Counter_Now = 0; var CntrStr = document.getElementById('DI_GroupInput_' + EID).value; try { Counter_Now = parseInt(CntrStr, 10); } catch (e) { } Counter_Now = Counter_Now + 1; document.getElementById('DI_GroupInput_' + EID).value = Counter_Now; try { var formData = new FormData(); formData.append("EID", EID); formData.append("Cnt", Counter_Now); $.ajax({ url: "@Url.Action("RegisterForms_GroupInput", "Tools")", type: "POST", data: formData, dataType: 'json', contentType: false, processData: false, async: true, error: function () { }, success: function (data) { var ErrorCode = ""; var ErrorResult = ""; $.each(data, function (i, item) { ErrorResult = item.Text; ErrorCode = item.Value; }); if (ErrorCode == "0") { document.getElementById('GroupInput_' + EID).innerHTML += "<hr id=\"GroupInput_" + EID + "_" + Counter_Now + "_Hr\" style=\"margin-top:30px\">" + ErrorResult; } } }); } catch (e) {} }
+        function RemoveGroupinput(GID) { try { document.getElementById(GID).remove(); } catch (e) { } try { document.getElementById(GID + "_Hr").remove(); } catch (e) { } }
+    </script>
+}
