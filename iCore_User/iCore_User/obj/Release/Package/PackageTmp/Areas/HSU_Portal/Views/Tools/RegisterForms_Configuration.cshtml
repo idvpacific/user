@@ -1,0 +1,1858 @@
+﻿@using System.Data;
+@{
+    ViewBag.Title = "Tools - Form Configuration";
+    Layout = "~/Areas/HSU_Portal/Views/Shared/_LayoutPortal.cshtml";
+}
+@section CSSStyle {
+    <link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/tables/datatable/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/extensions/sweetalert2.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/forms/select/select2.min.css" />
+    <link rel="stylesheet" href="~/Theme/Base/assets/dropify/dist/css/dropify.min.css" />
+    <style>
+        table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after {
+            left: 10px
+        }
+
+        .MenuToolbox:after {
+            content: '\2807';
+            font-size: 22px;
+        }
+
+        tr:hover {
+            background-color: rgba(235, 234, 234, 0.76) !important;
+        }
+
+        .lds-ripple {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+            .lds-ripple div {
+                position: absolute;
+                border: 4px solid #006abc;
+                opacity: 1;
+                border-radius: 50%;
+                animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+            }
+
+                .lds-ripple div:nth-child(2) {
+                    animation-delay: -0.5s;
+                }
+
+        @@keyframes lds-ripple {
+            0% {
+                top: 36px;
+                left: 36px;
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+
+            100% {
+                top: 0px;
+                left: 0px;
+                width: 72px;
+                height: 72px;
+                opacity: 0;
+            }
+        }
+    </style>
+}
+<section>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="content-header-left col-md-9 col-12">
+                        <div class="row breadcrumbs-top">
+                            <div class="col-12" style="padding-left:10px">
+                                <h2 class="content-header-title float-left mb-0">URL</h2>
+                                <div class="breadcrumb-wrapper col-12">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active">Parameters and link</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content" style="padding-bottom:20px" id="Sec1">
+                    <div class="card-body card-dashboard">
+                        <div class="col-lg-12 form-inline" id="Sec1_Main" style="pointer-events:none;opacity:0.7">
+                            <div class="col-lg-12">
+                                <h6 class="col-lg-12 text-dark">- You are not allowed to use the ^ and & characters in parameter names</h6>
+                                <h6 class="col-lg-12 text-dark">- It is not possible to define the parameter name by starting with numbers</h6>
+                                <h6 class="col-lg-12 text-dark">- The parameter name must not contain a space character</h6>
+                                <h6 class="col-lg-12 text-primary">- Sample : { Form URL } /Parameter1=Value^Parameter2=Value^Parameter3=Value ...</h6>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Status :
+                                </div>
+                                <select class="select2 form-control" id="S1_V1_R1">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Mandatory :
+                                </div>
+                                <select class="select2 form-control" id="S1_V2_R1">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V3_R1" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-tag"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter default value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V4_R1" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-sticky-note"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Status :
+                                </div>
+                                <select class="select2 form-control" id="S1_V1_R2">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Mandatory :
+                                </div>
+                                <select class="select2 form-control" id="S1_V2_R2">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V3_R2" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-tag"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter default value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V4_R2" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-sticky-note"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Status :
+                                </div>
+                                <select class="select2 form-control" id="S1_V1_R3">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Mandatory :
+                                </div>
+                                <select class="select2 form-control" id="S1_V2_R3">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V3_R3" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-tag"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter default value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V4_R3" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-sticky-note"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Status :
+                                </div>
+                                <select class="select2 form-control" id="S1_V1_R4">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Mandatory :
+                                </div>
+                                <select class="select2 form-control" id="S1_V2_R4">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V3_R4" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-tag"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter default value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V4_R4" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-sticky-note"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Status :
+                                </div>
+                                <select class="select2 form-control" id="S1_V1_R5">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Mandatory :
+                                </div>
+                                <select class="select2 form-control" id="S1_V2_R5">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V3_R5" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-tag"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter default value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V4_R5" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-sticky-note"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Status :
+                                </div>
+                                <select class="select2 form-control" id="S1_V1_R6">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Mandatory :
+                                </div>
+                                <select class="select2 form-control" id="S1_V2_R6">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V3_R6" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-tag"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter default value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V4_R6" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-sticky-note"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Status :
+                                </div>
+                                <select class="select2 form-control" id="S1_V1_R7">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Mandatory :
+                                </div>
+                                <select class="select2 form-control" id="S1_V2_R7">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V3_R7" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-tag"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter default value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V4_R7" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-sticky-note"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Status :
+                                </div>
+                                <select class="select2 form-control" id="S1_V1_R8">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Mandatory :
+                                </div>
+                                <select class="select2 form-control" id="S1_V2_R8">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V3_R8" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-tag"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter default value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V4_R8" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-sticky-note"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Status :
+                                </div>
+                                <select class="select2 form-control" id="S1_V1_R9">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Mandatory :
+                                </div>
+                                <select class="select2 form-control" id="S1_V2_R9">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V3_R9" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-tag"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter default value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V4_R9" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-sticky-note"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Status :
+                                </div>
+                                <select class="select2 form-control" id="S1_V1_R10">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Mandatory :
+                                </div>
+                                <select class="select2 form-control" id="S1_V2_R10">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V3_R10" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-tag"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Parameter default value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V4_R10" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-sticky-note"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    URL redirect ( wrong parameter ) :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S1_V5" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="text-align:right;margin-top:30px">
+                            <div style="display:block" id="Sec1_Wait">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:10px"></span>
+                                    Please wait ...
+                                </button>
+                            </div>
+                            <div class="btn-group" role="group" style="display:none" id="Sec1_Btn">
+                                <button type="button" class="btn btn-primary" onclick="SaveSection('1')"><i class="fa fa-plus" style="margin-right:10px"></i>Save section setting</button>
+                                <button type="button" class="btn btn-danger" onclick="ClearSection('1','1')"><i class="fa fa-trash" style="margin-right:10px"></i>Clear</button>
+                                <button type="button" class="btn btn-success" onclick="ReloadSection('1','1')"><i class="fa fa-refresh" style="margin-right:10px"></i>Reload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="content-header-left col-md-9 col-12">
+                        <div class="row breadcrumbs-top">
+                            <div class="col-12" style="padding-left:10px">
+                                <h2 class="content-header-title float-left mb-0">Source</h2>
+                                <div class="breadcrumb-wrapper col-12">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active">Files and script</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content" style="padding-bottom:20px" id="Sec2">
+                    <div class="card-body card-dashboard">
+                        <div class="col-lg-12 form-inline" id="Sec2_Main" style="pointer-events:none;opacity:0.7">
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Head file attache #1 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V1" />
+                            </div>
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Head file attache #2 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V2" />
+                            </div>
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Head file attache #3 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V3" />
+                            </div>
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Head file attache #4 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V4" />
+                            </div>
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Head file attache #5 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V5" />
+                            </div>
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Head file attache #6 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V6" />
+                            </div>
+                            <div class="table-responsive col-lg-12" style="margin-top:20px">
+                                <table class="table table-bordered mb-0">
+                                    <thead style="background-color:rgba(235, 234, 234, 0.76)">
+                                        <tr>
+                                            <th style="width:120px;text-align:center">File Number</th>
+                                            <th>File Name</th>
+                                            <th style="width:120px;text-align:center">File Type</th>
+                                            <th style="width:120px;text-align:center">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TBL_H">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Head script :
+                                </div>
+                                <fieldset class="form-group position-relative" style="width:100%">
+                                    <textarea type="text" class="form-control" id="S2_V7" placeholder="" style="width:100%;min-height:300px"></textarea>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Footer file attache #1 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V8" />
+                            </div>
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Footer file attache #2 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V9" />
+                            </div>
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Footer file attache #3 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V10" />
+                            </div>
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Footer file attache #4 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V11" />
+                            </div>
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Footer file attache #5 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V12" />
+                            </div>
+                            <div class="col-lg-2" style="margin-top:10px">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Footer file attache #6 :
+                                </div>
+                                <input type="file" class="dropify" data-max-file-size="100M" data-height="150" id="S2_V13" />
+                            </div>
+                            <div class="table-responsive col-lg-12" style="margin-top:20px">
+                                <table class="table table-bordered mb-0">
+                                    <thead style="background-color:rgba(235, 234, 234, 0.76)">
+                                        <tr>
+                                            <th style="width:120px;text-align:center">File Number</th>
+                                            <th>File Name</th>
+                                            <th style="width:120px;text-align:center">File Type</th>
+                                            <th style="width:120px;text-align:center">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TBL_F">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Footer script :
+                                </div>
+                                <fieldset class="form-group position-relative" style="width:100%">
+                                    <textarea type="text" class="form-control" id="S2_V14" placeholder="" style="width:100%;min-height:300px"></textarea>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="text-align:right;margin-top:30px">
+                            <div style="display:block" id="Sec2_Wait">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:10px"></span>
+                                    Please wait ...
+                                </button>
+                            </div>
+                            <div class="btn-group" role="group" style="display:none" id="Sec2_Btn">
+                                <button type="button" class="btn btn-primary" onclick="SaveSection('2')"><i class="fa fa-plus" style="margin-right:10px"></i>Save section setting</button>
+                                <button type="button" class="btn btn-danger" onclick="ClearSection('2','1')"><i class="fa fa-trash" style="margin-right:10px"></i>Clear</button>
+                                <button type="button" class="btn btn-success" onclick="ReloadSection('2','1')"><i class="fa fa-refresh" style="margin-right:10px"></i>Reload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="content-header-left col-md-9 col-12">
+                        <div class="row breadcrumbs-top">
+                            <div class="col-12" style="padding-left:10px">
+                                <h2 class="content-header-title float-left mb-0">Submit</h2>
+                                <div class="breadcrumb-wrapper col-12">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active">Callback and redirect url</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content" style="padding-bottom:20px" id="Sec3">
+                    <div class="card-body card-dashboard">
+                        <div class="col-lg-12 form-inline" id="Sec3_Main" style="pointer-events:none;opacity:0.7">
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Callback URL after form submit #1 :
+                                </div>
+                                <select class="select2 form-control" id="S3_V1">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Callback URL :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V2" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header username key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V9" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header username value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V10" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header password key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V11" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header password value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V12" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <hr style="width:100%;margin-top:30px" />
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Callback URL after form submit #2 :
+                                </div>
+                                <select class="select2 form-control" id="S3_V13">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Callback URL :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V14" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header username key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V15" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header username value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V16" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header password key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V17" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header password value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V18" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <hr style="width:100%;margin-top:30px" />
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Callback URL after finished form processing #1 :
+                                </div>
+                                <select class="select2 form-control" id="S3_V3">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Callback URL :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V4" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header username key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V19" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header username value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V20" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header password key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V21" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header password value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V22" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <hr style="width:100%;margin-top:30px" />
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Callback URL after finished form processing #2 :
+                                </div>
+                                <select class="select2 form-control" id="S3_V23">
+                                    <option value="0">Disable</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Callback URL :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V24" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header username key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V25" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header username value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V26" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header password key :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V27" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Header password value :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V28" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <hr style="width:100%;margin-top:30px" />
+                            <div class="col-lg-12" style="margin-top:20px">
+                                <h6 class="col-lg-12 text-dark">- You can use input parameters - Sample : {ParameterName}</h6>
+                                <h6 class="col-lg-12 text-dark">- Use the {TrackingCode} tag to send the tracking code</h6>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Redirect after form sibmited :
+                                </div>
+                                <select class="select2 form-control" id="S3_V5">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Auto redirect :
+                                </div>
+                                <select class="select2 form-control" id="S3_V6">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    redirect button caption :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V7" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-tag"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Redirect URL :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S3_V8" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="text-align:right;margin-top:30px">
+                            <div style="display:block" id="Sec3_Wait">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:10px"></span>
+                                    Please wait ...
+                                </button>
+                            </div>
+                            <div class="btn-group" role="group" style="display:none" id="Sec3_Btn">
+                                <button type="button" class="btn btn-primary" onclick="SaveSection('3')"><i class="fa fa-plus" style="margin-right:10px"></i>Save section setting</button>
+                                <button type="button" class="btn btn-danger" onclick="ClearSection('3','1')"><i class="fa fa-trash" style="margin-right:10px"></i>Clear</button>
+                                <button type="button" class="btn btn-success" onclick="ReloadSection('3','1')"><i class="fa fa-refresh" style="margin-right:10px"></i>Reload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="content-header-left col-md-9 col-12">
+                        <div class="row breadcrumbs-top">
+                            <div class="col-12" style="padding-left:10px">
+                                <h2 class="content-header-title float-left mb-0">Links</h2>
+                                <div class="breadcrumb-wrapper col-12">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active">External link for custome conditions</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content" style="padding-bottom:20px" id="Sec4">
+                    <div class="card-body card-dashboard">
+                        <div class="col-lg-12 form-inline" id="Sec4_Main" style="pointer-events:none;opacity:0.7">
+                            <div class="col-lg-12">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    External link #1 :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S4_V1" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    External link #2 :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S4_V2" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    External link #3 :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S4_V3" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    External link #4 :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S4_V4" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    External link #5 :
+                                </div>
+                                <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                    <input type="text" class="form-control" id="S4_V5" placeholder="" style="width:100%" maxlength="200">
+                                    <div class="form-control-position">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="text-align:right;margin-top:30px">
+                            <div style="display:block" id="Sec4_Wait">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:10px"></span>
+                                    Please wait ...
+                                </button>
+                            </div>
+                            <div class="btn-group" role="group" style="display:none" id="Sec4_Btn">
+                                <button type="button" class="btn btn-primary" onclick="SaveSection('4')"><i class="fa fa-plus" style="margin-right:10px"></i>Save section setting</button>
+                                <button type="button" class="btn btn-danger" onclick="ClearSection('4','1')"><i class="fa fa-trash" style="margin-right:10px"></i>Clear</button>
+                                <button type="button" class="btn btn-success" onclick="ReloadSection('4','1')"><i class="fa fa-refresh" style="margin-right:10px"></i>Reload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section JSScript {
+    <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="~/Theme/Base/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="~/Theme/Base/assets/dropify/dist/js/dropify.min.js"></script>
+    <script>
+        $(".select2").select2({ dropdownAutoWidth: true, width: '100%' });
+        function htmlEntities(str) {
+            try {
+                return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            } catch (e) {
+                return "";
+            }
+        }
+        function htmlUnentities(str) {
+            try {
+                return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+            } catch (e) {
+                return "";
+            }
+        }
+        function ClearSection(SecID,Noti) {
+            try {
+                switch (SecID) {
+                    case '1': {
+                        $('#S1_V1_R1').val("0");
+                        $('#S1_V1_R1').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#S1_V2_R1').val("0");
+                        $('#S1_V2_R1').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S1_V3_R1').value = "";
+                        document.getElementById('S1_V4_R1').value = "";
+                        $('#S1_V1_R2').val("0");
+                        $('#S1_V1_R2').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#S1_V2_R2').val("0");
+                        $('#S1_V2_R2').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S1_V3_R2').value = "";
+                        document.getElementById('S1_V4_R2').value = "";
+                        $('#S1_V1_R3').val("0");
+                        $('#S1_V1_R3').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#S1_V2_R3').val("0");
+                        $('#S1_V2_R3').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S1_V3_R3').value = "";
+                        document.getElementById('S1_V4_R3').value = "";
+                        $('#S1_V1_R4').val("0");
+                        $('#S1_V1_R4').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#S1_V2_R4').val("0");
+                        $('#S1_V2_R4').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S1_V3_R4').value = "";
+                        document.getElementById('S1_V4_R4').value = "";
+                        $('#S1_V1_R5').val("0");
+                        $('#S1_V1_R5').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#S1_V2_R5').val("0");
+                        $('#S1_V2_R5').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S1_V3_R5').value = "";
+                        document.getElementById('S1_V4_R5').value = "";
+                        $('#S1_V1_R6').val("0");
+                        $('#S1_V1_R6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#S1_V2_R6').val("0");
+                        $('#S1_V2_R6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S1_V3_R6').value = "";
+                        document.getElementById('S1_V4_R6').value = "";
+                        $('#S1_V1_R7').val("0");
+                        $('#S1_V1_R7').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#S1_V2_R7').val("0");
+                        $('#S1_V2_R7').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S1_V3_R7').value = "";
+                        document.getElementById('S1_V4_R7').value = "";
+                        $('#S1_V1_R8').val("0");
+                        $('#S1_V1_R8').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#S1_V2_R8').val("0");
+                        $('#S1_V2_R8').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S1_V3_R8').value = "";
+                        document.getElementById('S1_V4_R8').value = "";
+                        $('#S1_V1_R9').val("0");
+                        $('#S1_V1_R9').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#S1_V2_R9').val("0");
+                        $('#S1_V2_R9').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S1_V3_R9').value = "";
+                        document.getElementById('S1_V4_R9').value = "";
+                        $('#S1_V1_R10').val("0");
+                        $('#S1_V1_R10').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#S1_V2_R10').val("0");
+                        $('#S1_V2_R10').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S1_V3_R10').value = "";
+                        document.getElementById('S1_V4_R10').value = "";
+                        document.getElementById('S1_V5').value = "";
+                        if (Noti == '1') {
+                            $('html, body').animate({ scrollTop: $("#Sec1").offset().top }, 1000);
+                            document.getElementById('S1_V3_R1').focus();
+                        }
+                        break;
+                    }
+                    case '2': {
+                        var UP1 = $('#S2_V1').dropify();
+                        UP1 = UP1.data('dropify');
+                        UP1.resetPreview();
+                        UP1.clearElement();
+                        var UP2 = $('#S2_V2').dropify();
+                        UP2 = UP2.data('dropify');
+                        UP2.resetPreview();
+                        UP2.clearElement();
+                        var UP3 = $('#S2_V3').dropify();
+                        UP3 = UP3.data('dropify');
+                        UP3.resetPreview();
+                        UP3.clearElement();
+                        var UP4 = $('#S2_V4').dropify();
+                        UP4 = UP4.data('dropify');
+                        UP4.resetPreview();
+                        UP4.clearElement();
+                        var UP5 = $('#S2_V5').dropify();
+                        UP5 = UP5.data('dropify');
+                        UP5.resetPreview();
+                        UP5.clearElement();
+                        var UP6 = $('#S2_V6').dropify();
+                        UP6 = UP6.data('dropify');
+                        UP6.resetPreview();
+                        UP6.clearElement();
+                        document.getElementById('S2_V7').value = "";
+                        var UP7 = $('#S2_V8').dropify();
+                        UP7 = UP7.data('dropify');
+                        UP7.resetPreview();
+                        UP7.clearElement();
+                        var UP8 = $('#S2_V9').dropify();
+                        UP8 = UP8.data('dropify');
+                        UP8.resetPreview();
+                        UP8.clearElement();
+                        var UP9 = $('#S2_V10').dropify();
+                        UP9 = UP9.data('dropify');
+                        UP9.resetPreview();
+                        UP9.clearElement();
+                        var UP10 = $('#S2_V11').dropify();
+                        UP10 = UP10.data('dropify');
+                        UP10.resetPreview();
+                        UP10.clearElement();
+                        var UP11 = $('#S2_V12').dropify();
+                        UP11 = UP11.data('dropify');
+                        UP11.resetPreview();
+                        UP11.clearElement();
+                        var UP12 = $('#S2_V13').dropify();
+                        UP12 = UP12.data('dropify');
+                        UP12.resetPreview();
+                        UP12.clearElement();
+                        document.getElementById('S2_V14').value = "";
+                        document.getElementById('TBL_H').innerHTML = "";
+                        document.getElementById('TBL_F').innerHTML = "";
+                        if (Noti == '1') {
+                            $('html, body').animate({ scrollTop: $("#Sec2").offset().top }, 1000);
+                            document.getElementById('S2_V7').focus();
+                        }
+                        break;
+                    }
+                    case '3': {
+                        $('#S3_V1').val("0");
+                        $('#S3_V1').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S3_V2').value = "";
+                        document.getElementById('S3_V9').value = "";
+                        document.getElementById('S3_V10').value = "";
+                        document.getElementById('S3_V11').value = "";
+                        document.getElementById('S3_V12').value = "";
+                        $('#S3_V13').val("0");
+                        $('#S3_V13').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S3_V14').value = "";
+                        document.getElementById('S3_V15').value = "";
+                        document.getElementById('S3_V16').value = "";
+                        document.getElementById('S3_V17').value = "";
+                        document.getElementById('S3_V18').value = "";
+                        $('#S3_V3').val("0");
+                        $('#S3_V3').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S3_V4').value = "";
+                        document.getElementById('S3_V19').value = "";
+                        document.getElementById('S3_V20').value = "";
+                        document.getElementById('S3_V21').value = "";
+                        document.getElementById('S3_V22').value = "";
+                        $('#S3_V23').val("0");
+                        $('#S3_V23').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S3_V24').value = "";
+                        document.getElementById('S3_V25').value = "";
+                        document.getElementById('S3_V26').value = "";
+                        document.getElementById('S3_V27').value = "";
+                        document.getElementById('S3_V28').value = "";
+                        $('#S3_V5').val("0");
+                        $('#S3_V5').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#S3_V6').val("0");
+                        $('#S3_V6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById('S3_V7').value = "";
+                        document.getElementById('S3_V8').value = "";
+                        if (Noti == '1') {
+                            $('html, body').animate({ scrollTop: $("#Sec3").offset().top }, 1000);
+                            document.getElementById('S3_V2').focus();
+                        }
+                        break;
+                    }
+                    case '4': {
+                        document.getElementById('S4_V1').value = "";
+                        document.getElementById('S4_V2').value = "";
+                        document.getElementById('S4_V3').value = "";
+                        document.getElementById('S4_V4').value = "";
+                        document.getElementById('S4_V5').value = "";
+                        if (Noti == '1') {
+                            $('html, body').animate({ scrollTop: $("#Sec4").offset().top }, 1000);
+                            document.getElementById('S4_V1').focus();
+                        }
+                        break;
+                    }
+                }
+            } catch (e) {
+                toastr.error('An error occurred while processing your request', 'An error has occurred! [C01]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+            }
+        }
+        function SaveSection(SecID) {
+            try {
+                document.getElementById('Sec' + SecID + '_Btn').style.display = 'none';
+                document.getElementById('Sec' + SecID + '_Wait').style.display = 'block';
+                document.getElementById('Sec' + SecID + '_Main').style.opacity = '0.7';
+                document.getElementById('Sec' + SecID + '_Main').style.pointerEvents = 'none';
+                var formData = new FormData();
+                formData.append("U", @ViewBag.UserID);
+                formData.append("F", @ViewBag.FormID);
+                formData.append("S", SecID);
+                switch (SecID) {
+                    case '1': {
+                        formData.append("V1", $("#S1_V1_R1 :selected").val().trim());
+                        formData.append("V2", $("#S1_V2_R1 :selected").val().trim());
+                        formData.append("V3", document.getElementById('S1_V3_R1').value.trim());
+                        formData.append("V4", document.getElementById('S1_V4_R1').value.trim());
+                        formData.append("V5", $("#S1_V1_R2 :selected").val().trim());
+                        formData.append("V6", $("#S1_V2_R2 :selected").val().trim());
+                        formData.append("V7", document.getElementById('S1_V3_R2').value.trim());
+                        formData.append("V8", document.getElementById('S1_V4_R2').value.trim());
+                        formData.append("V9", $("#S1_V1_R3 :selected").val().trim());
+                        formData.append("V10", $("#S1_V2_R3 :selected").val().trim());
+                        formData.append("V11", document.getElementById('S1_V3_R3').value.trim());
+                        formData.append("V12", document.getElementById('S1_V4_R3').value.trim());
+                        formData.append("V13", $("#S1_V1_R4 :selected").val().trim());
+                        formData.append("V14", $("#S1_V2_R4 :selected").val().trim());
+                        formData.append("V15", document.getElementById('S1_V3_R4').value.trim());
+                        formData.append("V16", document.getElementById('S1_V4_R4').value.trim());
+                        formData.append("V17", $("#S1_V1_R5 :selected").val().trim());
+                        formData.append("V18", $("#S1_V2_R5 :selected").val().trim());
+                        formData.append("V19", document.getElementById('S1_V3_R5').value.trim());
+                        formData.append("V20", document.getElementById('S1_V4_R5').value.trim());
+                        formData.append("V21", $("#S1_V1_R6 :selected").val().trim());
+                        formData.append("V22", $("#S1_V2_R6 :selected").val().trim());
+                        formData.append("V23", document.getElementById('S1_V3_R6').value.trim());
+                        formData.append("V24", document.getElementById('S1_V4_R6').value.trim());
+                        formData.append("V25", $("#S1_V1_R7 :selected").val().trim());
+                        formData.append("V26", $("#S1_V2_R7 :selected").val().trim());
+                        formData.append("V27", document.getElementById('S1_V3_R7').value.trim());
+                        formData.append("V28", document.getElementById('S1_V4_R7').value.trim());
+                        formData.append("V29", $("#S1_V1_R8 :selected").val().trim());
+                        formData.append("V30", $("#S1_V2_R8 :selected").val().trim());
+                        formData.append("V31", document.getElementById('S1_V3_R8').value.trim());
+                        formData.append("V32", document.getElementById('S1_V4_R8').value.trim());
+                        formData.append("V33", $("#S1_V1_R9 :selected").val().trim());
+                        formData.append("V34", $("#S1_V2_R9 :selected").val().trim());
+                        formData.append("V35", document.getElementById('S1_V3_R9').value.trim());
+                        formData.append("V36", document.getElementById('S1_V4_R9').value.trim());
+                        formData.append("V37", $("#S1_V1_R10 :selected").val().trim());
+                        formData.append("V38", $("#S1_V2_R10 :selected").val().trim());
+                        formData.append("V39", document.getElementById('S1_V3_R10').value.trim());
+                        formData.append("V40", document.getElementById('S1_V4_R10').value.trim());
+                        formData.append("V41", document.getElementById('S1_V5').value.trim());
+                        formData.append("V42", null);
+                        formData.append("V43", null);
+                        formData.append("V44", null);
+                        formData.append("V45", null);
+                        formData.append("V46", null);
+                        formData.append("V47", null);
+                        formData.append("V48", null);
+                        formData.append("V49", null);
+                        formData.append("V50", null);
+                        formData.append("V51", null);
+                        formData.append("V52", null);
+                        formData.append("V53", null);
+                        break;
+                    }
+                    case '2': {
+                        formData.append("V1", htmlEntities(document.getElementById('S2_V7').value.trim()));
+                        formData.append("V2", htmlEntities(document.getElementById('S2_V14').value.trim()));
+                        formData.append("V3", null);
+                        formData.append("V4", null);
+                        formData.append("V5", null);
+                        formData.append("V6", null);
+                        formData.append("V7", null);
+                        formData.append("V8", null);
+                        formData.append("V9", null);
+                        formData.append("V10", null);
+                        formData.append("V11", null);
+                        formData.append("V12", null);
+                        formData.append("V13", null);
+                        formData.append("V14", null);
+                        formData.append("V15", null);
+                        formData.append("V16", null);
+                        formData.append("V17", null);
+                        formData.append("V18", null);
+                        formData.append("V19", null);
+                        formData.append("V20", null);
+                        formData.append("V21", null);
+                        formData.append("V22", null);
+                        formData.append("V23", null);
+                        formData.append("V24", null);
+                        formData.append("V25", null);
+                        formData.append("V26", null);
+                        formData.append("V27", null);
+                        formData.append("V28", null);
+                        formData.append("V29", null);
+                        formData.append("V30", null);
+                        formData.append("V31", null);
+                        formData.append("V32", null);
+                        formData.append("V33", null);
+                        formData.append("V34", null);
+                        formData.append("V35", null);
+                        formData.append("V36", null);
+                        formData.append("V37", null);
+                        formData.append("V38", null);
+                        formData.append("V39", null);
+                        formData.append("V40", null);
+                        formData.append("V41", null);
+                        var FAF1 = $("#S2_V1").get(0); var FAFL1 = FAF1.files; formData.append("V42", FAFL1[0]);
+                        var FAF2 = $("#S2_V2").get(0); var FAFL2 = FAF2.files; formData.append("V43", FAFL2[0]);
+                        var FAF3 = $("#S2_V3").get(0); var FAFL3 = FAF3.files; formData.append("V44", FAFL3[0]);
+                        var FAF4 = $("#S2_V4").get(0); var FAFL4 = FAF4.files; formData.append("V45", FAFL4[0]);
+                        var FAF5 = $("#S2_V5").get(0); var FAFL5 = FAF5.files; formData.append("V46", FAFL5[0]);
+                        var FAF6 = $("#S2_V6").get(0); var FAFL6 = FAF6.files; formData.append("V47", FAFL6[0]);
+                        var FAF7 = $("#S2_V8").get(0); var FAFL7 = FAF7.files; formData.append("V48", FAFL7[0]);
+                        var FAF8 = $("#S2_V9").get(0); var FAFL8 = FAF8.files; formData.append("V49", FAFL8[0]);
+                        var FAF9 = $("#S2_V10").get(0); var FAFL9 = FAF9.files; formData.append("V50", FAFL9[0]);
+                        var FAF10 = $("#S2_V11").get(0); var FAFL10 = FAF10.files; formData.append("V51", FAFL10[0]);
+                        var FAF11 = $("#S2_V12").get(0); var FAFL11 = FAF11.files; formData.append("V52", FAFL11[0]);
+                        var FAF12 = $("#S2_V13").get(0); var FAFL12 = FAF12.files; formData.append("V53", FAFL12[0]);
+                        break;
+                    }
+                    case '3': {
+                        formData.append("V1", $("#S3_V1 :selected").val().trim());
+                        formData.append("V2", document.getElementById('S3_V2').value.trim());
+                        formData.append("V3", $("#S3_V3 :selected").val().trim());
+                        formData.append("V4", document.getElementById('S3_V4').value.trim());
+                        formData.append("V5", $("#S3_V5 :selected").val().trim());
+                        formData.append("V6", $("#S3_V6 :selected").val().trim());
+                        formData.append("V7", document.getElementById('S3_V7').value.trim());
+                        formData.append("V8", document.getElementById('S3_V8').value.trim());
+                        formData.append("V9", document.getElementById('S3_V9').value.trim());
+                        formData.append("V10", document.getElementById('S3_V10').value.trim());
+                        formData.append("V11", document.getElementById('S3_V11').value.trim());
+                        formData.append("V12", document.getElementById('S3_V12').value.trim());
+                        formData.append("V13", $("#S3_V13 :selected").val().trim());
+                        formData.append("V14", document.getElementById('S3_V14').value.trim());
+                        formData.append("V15", document.getElementById('S3_V15').value.trim());
+                        formData.append("V16", document.getElementById('S3_V16').value.trim());
+                        formData.append("V17", document.getElementById('S3_V17').value.trim());
+                        formData.append("V18", document.getElementById('S3_V18').value.trim());
+                        formData.append("V19", document.getElementById('S3_V19').value.trim());
+                        formData.append("V20", document.getElementById('S3_V20').value.trim());
+                        formData.append("V21", document.getElementById('S3_V21').value.trim());
+                        formData.append("V22", document.getElementById('S3_V22').value.trim());
+                        formData.append("V23", $("#S3_V23 :selected").val().trim());
+                        formData.append("V24", document.getElementById('S3_V24').value.trim());
+                        formData.append("V25", document.getElementById('S3_V25').value.trim());
+                        formData.append("V26", document.getElementById('S3_V26').value.trim());
+                        formData.append("V27", document.getElementById('S3_V27').value.trim());
+                        formData.append("V28", document.getElementById('S3_V28').value.trim());
+                        formData.append("V29", null);
+                        formData.append("V30", null);
+                        formData.append("V31", null);
+                        formData.append("V32", null);
+                        formData.append("V33", null);
+                        formData.append("V34", null);
+                        formData.append("V35", null);
+                        formData.append("V36", null);
+                        formData.append("V37", null);
+                        formData.append("V38", null);
+                        formData.append("V39", null);
+                        formData.append("V40", null);
+                        formData.append("V41", null);
+                        formData.append("V42", null);
+                        formData.append("V43", null);
+                        formData.append("V44", null);
+                        formData.append("V45", null);
+                        formData.append("V46", null);
+                        formData.append("V47", null);
+                        formData.append("V48", null);
+                        formData.append("V49", null);
+                        formData.append("V50", null);
+                        formData.append("V51", null);
+                        formData.append("V52", null);
+                        formData.append("V53", null);
+                        break;
+                    }
+                    case '4': {
+                        formData.append("V1", document.getElementById('S4_V1').value.trim());
+                        formData.append("V2", document.getElementById('S4_V2').value.trim());
+                        formData.append("V3", document.getElementById('S4_V3').value.trim());
+                        formData.append("V4", document.getElementById('S4_V4').value.trim());
+                        formData.append("V5", document.getElementById('S4_V5').value.trim());
+                        formData.append("V6", null);
+                        formData.append("V7", null);
+                        formData.append("V8", null);
+                        formData.append("V9", null);
+                        formData.append("V10", null);
+                        formData.append("V11", null);
+                        formData.append("V12", null);
+                        formData.append("V13", null);
+                        formData.append("V14", null);
+                        formData.append("V15", null);
+                        formData.append("V16", null);
+                        formData.append("V17", null);
+                        formData.append("V18", null);
+                        formData.append("V19", null);
+                        formData.append("V20", null);
+                        formData.append("V21", null);
+                        formData.append("V22", null);
+                        formData.append("V23", null);
+                        formData.append("V24", null);
+                        formData.append("V25", null);
+                        formData.append("V26", null);
+                        formData.append("V27", null);
+                        formData.append("V28", null);
+                        formData.append("V29", null);
+                        formData.append("V30", null);
+                        formData.append("V31", null);
+                        formData.append("V32", null);
+                        formData.append("V33", null);
+                        formData.append("V34", null);
+                        formData.append("V35", null);
+                        formData.append("V36", null);
+                        formData.append("V37", null);
+                        formData.append("V38", null);
+                        formData.append("V39", null);
+                        formData.append("V40", null);
+                        formData.append("V41", null);
+                        formData.append("V42", null);
+                        formData.append("V43", null);
+                        formData.append("V44", null);
+                        formData.append("V45", null);
+                        formData.append("V46", null);
+                        formData.append("V47", null);
+                        formData.append("V48", null);
+                        formData.append("V49", null);
+                        formData.append("V50", null);
+                        formData.append("V51", null);
+                        formData.append("V52", null);
+                        formData.append("V53", null);
+                        break;
+                    }
+                }
+                $.ajax({
+                    url: "@Url.Action("RegisterForms_ConfigurationSave", "Tools")", type: "POST", data: formData, dataType: 'json', contentType: false, processData: false, async: true,
+                    error: function () {
+                        document.getElementById('Sec' + SecID + '_Btn').style.display = 'block';
+                        document.getElementById('Sec' + SecID + '_Wait').style.display = 'none';
+                        document.getElementById('Sec' + SecID + '_Main').style.opacity = '1';
+                        document.getElementById('Sec' + SecID + '_Main').style.pointerEvents = 'auto';
+                        toastr.error('An error occurred while processing your request', 'An error has occurred! [C02]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                    },
+                    success: function (data)
+                    {
+                        var ErrorCode = ""; var ErrorResult = "";
+                        $.each(data, function (i, item) { ErrorResult = item.Text; ErrorCode = item.Value; });
+                        if (ErrorCode == "0")
+                        {
+                            document.getElementById('Sec' + SecID + '_Btn').style.display = 'block';
+                            document.getElementById('Sec' + SecID + '_Wait').style.display = 'none';
+                            document.getElementById('Sec' + SecID + '_Main').style.opacity = '1';
+                            document.getElementById('Sec' + SecID + '_Main').style.pointerEvents = 'auto';
+                            var SecNameS = "";
+                            if (SecID == '1') { SecNameS = "URL"; }
+                            if (SecID == '2') { SecNameS = "source"; }
+                            if (SecID == '3') { SecNameS = "submit"; }
+                            if (SecID == '4') { SecNameS = "links"; }
+                            toastr.success("The " + SecNameS + " section settings were successfully edited", 'Congratulations', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                            if (SecID == '2') { ReloadSection(SecID, '0'); }
+                        }
+                        else
+                        {
+                            if (ErrorCode != "2") {
+                                document.getElementById('Sec' + SecID + '_Btn').style.display = 'block';
+                                document.getElementById('Sec' + SecID + '_Wait').style.display = 'none';
+                                document.getElementById('Sec' + SecID + '_Main').style.opacity = '1';
+                                document.getElementById('Sec' + SecID + '_Main').style.pointerEvents = 'auto';
+                                toastr.error(ErrorResult.trim(), 'An error has occurred! [C03]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                            }
+                            else { window.location.href = "@Url.Action("Logout", "Dashboard", new { id = "", area = "" })"; }
+                        }
+                    }
+                });
+            } catch (e) {
+                document.getElementById('Sec' + SecID + '_Btn').style.display = 'block';
+                document.getElementById('Sec' + SecID + '_Wait').style.display = 'none';
+                document.getElementById('Sec' + SecID + '_Main').style.opacity = '1';
+                document.getElementById('Sec' + SecID + '_Main').style.pointerEvents = 'auto';
+                toastr.error('An error occurred while processing your request', 'An error has occurred! [C01]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+            }
+        }
+        function ReloadSection(SecID,Noti) {
+            try {
+                document.getElementById('Sec' + SecID + '_Btn').style.display = 'none';
+                document.getElementById('Sec' + SecID + '_Wait').style.display = 'block';
+                document.getElementById('Sec' + SecID + '_Main').style.opacity = '0.7';
+                document.getElementById('Sec' + SecID + '_Main').style.pointerEvents = 'none';
+                var formData = new FormData();
+                formData.append("U", @ViewBag.UserID);
+                formData.append("F", @ViewBag.FormID);
+                formData.append("S", SecID);
+                $.ajax({
+                    url: "@Url.Action("RegisterForms_ConfigurationReload", "Tools")", type: "POST", data: formData, dataType: 'json', contentType: false, processData: false, async: true,
+                    error: function () {
+                        document.getElementById('Sec' + SecID + '_Btn').style.display = 'block';
+                        document.getElementById('Sec' + SecID + '_Wait').style.display = 'none';
+                        document.getElementById('Sec' + SecID + '_Main').style.opacity = '1';
+                        document.getElementById('Sec' + SecID + '_Main').style.pointerEvents = 'auto';
+                        if (Noti == '1') {
+                            toastr.error('An error occurred while processing your request', 'An error has occurred! [C02]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                        }
+                    },
+                    success: function (data)
+                    {
+                        var ErrorCode = ""; var ErrorResult = "";
+                        $.each(data, function (i, item) { ErrorResult = item.Text; ErrorCode = item.Value; });
+                        if (ErrorCode == "0")
+                        {
+                            ClearSection(SecID, '0');
+                            try {
+                                var fields = ErrorResult.split('#$#');
+                                switch (SecID) {
+                                    case '1': {
+                                        $('#S1_V1_R1').val(fields[0].trim());
+                                        $('#S1_V1_R1').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        $('#S1_V2_R1').val(fields[1].trim());
+                                        $('#S1_V2_R1').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S1_V3_R1').value = fields[2].trim();
+                                        document.getElementById('S1_V4_R1').value = fields[3].trim();
+                                        $('#S1_V1_R2').val(fields[4].trim());
+                                        $('#S1_V1_R2').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        $('#S1_V2_R2').val(fields[5].trim());
+                                        $('#S1_V2_R2').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S1_V3_R2').value = fields[6].trim();
+                                        document.getElementById('S1_V4_R2').value = fields[7].trim();
+                                        $('#S1_V1_R3').val(fields[8].trim());
+                                        $('#S1_V1_R3').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        $('#S1_V2_R3').val(fields[9].trim());
+                                        $('#S1_V2_R3').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S1_V3_R3').value = fields[10].trim();
+                                        document.getElementById('S1_V4_R3').value = fields[11].trim();
+                                        $('#S1_V1_R4').val(fields[12].trim());
+                                        $('#S1_V1_R4').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        $('#S1_V2_R4').val(fields[13].trim());
+                                        $('#S1_V2_R4').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S1_V3_R4').value = fields[14].trim();
+                                        document.getElementById('S1_V4_R4').value = fields[15].trim();
+                                        $('#S1_V1_R5').val(fields[16].trim());
+                                        $('#S1_V1_R5').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        $('#S1_V2_R5').val(fields[17].trim());
+                                        $('#S1_V2_R5').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S1_V3_R5').value = fields[18].trim();
+                                        document.getElementById('S1_V4_R5').value = fields[19].trim();
+                                        $('#S1_V1_R6').val(fields[20].trim());
+                                        $('#S1_V1_R6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        $('#S1_V2_R6').val(fields[21].trim());
+                                        $('#S1_V2_R6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S1_V3_R6').value = fields[22].trim();
+                                        document.getElementById('S1_V4_R6').value = fields[23].trim();
+                                        $('#S1_V1_R7').val(fields[24].trim());
+                                        $('#S1_V1_R7').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        $('#S1_V2_R7').val(fields[25].trim());
+                                        $('#S1_V2_R7').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S1_V3_R7').value = fields[26].trim();
+                                        document.getElementById('S1_V4_R7').value = fields[27].trim();
+                                        $('#S1_V1_R8').val(fields[28].trim());
+                                        $('#S1_V1_R8').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        $('#S1_V2_R8').val(fields[29].trim());
+                                        $('#S1_V2_R8').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S1_V3_R8').value = fields[30].trim();
+                                        document.getElementById('S1_V4_R8').value = fields[31].trim();
+                                        $('#S1_V1_R9').val(fields[32].trim());
+                                        $('#S1_V1_R9').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        $('#S1_V2_R9').val(fields[33].trim());
+                                        $('#S1_V2_R9').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S1_V3_R9').value = fields[34].trim();
+                                        document.getElementById('S1_V4_R9').value = fields[35].trim();
+                                        $('#S1_V1_R10').val(fields[36].trim());
+                                        $('#S1_V1_R10').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        $('#S1_V2_R10').val(fields[37].trim());
+                                        $('#S1_V2_R10').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S1_V3_R10').value = fields[38].trim();
+                                        document.getElementById('S1_V4_R10').value = fields[39].trim();
+                                        document.getElementById('S1_V5').value = fields[40].trim();
+                                        break;
+                                    }
+                                    case '2': {
+                                        document.getElementById('S2_V7').value = htmlUnentities(fields[0].trim());
+                                        document.getElementById('S2_V14').value = htmlUnentities(fields[1].trim());
+                                        document.getElementById('TBL_H').innerHTML = fields[2].trim();
+                                        document.getElementById('TBL_F').innerHTML = fields[3].trim();
+                                        break;
+                                    }
+                                    case '3': {
+                                        $('#S3_V1').val(fields[0].trim());
+                                        $('#S3_V1').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S3_V2').value = fields[1].trim();
+                                        document.getElementById('S3_V9').value = fields[8].trim();
+                                        document.getElementById('S3_V10').value = fields[9].trim();
+                                        document.getElementById('S3_V11').value = fields[10].trim();
+                                        document.getElementById('S3_V12').value = fields[11].trim();
+                                        $('#S3_V13').val(fields[12].trim());
+                                        $('#S3_V13').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S3_V14').value = fields[13].trim();
+                                        document.getElementById('S3_V15').value = fields[14].trim();
+                                        document.getElementById('S3_V16').value = fields[15].trim();
+                                        document.getElementById('S3_V17').value = fields[16].trim();
+                                        document.getElementById('S3_V18').value = fields[17].trim();
+                                        $('#S3_V3').val(fields[2].trim());
+                                        $('#S3_V3').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S3_V4').value = fields[3].trim();
+                                        document.getElementById('S3_V19').value = fields[18].trim();
+                                        document.getElementById('S3_V20').value = fields[19].trim();
+                                        document.getElementById('S3_V21').value = fields[20].trim();
+                                        document.getElementById('S3_V22').value = fields[21].trim();
+                                        $('#S3_V23').val(fields[22].trim());
+                                        $('#S3_V23').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S3_V24').value = fields[23].trim();
+                                        document.getElementById('S3_V25').value = fields[24].trim();
+                                        document.getElementById('S3_V26').value = fields[25].trim();
+                                        document.getElementById('S3_V27').value = fields[26].trim();
+                                        document.getElementById('S3_V28').value = fields[27].trim();
+                                        $('#S3_V5').val(fields[4].trim());
+                                        $('#S3_V5').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        $('#S3_V6').val(fields[5].trim());
+                                        $('#S3_V6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        document.getElementById('S3_V7').value = fields[6].trim();
+                                        document.getElementById('S3_V8').value = fields[7].trim();
+                                        break;
+                                    }
+                                    case '4': {
+                                        document.getElementById('S4_V1').value = fields[0].trim();
+                                        document.getElementById('S4_V2').value = fields[1].trim();
+                                        document.getElementById('S4_V3').value = fields[2].trim();
+                                        document.getElementById('S4_V4').value = fields[3].trim();
+                                        document.getElementById('S4_V5').value = fields[4].trim();
+                                        break;
+                                    }
+                                }
+                            } catch (e) { }
+                            document.getElementById('Sec' + SecID + '_Btn').style.display = 'block';
+                            document.getElementById('Sec' + SecID + '_Wait').style.display = 'none';
+                            document.getElementById('Sec' + SecID + '_Main').style.opacity = '1';
+                            document.getElementById('Sec' + SecID + '_Main').style.pointerEvents = 'auto';
+                            if (Noti == '1') {
+                                var SecNameS = "";
+                                if (SecID == '1') { SecNameS = "URL"; }
+                                if (SecID == '2') { SecNameS = "source"; }
+                                if (SecID == '3') { SecNameS = "submit"; }
+                                if (SecID == '4') { SecNameS = "links"; }
+                                toastr.success("The " + SecNameS + " section settings were successfully reloaded", 'Congratulations', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                            }
+                        }
+                        else
+                        {
+                            if (ErrorCode != "2") {
+                                document.getElementById('Sec' + SecID + '_Btn').style.display = 'block';
+                                document.getElementById('Sec' + SecID + '_Wait').style.display = 'none';
+                                document.getElementById('Sec' + SecID + '_Main').style.opacity = '1';
+                                document.getElementById('Sec' + SecID + '_Main').style.pointerEvents = 'auto';
+                                if (Noti == '1') {
+                                    toastr.error(ErrorResult.trim(), 'An error has occurred! [C03]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                                }
+                            }
+                            else { window.location.href = "@Url.Action("Logout", "Dashboard", new { id = "", area = "" })"; }
+                        }
+                    }
+                });
+            } catch (e) {
+                document.getElementById('Sec' + SecID + '_Btn').style.display = 'block';
+                document.getElementById('Sec' + SecID + '_Wait').style.display = 'none';
+                document.getElementById('Sec' + SecID + '_Main').style.opacity = '1';
+                document.getElementById('Sec' + SecID + '_Main').style.pointerEvents = 'auto';
+                if (Noti == '1') {
+                    toastr.error('An error occurred while processing your request', 'An error has occurred! [C01]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                }
+            }
+        }
+        function RemoveFilesHF(FID, GID) {
+            try {
+                document.getElementById('Sec2_Btn').style.display = 'none';
+                document.getElementById('Sec2_Wait').style.display = 'block';
+                document.getElementById('Sec2_Main').style.opacity = '0.7';
+                document.getElementById('Sec2_Main').style.pointerEvents = 'none';
+                var formData = new FormData();
+                formData.append("U", @ViewBag.UserID);
+                formData.append("F", @ViewBag.FormID);
+                formData.append("HF", GID);
+                formData.append("IND", FID);
+                $.ajax({
+                    url: "@Url.Action("RegisterForms_ConfigurationRemove", "Tools")", type: "POST", data: formData, dataType: 'json', contentType: false, processData: false, async: true,
+                    error: function () {
+                        document.getElementById('Sec2_Btn').style.display = 'block';
+                        document.getElementById('Sec2_Wait').style.display = 'none';
+                        document.getElementById('Sec2_Main').style.opacity = '1';
+                        document.getElementById('Sec2_Main').style.pointerEvents = 'auto';
+                        toastr.error('An error occurred while processing your request', 'An error has occurred! [C02]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                    },
+                    success: function (data)
+                    {
+                        var ErrorCode = ""; var ErrorResult = "";
+                        $.each(data, function (i, item) { ErrorResult = item.Text; ErrorCode = item.Value; });
+                        if (ErrorCode == "0")
+                        {
+                            ReloadSection('2', '0');
+                            toastr.success("Selected file successfully removed", 'Congratulations', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                        }
+                        else
+                        {
+                            if (ErrorCode != "2") {
+                                document.getElementById('Sec2_Btn').style.display = 'block';
+                                document.getElementById('Sec2_Wait').style.display = 'none';
+                                document.getElementById('Sec2_Main').style.opacity = '1';
+                                document.getElementById('Sec2_Main').style.pointerEvents = 'auto';
+                                toastr.error(ErrorResult.trim(), 'An error has occurred! [C03]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+                            }
+                            else { window.location.href = "@Url.Action("Logout", "Dashboard", new { id = "", area = "" })"; }
+                        }
+                    }
+                });
+            } catch (e) {
+                document.getElementById('Sec2_Btn').style.display = 'block';
+                document.getElementById('Sec2_Wait').style.display = 'none';
+                document.getElementById('Sec2_Main').style.opacity = '1';
+                document.getElementById('Sec2_Main').style.pointerEvents = 'auto';
+                toastr.error('An error occurred while processing your request', 'An error has occurred! [C01]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
+            }
+        }
+        $(document).ready(function () {
+            $('.dropify').dropify({ messages: { 'default': 'Drag and drop a file here or click', 'replace': 'Drag and drop or click to replace', 'remove': 'Remove', 'error': 'Ooops, something wrong happended.' } });
+            ClearSection('1', '0'); ClearSection('2', '0'); ClearSection('3', '0'); ClearSection('4', '0');
+            ReloadSection('1', '0'); ReloadSection('2', '0'); ReloadSection('3', '0'); ReloadSection('4', '0');
+        });
+    </script>
+
+}

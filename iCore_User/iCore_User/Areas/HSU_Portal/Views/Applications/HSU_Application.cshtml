@@ -138,6 +138,174 @@
                         <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Last update : <span class="text-primary">@ViewBag.DT_App[13].ToString().Trim().Substring(0, 10)</span></h5>
                         <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Last update time : <span class="text-primary">@ViewBag.DT_App[14].ToString().Trim()</span></h5>
                         @{
+                            try
+                            {
+                                if (ViewBag.DT_DataInfo != null)
+                                {
+                                    <div class="divider divider-left col-lg-12">
+                                        <div class="divider-text">URL parameters : </div>
+                                    </div>
+                                    if (ViewBag.DT_DataInfo[1].ToString().Trim() != "")
+                                    {
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> @ViewBag.DT_DataInfo[1].ToString().Trim() : <span class="text-primary">@ViewBag.DT_DataInfo[2].ToString().Trim()</span></h5>
+                                    }
+                                    if (ViewBag.DT_DataInfo[3].ToString().Trim() != "")
+                                    {
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> @ViewBag.DT_DataInfo[3].ToString().Trim() : <span class="text-primary">@ViewBag.DT_DataInfo[4].ToString().Trim()</span></h5>
+                                    }
+                                    if (ViewBag.DT_DataInfo[5].ToString().Trim() != "")
+                                    {
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> @ViewBag.DT_DataInfo[5].ToString().Trim() : <span class="text-primary">@ViewBag.DT_DataInfo[6].ToString().Trim()</span></h5>
+                                    }
+                                    if (ViewBag.DT_DataInfo[7].ToString().Trim() != "")
+                                    {
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> @ViewBag.DT_DataInfo[7].ToString().Trim() : <span class="text-primary">@ViewBag.DT_DataInfo[8].ToString().Trim()</span></h5>
+                                    }
+                                    if (ViewBag.DT_DataInfo[9].ToString().Trim() != "")
+                                    {
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> @ViewBag.DT_DataInfo[9].ToString().Trim() : <span class="text-primary">@ViewBag.DT_DataInfo[10].ToString().Trim()</span></h5>
+                                    }
+                                    if (ViewBag.DT_DataInfo[11].ToString().Trim() != "")
+                                    {
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> @ViewBag.DT_DataInfo[11].ToString().Trim() : <span class="text-primary">@ViewBag.DT_DataInfo[12].ToString().Trim()</span></h5>
+                                    }
+                                    if (ViewBag.DT_DataInfo[13].ToString().Trim() != "")
+                                    {
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> @ViewBag.DT_DataInfo[13].ToString().Trim() : <span class="text-primary">@ViewBag.DT_DataInfo[14].ToString().Trim()</span></h5>
+                                    }
+                                    if (ViewBag.DT_DataInfo[15].ToString().Trim() != "")
+                                    {
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> @ViewBag.DT_DataInfo[15].ToString().Trim() : <span class="text-primary">@ViewBag.DT_DataInfo[16].ToString().Trim()</span></h5>
+                                    }
+                                    if (ViewBag.DT_DataInfo[17].ToString().Trim() != "")
+                                    {
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> @ViewBag.DT_DataInfo[17].ToString().Trim() : <span class="text-primary">@ViewBag.DT_DataInfo[18].ToString().Trim()</span></h5>
+                                    }
+                                    if (ViewBag.DT_DataInfo[19].ToString().Trim() != "")
+                                    {
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> @ViewBag.DT_DataInfo[19].ToString().Trim() : <span class="text-primary">@ViewBag.DT_DataInfo[20].ToString().Trim()</span></h5>
+                                    }
+                                    <div class="divider divider-left col-lg-12">
+                                        <div class="divider-text">Submit callback info : </div>
+                                    </div>
+                                    if (ViewBag.DT_DataInfo[21].ToString().Trim().ToLower() == "true")
+                                    {
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback request : <span class="text-primary">Yes</span></h5>
+                                        if (ViewBag.DT_DataInfo[22].ToString().Trim().ToLower() == "true")
+                                        {
+                                            <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback send : <span class="text-primary">Yes</span></h5>
+                                        }
+                                        else
+                                        {
+                                            <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback send : <span class="text-primary">No</span></h5>
+                                        }
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback count : <span class="text-primary">@ViewBag.DT_DataInfo[24].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback URL : <span class="text-primary">@ViewBag.DT_DataInfo[23].ToString().Trim()</span></h5>
+
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback first date : <span class="text-primary">@ViewBag.DT_DataInfo[25].ToString().Trim().Substring(0, 10)</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback first time : <span class="text-primary">@ViewBag.DT_DataInfo[26].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback last date : <span class="text-primary">@ViewBag.DT_DataInfo[27].ToString().Trim().Substring(0, 10)</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback last time : <span class="text-primary">@ViewBag.DT_DataInfo[28].ToString().Trim()</span></h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback request : <span class="text-primary">No</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback send : <span class="text-primary">No</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback count : <span class="text-primary">0</span></h5>
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback URL : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback first date : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback first time : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback last date : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback last time : <span class="text-primary">Unknown</span></h5>
+                                    }
+                                    <div class="divider divider-left col-lg-12">
+                                        <div class="divider-text">Processing finished callback info : </div>
+                                    </div>
+                                    if (ViewBag.DT_DataInfo[29].ToString().Trim().ToLower() == "true")
+                                    {
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback request : <span class="text-primary">Yes</span></h5>
+                                        if (ViewBag.DT_DataInfo[30].ToString().Trim().ToLower() == "true")
+                                        {
+                                            <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback send : <span class="text-primary">Yes</span></h5>
+                                        }
+                                        else
+                                        {
+                                            <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback send : <span class="text-primary">No</span></h5>
+                                        }
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback count : <span class="text-primary">@ViewBag.DT_DataInfo[32].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback URL : <span class="text-primary">@ViewBag.DT_DataInfo[31].ToString().Trim()</span></h5>
+
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback first date : <span class="text-primary">@ViewBag.DT_DataInfo[33].ToString().Trim().Substring(0, 10)</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback first time : <span class="text-primary">@ViewBag.DT_DataInfo[34].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback last date : <span class="text-primary">@ViewBag.DT_DataInfo[35].ToString().Trim().Substring(0, 10)</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback last time : <span class="text-primary">@ViewBag.DT_DataInfo[36].ToString().Trim()</span></h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback request : <span class="text-primary">No</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback send : <span class="text-primary">No</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback count : <span class="text-primary">0</span></h5>
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback URL : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback first date : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback first time : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback last date : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Callback last time : <span class="text-primary">Unknown</span></h5>
+                                    }
+                                    <div class="divider divider-left col-lg-12">
+                                        <div class="divider-text">Data retrieve info : </div>
+                                    </div>
+                                    if (ViewBag.DT_DataInfo[37].ToString().Trim().ToLower() == "true")
+                                    {
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve request : <span class="text-primary">Yes</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve count : <span class="text-primary">@ViewBag.DT_DataInfo[38].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first date : <span class="text-primary">@ViewBag.DT_DataInfo[39].ToString().Trim().Substring(0, 10)</span></h5>
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first time : <span class="text-primary">@ViewBag.DT_DataInfo[40].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first IP : <span class="text-primary">@ViewBag.DT_DataInfo[41].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last date : <span class="text-primary">@ViewBag.DT_DataInfo[42].ToString().Trim().Substring(0, 10)</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last time : <span class="text-primary">@ViewBag.DT_DataInfo[43].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last IP : <span class="text-primary">@ViewBag.DT_DataInfo[44].ToString().Trim()</span></h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve request : <span class="text-primary">No</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve count : <span class="text-primary">0</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first date : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first time : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first IP : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last date : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last time : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last IP : <span class="text-primary">Unknown</span></h5>
+                                    }
+                                    <div class="divider divider-left col-lg-12">
+                                        <div class="divider-text">File retrieve : </div>
+                                    </div>
+                                    if (ViewBag.DT_DataInfo[45].ToString().Trim().ToLower() == "true")
+                                    {
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve request : <span class="text-primary">Yes</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve count : <span class="text-primary">@ViewBag.DT_DataInfo[46].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first date : <span class="text-primary">@ViewBag.DT_DataInfo[47].ToString().Trim().Substring(0, 10)</span></h5>
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first time : <span class="text-primary">@ViewBag.DT_DataInfo[48].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first IP : <span class="text-primary">@ViewBag.DT_DataInfo[49].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last date : <span class="text-primary">@ViewBag.DT_DataInfo[50].ToString().Trim().Substring(0, 10)</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last time : <span class="text-primary">@ViewBag.DT_DataInfo[51].ToString().Trim()</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last IP : <span class="text-primary">@ViewBag.DT_DataInfo[52].ToString().Trim()</span></h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve request : <span class="text-primary">No</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve count : <span class="text-primary">0</span></h5>
+                                        <h5 class="col-lg-2 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first date : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-6 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first time : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve first IP : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last date : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last time : <span class="text-primary">Unknown</span></h5>
+                                        <h5 class="col-lg-3 text-dark"><i class="fa fa-arrow-circle-o-right text-secondary"></i> Retrieve last IP : <span class="text-primary">Unknown</span></h5>
+                                    }
+                                }
+                            }
+                            catch (Exception) { }
+                        }
+                        @{
                             string BackgroundColor = "bg-warning";
                             switch (ViewBag.DT_App[9].ToString().Trim())
                             {

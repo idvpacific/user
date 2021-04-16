@@ -96,7 +96,9 @@
                                     Template :
                                 </div>
                                 <select class="select2 form-control" id="TXT_Form_Template">
-                                    <option value="1" selected>Default</option>
+                                    <option value="1">Vuexy Version 1</option>
+                                    <option value="2" selected>Vuexy Version 2</option>
+                                    <option value="3">Ocean</option>
                                 </select>
                             </div>
                             <div class="col-lg-12">
@@ -178,8 +180,11 @@
                                                             <a class="dropdown-item" href="javascript:void(0)" onclick="Form_ChangeStatus('@RW[0].ToString().Trim()','@RW[2].ToString().Trim()')"><i class="fa fa-refresh text-primary" style="width:24px;font-size: 14px"></i>Change status</a>
                                                             <a class="dropdown-item" href="javascript:void(0)" onclick="Form_Edit('@RW[0].ToString().Trim()','@RW[2].ToString().Trim()')"><i class="fa fa-pencil-square-o text-primary" style="width:24px;font-size: 14px"></i>Edit form</a>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="javascript:void(0)" onclick="Form_CopyLink('1', '@RW[0].ToString().Trim()')"><i class="fa fa-copy text-primary" style="width:24px;font-size: 14px"></i> Copy Customer URL link </a>
-                                                            <a class="dropdown-item" href="javascript:void(0)" onclick="Form_CopyLink('2', '@RW[0].ToString().Trim()')"><i class="fa fa-copy text-primary" style="width:24px;font-size: 14px"></i> Copy Customer iFrame URL </a>
+                                                            <a class="dropdown-item" href="javascript:void(0)" onclick="Form_ConfigurationST('@RW[1].ToString().Trim()')"><i class="fa fa-cogs text-primary" style="width:24px;font-size: 14px"></i>Form configuration</a>
+                                                            <div class="dropdown-menu" style="font-size:12px">
+                                                                <a class="dropdown-item" href="javascript:void(0)" onclick="Form_CopyLink('1', '@RW[0].ToString().Trim()')"><i class="fa fa-copy text-primary" style="width:24px;font-size: 14px"></i> Copy Customer URL link </a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" onclick="Form_CopyLink('2', '@RW[0].ToString().Trim()')"><i class="fa fa-copy text-primary" style="width:24px;font-size: 14px"></i> Copy Customer iFrame URL </a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -230,7 +235,9 @@
                             Template :
                         </div>
                         <select class="select2 form-control" id="M_TXT_Form_Template">
-                            <option value="1" selected>Default</option>
+                            <option value="1" selected>Vuexy Version 1</option>
+                            <option value="2" selected>Vuexy Version 2</option>
+                            <option value="3" selected>Ocean</option>
                         </select>
                     </div>
                     <div class="col-lg-12">
@@ -654,6 +661,75 @@
                                         <option value="3">Italic</option>
                                         <option value="4">Bold and Italic</option>
                                     </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Min date\time :
+                                    </div>
+                                    <select class="select2 form-control" id="Div_1_MinDate">
+                                        <option value="1">No</option>
+                                        <option value="2">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Diff with current day\time :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_1_MinDate_Diff" placeholder="" style="width:100%;text-align:center" maxlength="200" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-sort-numeric-asc"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Min date\time position :
+                                    </div>
+                                    <select class="select2 form-control" id="Div_1_MinDate_Position">
+                                        <option value="1">Before current day\time</option>
+                                        <option value="2">After current day\time</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Max date\time :
+                                    </div>
+                                    <select class="select2 form-control" id="Div_1_MaxDate">
+                                        <option value="1">No</option>
+                                        <option value="2">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Diff with the current day\time :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_1_MaxDate_Diff" placeholder="" style="width:100%;text-align:center" maxlength="200" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-sort-numeric-asc"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Max date\time position :
+                                    </div>
+                                    <select class="select2 form-control" id="Div_1_MaxDate_Position">
+                                        <option value="1">Before current day\time</option>
+                                        <option value="2">After current day\time</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Input default value [ Predefined words : {DateNow} - {DateMin} - {DateMax} - {TimeNow} - {TimeMin} - {TimeMax} ] :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_1_Value" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
                                 </div>
                             </div>
                             <div style="width:100%;display:none" id="Div_EPS_2" class="form-inline">
@@ -1935,6 +2011,369 @@
                                         <option value="2">Yes</option>
                                     </select>
                                 </div>
+                                <div class="col-lg-7">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Description Title :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_DecriptionTitle" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Font size :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_Description_Fontsize" placeholder="" style="width:100%;text-align:center" maxlength="200" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-font"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Font style :
+                                    </div>
+                                    <select class="select2 form-control" id="Div_5_Description_FontStyle">
+                                        <option value="1">Normal</option>
+                                        <option value="2">Bold</option>
+                                        <option value="3">Italic</option>
+                                        <option value="4">Bold and Italic</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #1 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R1T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #2 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R2T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #3 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R3T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #4 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R4T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #5 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R5T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #6 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R6T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #7 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R7T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #8 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R8T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #9 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R9T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #10 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R10T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #11 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R11T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #12 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R12T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #13 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R13T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #14 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R14T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #15 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R15T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #16 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R16T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #17 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R17T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #18 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R18T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #19 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R19T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #20 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R20T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #21 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R21T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #22 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R22T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #23 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R23T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #24 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R24T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #25 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R25T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #26 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R26T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #27 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R27T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #28 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R28T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #29 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R29T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Row Description #30 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_5_R30T" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
                             </div>
                             <div style="width:100%;display:none" id="Div_EPS_6" class="form-inline">
                                 <div class="col-lg-2">
@@ -2067,6 +2506,42 @@
                                         <option value="1">Normal select file</option>
                                         <option value="2">Guided image capture</option>
                                         <option value="3">Passive liveness test</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Show on desktop browser :
+                                    </div>
+                                    <select class="select2 form-control" id="Div_6_Show_Desktop">
+                                        <option value="2">Yes</option>
+                                        <option value="1">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Show on mobile browser :
+                                    </div>
+                                    <select class="select2 form-control" id="Div_6_Show_Mobile">
+                                        <option value="2">Yes</option>
+                                        <option value="1">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Desktop browser upload :
+                                    </div>
+                                    <select class="select2 form-control" id="Div_6_Upload_Desktop">
+                                        <option value="2">Yes</option>
+                                        <option value="1">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Desktop QR code upload link :
+                                    </div>
+                                    <select class="select2 form-control" id="Div_6_Upload_Mobile">
+                                        <option value="2">Yes</option>
+                                        <option value="1">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -4654,6 +5129,75 @@
                                 <option value="4">Bold and Italic</option>
                             </select>
                         </div>
+                        <div class="col-lg-2">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Min date\time :
+                            </div>
+                            <select class="select2 form-control" id="MDiv_1_MinDate">
+                                <option value="1">No</option>
+                                <option value="2">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Diff with the current day\time :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_1_MinDate_Diff" placeholder="" style="width:100%;text-align:center" maxlength="200" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+                                <div class="form-control-position">
+                                    <i class="fa fa-sort-numeric-asc"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Min date\time position :
+                            </div>
+                            <select class="select2 form-control" id="MDiv_1_MinDate_Position">
+                                <option value="1">Before current day\time</option>
+                                <option value="2">After current day\time</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Max date\time :
+                            </div>
+                            <select class="select2 form-control" id="MDiv_1_MaxDate">
+                                <option value="1">No</option>
+                                <option value="2">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Diff with the current day\time :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_1_MaxDate_Diff" placeholder="" style="width:100%;text-align:center" maxlength="200" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+                                <div class="form-control-position">
+                                    <i class="fa fa-sort-numeric-asc"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Max date\time position :
+                            </div>
+                            <select class="select2 form-control" id="MDiv_1_MaxDate_Position">
+                                <option value="1">Before current day\time</option>
+                                <option value="2">After current day\time</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Input default value [ Predefined words : {DateNow} - {DateMin} - {DateMax} - {TimeNow} - {TimeMin} - {TimeMax} ] :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_1_Value" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
                     <div style="width:100%;display:none" id="MDiv_EPS_2" class="form-inline">
                         <div class="col-lg-2">
@@ -5934,6 +6478,369 @@
                                 <option value="2">Yes</option>
                             </select>
                         </div>
+                        <div class="col-lg-7">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Description Title :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_DecriptionTitle" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-1">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Font size :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_Description_Fontsize" placeholder="" style="width:100%;text-align:center" maxlength="200" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+                                <div class="form-control-position">
+                                    <i class="fa fa-font"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Font style :
+                            </div>
+                            <select class="select2 form-control" id="MDiv_5_Description_FontStyle">
+                                <option value="1">Normal</option>
+                                <option value="2">Bold</option>
+                                <option value="3">Italic</option>
+                                <option value="4">Bold and Italic</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #1 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R1T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #2 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R2T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #3 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R3T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #4 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R4T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #5 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R5T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #6 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R6T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #7 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R7T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #8 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R8T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #9 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R9T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #10 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R10T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #11 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R11T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #12 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R12T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #13 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R13T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #14 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R14T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #15 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R15T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #16 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R16T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #17 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R17T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #18 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R18T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #19 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R19T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #20 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R20T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #21 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R21T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #22 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R22T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #23 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R23T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #24 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R24T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #25 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R25T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #26 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R26T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #27 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R27T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #28 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R28T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #29 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R29T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Row Description #30 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_5_R30T" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
                     <div style="width:100%;display:none" id="MDiv_EPS_6" class="form-inline">
                         <div class="col-lg-2">
@@ -6066,6 +6973,42 @@
                                 <option value="1">Normal select file</option>
                                 <option value="2">Guided image capture</option>
                                 <option value="3">Passive liveness test</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Show on desktop browser :
+                            </div>
+                            <select class="select2 form-control" id="MDiv_6_Show_Desktop">
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Show on mobile browser :
+                            </div>
+                            <select class="select2 form-control" id="MDiv_6_Show_Mobile">
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Desktop browser upload :
+                            </div>
+                            <select class="select2 form-control" id="MDiv_6_Upload_Desktop">
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Desktop QR code upload link :
+                            </div>
+                            <select class="select2 form-control" id="MDiv_6_Upload_Mobile">
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
                             </select>
                         </div>
                     </div>
@@ -8994,6 +9937,17 @@
                         document.getElementById("Div_1_MaxLength").value = "250";
                         $('#Div_1_FontStyle').val("1");
                         $('#Div_1_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_1_MinDate').val("1");
+                        $('#Div_1_MinDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_1_MinDate_Diff").value = "0";
+                        $('#Div_1_MinDate_Position').val("1");
+                        $('#Div_1_MinDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_1_MaxDate').val("1");
+                        $('#Div_1_MaxDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_1_MaxDate_Diff").value = "0";
+                        $('#Div_1_MaxDate_Position').val("2");
+                        $('#Div_1_MaxDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_1_Value").value = "";
                         document.getElementById("Div_2_Icon").value = "";
                         document.getElementById("Div_2_Title").value = "";
                         document.getElementById("Div_2_Text").value = "";
@@ -9147,6 +10101,40 @@
                         document.getElementById("Div_5_R30").value = "";
                         $('#Div_5_Country').val("1");
                         $('#Div_5_Country').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_5_DecriptionTitle").value = "";
+                        document.getElementById("Div_5_Description_Fontsize").value = "12";
+                        $('#Div_5_Description_FontStyle').val("1");
+                        $('#Div_5_Description_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_5_R1T").value = "";
+                        document.getElementById("Div_5_R2T").value = "";
+                        document.getElementById("Div_5_R3T").value = "";
+                        document.getElementById("Div_5_R4T").value = "";
+                        document.getElementById("Div_5_R5T").value = "";
+                        document.getElementById("Div_5_R6T").value = "";
+                        document.getElementById("Div_5_R7T").value = "";
+                        document.getElementById("Div_5_R8T").value = "";
+                        document.getElementById("Div_5_R9T").value = "";
+                        document.getElementById("Div_5_R10T").value = "";
+                        document.getElementById("Div_5_R11T").value = "";
+                        document.getElementById("Div_5_R12T").value = "";
+                        document.getElementById("Div_5_R13T").value = "";
+                        document.getElementById("Div_5_R14T").value = "";
+                        document.getElementById("Div_5_R15T").value = "";
+                        document.getElementById("Div_5_R16T").value = "";
+                        document.getElementById("Div_5_R17T").value = "";
+                        document.getElementById("Div_5_R18T").value = "";
+                        document.getElementById("Div_5_R19T").value = "";
+                        document.getElementById("Div_5_R20T").value = "";
+                        document.getElementById("Div_5_R21T").value = "";
+                        document.getElementById("Div_5_R22T").value = "";
+                        document.getElementById("Div_5_R23T").value = "";
+                        document.getElementById("Div_5_R24T").value = "";
+                        document.getElementById("Div_5_R25T").value = "";
+                        document.getElementById("Div_5_R26T").value = "";
+                        document.getElementById("Div_5_R27T").value = "";
+                        document.getElementById("Div_5_R28T").value = "";
+                        document.getElementById("Div_5_R29T").value = "";
+                        document.getElementById("Div_5_R30T").value = "";
                         document.getElementById("Div_6_Icon").value = "";
                         document.getElementById("Div_6_Title").value = "";
                         $('#Div_6_Mandatory').val("1");
@@ -9161,6 +10149,14 @@
                         $('#Div_6_DocumentType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                         $('#Div_6_CaptureType').val("1");
                         $('#Div_6_CaptureType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_6_Show_Desktop').val("2");
+                        $('#Div_6_Show_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_6_Show_Mobile').val("2");
+                        $('#Div_6_Show_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_6_Upload_Desktop').val("2");
+                        $('#Div_6_Upload_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_6_Upload_Mobile').val("2");
+                        $('#Div_6_Upload_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                         document.getElementById("Div_7_Icon").value = "";
                         document.getElementById("Div_7_Title").value = "";
                         document.getElementById("Div_7_Description").value = "";
@@ -9412,6 +10408,17 @@
                 document.getElementById("Div_1_MaxLength").value = "250";
                 $('#Div_1_FontStyle').val("1");
                 $('#Div_1_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                $('#Div_1_MinDate').val("1");
+                $('#Div_1_MinDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                document.getElementById("Div_1_MinDate_Diff").value = "0";
+                $('#Div_1_MinDate_Position').val("1");
+                $('#Div_1_MinDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                $('#Div_1_MaxDate').val("1");
+                $('#Div_1_MaxDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                document.getElementById("Div_1_MaxDate_Diff").value = "0";
+                $('#Div_1_MaxDate_Position').val("2");
+                $('#Div_1_MaxDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                document.getElementById("Div_1_Value").value = "";
                 document.getElementById("Div_2_Icon").value = "";
                 document.getElementById("Div_2_Title").value = "";
                 document.getElementById("Div_2_Text").value = "";
@@ -9565,6 +10572,40 @@
                 document.getElementById("Div_5_R30").value = "";
                 $('#Div_5_Country').val("1");
                 $('#Div_5_Country').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                document.getElementById("Div_5_DecriptionTitle").value = "";
+                document.getElementById("Div_5_Description_Fontsize").value = "12";
+                $('#Div_5_Description_FontStyle').val("1");
+                $('#Div_5_Description_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                document.getElementById("Div_5_R1T").value = "";
+                document.getElementById("Div_5_R2T").value = "";
+                document.getElementById("Div_5_R3T").value = "";
+                document.getElementById("Div_5_R4T").value = "";
+                document.getElementById("Div_5_R5T").value = "";
+                document.getElementById("Div_5_R6T").value = "";
+                document.getElementById("Div_5_R7T").value = "";
+                document.getElementById("Div_5_R8T").value = "";
+                document.getElementById("Div_5_R9T").value = "";
+                document.getElementById("Div_5_R10T").value = "";
+                document.getElementById("Div_5_R11T").value = "";
+                document.getElementById("Div_5_R12T").value = "";
+                document.getElementById("Div_5_R13T").value = "";
+                document.getElementById("Div_5_R14T").value = "";
+                document.getElementById("Div_5_R15T").value = "";
+                document.getElementById("Div_5_R16T").value = "";
+                document.getElementById("Div_5_R17T").value = "";
+                document.getElementById("Div_5_R18T").value = "";
+                document.getElementById("Div_5_R19T").value = "";
+                document.getElementById("Div_5_R20T").value = "";
+                document.getElementById("Div_5_R21T").value = "";
+                document.getElementById("Div_5_R22T").value = "";
+                document.getElementById("Div_5_R23T").value = "";
+                document.getElementById("Div_5_R24T").value = "";
+                document.getElementById("Div_5_R25T").value = "";
+                document.getElementById("Div_5_R26T").value = "";
+                document.getElementById("Div_5_R27T").value = "";
+                document.getElementById("Div_5_R28T").value = "";
+                document.getElementById("Div_5_R29T").value = "";
+                document.getElementById("Div_5_R30T").value = "";
                 document.getElementById("Div_6_Icon").value = "";
                 document.getElementById("Div_6_Title").value = "";
                 $('#Div_6_Mandatory').val("1");
@@ -9579,6 +10620,14 @@
                 $('#Div_6_DocumentType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                 $('#Div_6_CaptureType').val("1");
                 $('#Div_6_CaptureType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                $('#Div_6_Show_Desktop').val("2");
+                $('#Div_6_Show_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                $('#Div_6_Show_Mobile').val("2");
+                $('#Div_6_Show_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                $('#Div_6_Upload_Desktop').val("2");
+                $('#Div_6_Upload_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                $('#Div_6_Upload_Mobile').val("2");
+                $('#Div_6_Upload_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                 document.getElementById("Div_7_Icon").value = "";
                 document.getElementById("Div_7_Title").value = "";
                 document.getElementById("Div_7_Description").value = "";
@@ -9847,6 +10896,17 @@
                             document.getElementById("Div_1_MaxLength").value = "250";
                             $('#Div_1_FontStyle').val("1");
                             $('#Div_1_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            $('#Div_1_MinDate').val("1");
+                            $('#Div_1_MinDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            document.getElementById("Div_1_MinDate_Diff").value = "0";
+                            $('#Div_1_MinDate_Position').val("1");
+                            $('#Div_1_MinDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            $('#Div_1_MaxDate').val("1");
+                            $('#Div_1_MaxDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            document.getElementById("Div_1_MaxDate_Diff").value = "0";
+                            $('#Div_1_MaxDate_Position').val("2");
+                            $('#Div_1_MaxDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            document.getElementById("Div_1_Value").value = "";
                             break;
                         }
                         case '2': {
@@ -10012,6 +11072,40 @@
                             document.getElementById("Div_5_R30").value = "";
                             $('#Div_5_Country').val("1");
                             $('#Div_5_Country').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            document.getElementById("Div_5_DecriptionTitle").value = "";
+                            document.getElementById("Div_5_Description_Fontsize").value = "12";
+                            $('#Div_5_Description_FontStyle').val("1");
+                            $('#Div_5_Description_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            document.getElementById("Div_5_R1T").value = "";
+                            document.getElementById("Div_5_R2T").value = "";
+                            document.getElementById("Div_5_R3T").value = "";
+                            document.getElementById("Div_5_R4T").value = "";
+                            document.getElementById("Div_5_R5T").value = "";
+                            document.getElementById("Div_5_R6T").value = "";
+                            document.getElementById("Div_5_R7T").value = "";
+                            document.getElementById("Div_5_R8T").value = "";
+                            document.getElementById("Div_5_R9T").value = "";
+                            document.getElementById("Div_5_R10T").value = "";
+                            document.getElementById("Div_5_R11T").value = "";
+                            document.getElementById("Div_5_R12T").value = "";
+                            document.getElementById("Div_5_R13T").value = "";
+                            document.getElementById("Div_5_R14T").value = "";
+                            document.getElementById("Div_5_R15T").value = "";
+                            document.getElementById("Div_5_R16T").value = "";
+                            document.getElementById("Div_5_R17T").value = "";
+                            document.getElementById("Div_5_R18T").value = "";
+                            document.getElementById("Div_5_R19T").value = "";
+                            document.getElementById("Div_5_R20T").value = "";
+                            document.getElementById("Div_5_R21T").value = "";
+                            document.getElementById("Div_5_R22T").value = "";
+                            document.getElementById("Div_5_R23T").value = "";
+                            document.getElementById("Div_5_R24T").value = "";
+                            document.getElementById("Div_5_R25T").value = "";
+                            document.getElementById("Div_5_R26T").value = "";
+                            document.getElementById("Div_5_R27T").value = "";
+                            document.getElementById("Div_5_R28T").value = "";
+                            document.getElementById("Div_5_R29T").value = "";
+                            document.getElementById("Div_5_R30T").value = "";
                             break;
                         }
                         case '6': {
@@ -10029,6 +11123,14 @@
                             $('#Div_6_DocumentType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                             $('#Div_6_CaptureType').val("1");
                             $('#Div_6_CaptureType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            $('#Div_6_Show_Desktop').val("2");
+                            $('#Div_6_Show_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            $('#Div_6_Show_Mobile').val("2");
+                            $('#Div_6_Show_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            $('#Div_6_Upload_Desktop').val("2");
+                            $('#Div_6_Upload_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            $('#Div_6_Upload_Mobile').val("2");
+                            $('#Div_6_Upload_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                             break;
                         }
                         case '7': {
@@ -10307,6 +11409,17 @@
                         document.getElementById("Div_1_MaxLength").value = "250";
                         $('#Div_1_FontStyle').val("1");
                         $('#Div_1_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_1_MinDate').val("1");
+                        $('#Div_1_MinDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_1_MinDate_Diff").value = "0";
+                        $('#Div_1_MinDate_Position').val("1");
+                        $('#Div_1_MinDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_1_MaxDate').val("1");
+                        $('#Div_1_MaxDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_1_MaxDate_Diff").value = "0";
+                        $('#Div_1_MaxDate_Position').val("2");
+                        $('#Div_1_MaxDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_1_Value").value = "";
                         break;
                     }
                     case '2': {
@@ -10472,6 +11585,40 @@
                         document.getElementById("Div_5_R30").value = "";
                         $('#Div_5_Country').val("1");
                         $('#Div_5_Country').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_5_DecriptionTitle").value = "";
+                        document.getElementById("Div_5_Description_Fontsize").value = "12";
+                        $('#Div_5_Description_FontStyle').val("1");
+                        $('#Div_5_Description_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_5_R1T").value = "";
+                        document.getElementById("Div_5_R2T").value = "";
+                        document.getElementById("Div_5_R3T").value = "";
+                        document.getElementById("Div_5_R4T").value = "";
+                        document.getElementById("Div_5_R5T").value = "";
+                        document.getElementById("Div_5_R6T").value = "";
+                        document.getElementById("Div_5_R7T").value = "";
+                        document.getElementById("Div_5_R8T").value = "";
+                        document.getElementById("Div_5_R9T").value = "";
+                        document.getElementById("Div_5_R10T").value = "";
+                        document.getElementById("Div_5_R11T").value = "";
+                        document.getElementById("Div_5_R12T").value = "";
+                        document.getElementById("Div_5_R13T").value = "";
+                        document.getElementById("Div_5_R14T").value = "";
+                        document.getElementById("Div_5_R15T").value = "";
+                        document.getElementById("Div_5_R16T").value = "";
+                        document.getElementById("Div_5_R17T").value = "";
+                        document.getElementById("Div_5_R18T").value = "";
+                        document.getElementById("Div_5_R19T").value = "";
+                        document.getElementById("Div_5_R20T").value = "";
+                        document.getElementById("Div_5_R21T").value = "";
+                        document.getElementById("Div_5_R22T").value = "";
+                        document.getElementById("Div_5_R23T").value = "";
+                        document.getElementById("Div_5_R24T").value = "";
+                        document.getElementById("Div_5_R25T").value = "";
+                        document.getElementById("Div_5_R26T").value = "";
+                        document.getElementById("Div_5_R27T").value = "";
+                        document.getElementById("Div_5_R28T").value = "";
+                        document.getElementById("Div_5_R29T").value = "";
+                        document.getElementById("Div_5_R30T").value = "";
                         break;
                     }
                     case '6': {
@@ -10489,6 +11636,14 @@
                         $('#Div_6_DocumentType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                         $('#Div_6_CaptureType').val("1");
                         $('#Div_6_CaptureType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_6_Show_Desktop').val("2");
+                        $('#Div_6_Show_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_6_Show_Mobile').val("2");
+                        $('#Div_6_Show_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_6_Upload_Desktop').val("2");
+                        $('#Div_6_Upload_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Div_6_Upload_Mobile').val("2");
+                        $('#Div_6_Upload_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                         break;
                     }
                     case '7': {
@@ -11057,6 +12212,17 @@
                                                                                     FrmDataPro.append("A17", $("#Div_1_FontStyle :selected").val().trim());
                                                                                     FrmDataPro.append("A18", $("#Div_1_FieldType :selected").text().trim());
                                                                                     FrmDataPro.append("A19", $("#Div_1_FieldType :selected").val().trim());
+                                                                                    FrmDataPro.append("A20", $("#Div_1_MinDate :selected").text().trim());
+                                                                                    FrmDataPro.append("A21", $("#Div_1_MinDate :selected").val().trim());
+                                                                                    FrmDataPro.append("A22", document.getElementById("Div_1_MinDate_Diff").value.trim());
+                                                                                    FrmDataPro.append("A23", $("#Div_1_MinDate_Position :selected").text().trim());
+                                                                                    FrmDataPro.append("A24", $("#Div_1_MinDate_Position :selected").val().trim());
+                                                                                    FrmDataPro.append("A25", $("#Div_1_MaxDate :selected").text().trim());
+                                                                                    FrmDataPro.append("A26", $("#Div_1_MaxDate :selected").val().trim());
+                                                                                    FrmDataPro.append("A27", document.getElementById("Div_1_MaxDate_Diff").value.trim());
+                                                                                    FrmDataPro.append("A28", $("#Div_1_MaxDate_Position :selected").text().trim());
+                                                                                    FrmDataPro.append("A29", $("#Div_1_MaxDate_Position :selected").val().trim());
+                                                                                    FrmDataPro.append("A30", document.getElementById("Div_1_Value").value.trim());
                                                                                     break;
                                                                                 }
                                                                                 case '2': {
@@ -11222,6 +12388,40 @@
                                                                                     FrmDataPro.append("A38", document.getElementById("Div_5_R30").value.trim());
                                                                                     FrmDataPro.append("A39", $("#Div_5_Country :selected").text().trim());
                                                                                     FrmDataPro.append("A40", $("#Div_5_Country :selected").val().trim());
+                                                                                    FrmDataPro.append("A41", document.getElementById("Div_5_DecriptionTitle").value.trim());
+                                                                                    FrmDataPro.append("A42", document.getElementById("Div_5_Description_Fontsize").value.trim());
+                                                                                    FrmDataPro.append("A43", $("#Div_5_Description_FontStyle :selected").text().trim());
+                                                                                    FrmDataPro.append("A44", $("#Div_5_Description_FontStyle :selected").val().trim());
+                                                                                    FrmDataPro.append("A45", document.getElementById("Div_5_R1T").value.trim());
+                                                                                    FrmDataPro.append("A46", document.getElementById("Div_5_R2T").value.trim());
+                                                                                    FrmDataPro.append("A47", document.getElementById("Div_5_R3T").value.trim());
+                                                                                    FrmDataPro.append("A48", document.getElementById("Div_5_R4T").value.trim());
+                                                                                    FrmDataPro.append("A49", document.getElementById("Div_5_R5T").value.trim());
+                                                                                    FrmDataPro.append("A50", document.getElementById("Div_5_R6T").value.trim());
+                                                                                    FrmDataPro.append("A51", document.getElementById("Div_5_R7T").value.trim());
+                                                                                    FrmDataPro.append("A52", document.getElementById("Div_5_R8T").value.trim());
+                                                                                    FrmDataPro.append("A53", document.getElementById("Div_5_R9T").value.trim());
+                                                                                    FrmDataPro.append("A54", document.getElementById("Div_5_R10T").value.trim());
+                                                                                    FrmDataPro.append("A55", document.getElementById("Div_5_R11T").value.trim());
+                                                                                    FrmDataPro.append("A56", document.getElementById("Div_5_R12T").value.trim());
+                                                                                    FrmDataPro.append("A57", document.getElementById("Div_5_R13T").value.trim());
+                                                                                    FrmDataPro.append("A58", document.getElementById("Div_5_R14T").value.trim());
+                                                                                    FrmDataPro.append("A59", document.getElementById("Div_5_R15T").value.trim());
+                                                                                    FrmDataPro.append("A60", document.getElementById("Div_5_R16T").value.trim());
+                                                                                    FrmDataPro.append("A61", document.getElementById("Div_5_R17T").value.trim());
+                                                                                    FrmDataPro.append("A62", document.getElementById("Div_5_R18T").value.trim());
+                                                                                    FrmDataPro.append("A63", document.getElementById("Div_5_R19T").value.trim());
+                                                                                    FrmDataPro.append("A64", document.getElementById("Div_5_R20T").value.trim());
+                                                                                    FrmDataPro.append("A65", document.getElementById("Div_5_R21T").value.trim());
+                                                                                    FrmDataPro.append("A66", document.getElementById("Div_5_R22T").value.trim());
+                                                                                    FrmDataPro.append("A67", document.getElementById("Div_5_R23T").value.trim());
+                                                                                    FrmDataPro.append("A68", document.getElementById("Div_5_R24T").value.trim());
+                                                                                    FrmDataPro.append("A69", document.getElementById("Div_5_R25T").value.trim());
+                                                                                    FrmDataPro.append("A70", document.getElementById("Div_5_R26T").value.trim());
+                                                                                    FrmDataPro.append("A71", document.getElementById("Div_5_R27T").value.trim());
+                                                                                    FrmDataPro.append("A72", document.getElementById("Div_5_R28T").value.trim());
+                                                                                    FrmDataPro.append("A73", document.getElementById("Div_5_R29T").value.trim());
+                                                                                    FrmDataPro.append("A74", document.getElementById("Div_5_R30T").value.trim());
                                                                                     break;
                                                                                 }
                                                                                 case '6': {
@@ -11239,6 +12439,14 @@
                                                                                     FrmDataPro.append("A12", $("#Div_6_DocumentType :selected").val().trim());
                                                                                     FrmDataPro.append("A13", $("#Div_6_CaptureType :selected").text().trim());
                                                                                     FrmDataPro.append("A14", $("#Div_6_CaptureType :selected").val().trim());
+                                                                                    FrmDataPro.append("A15", $("#Div_6_Show_Desktop :selected").text().trim());
+                                                                                    FrmDataPro.append("A16", $("#Div_6_Show_Desktop :selected").val().trim());
+                                                                                    FrmDataPro.append("A17", $("#Div_6_Show_Mobile :selected").text().trim());
+                                                                                    FrmDataPro.append("A18", $("#Div_6_Show_Mobile :selected").val().trim());
+                                                                                    FrmDataPro.append("A19", $("#Div_6_Upload_Desktop :selected").text().trim());
+                                                                                    FrmDataPro.append("A20", $("#Div_6_Upload_Desktop :selected").val().trim());
+                                                                                    FrmDataPro.append("A21", $("#Div_6_Upload_Mobile :selected").text().trim());
+                                                                                    FrmDataPro.append("A22", $("#Div_6_Upload_Mobile :selected").val().trim());
                                                                                     break;
                                                                                 }
                                                                                 case '7': {
@@ -12117,6 +13325,17 @@
             document.getElementById("MDiv_1_MaxLength").value = "250";
             $('#MDiv_1_FontStyle').val("1");
             $('#MDiv_1_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            $('#MDiv_1_MinDate').val("1");
+            $('#MDiv_1_MinDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            document.getElementById("MDiv_1_MinDate_Diff").value = "0";
+            $('#MDiv_1_MinDate_Position').val("1");
+            $('#MDiv_1_MinDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            $('#MDiv_1_MaxDate').val("1");
+            $('#MDiv_1_MaxDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            document.getElementById("MDiv_1_MaxDate_Diff").value = "0";
+            $('#MDiv_1_MaxDate_Position').val("1");
+            $('#MDiv_1_MaxDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            document.getElementById("MDiv_1_Value").value = "";
             document.getElementById("MDiv_2_Icon").value = "";
             document.getElementById("MDiv_2_Title").value = "";
             document.getElementById("MDiv_2_Text").value = "";
@@ -12270,6 +13489,40 @@
             document.getElementById("MDiv_5_R30").value = "";
             $('#MDiv_5_Country').val("1");
             $('#MDiv_5_Country').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            document.getElementById("MDiv_5_DecriptionTitle").value = "";
+            document.getElementById("MDiv_5_Description_Fontsize").value = "12";
+            $('#MDiv_5_Description_FontStyle').val("1");
+            $('#MDiv_5_Description_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            document.getElementById("MDiv_5_R1T").value = "";
+            document.getElementById("MDiv_5_R2T").value = "";
+            document.getElementById("MDiv_5_R3T").value = "";
+            document.getElementById("MDiv_5_R4T").value = "";
+            document.getElementById("MDiv_5_R5T").value = "";
+            document.getElementById("MDiv_5_R6T").value = "";
+            document.getElementById("MDiv_5_R7T").value = "";
+            document.getElementById("MDiv_5_R8T").value = "";
+            document.getElementById("MDiv_5_R9T").value = "";
+            document.getElementById("MDiv_5_R10T").value = "";
+            document.getElementById("MDiv_5_R11T").value = "";
+            document.getElementById("MDiv_5_R12T").value = "";
+            document.getElementById("MDiv_5_R13T").value = "";
+            document.getElementById("MDiv_5_R14T").value = "";
+            document.getElementById("MDiv_5_R15T").value = "";
+            document.getElementById("MDiv_5_R16T").value = "";
+            document.getElementById("MDiv_5_R17T").value = "";
+            document.getElementById("MDiv_5_R18T").value = "";
+            document.getElementById("MDiv_5_R19T").value = "";
+            document.getElementById("MDiv_5_R20T").value = "";
+            document.getElementById("MDiv_5_R21T").value = "";
+            document.getElementById("MDiv_5_R22T").value = "";
+            document.getElementById("MDiv_5_R23T").value = "";
+            document.getElementById("MDiv_5_R24T").value = "";
+            document.getElementById("MDiv_5_R25T").value = "";
+            document.getElementById("MDiv_5_R26T").value = "";
+            document.getElementById("MDiv_5_R27T").value = "";
+            document.getElementById("MDiv_5_R28T").value = "";
+            document.getElementById("MDiv_5_R29T").value = "";
+            document.getElementById("MDiv_5_R30T").value = "";
             document.getElementById("MDiv_6_Icon").value = "";
             document.getElementById("MDiv_6_Title").value = "";
             $('#MDiv_6_Mandatory').val("1");
@@ -12284,6 +13537,14 @@
             $('#MDiv_6_DocumentType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
             $('#MDiv_6_CaptureType').val("1");
             $('#MDiv_6_CaptureType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            $('#MDiv_6_Show_Desktop').val("2");
+            $('#MDiv_6_Show_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            $('#MDiv_6_Show_Mobile').val("2");
+            $('#MDiv_6_Show_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            $('#MDiv_6_Upload_Desktop').val("2");
+            $('#MDiv_6_Upload_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            $('#MDiv_6_Upload_Mobile').val("2");
+            $('#MDiv_6_Upload_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
             document.getElementById("MDiv_7_Icon").value = "";
             document.getElementById("MDiv_7_Title").value = "";
             document.getElementById("MDiv_7_Description").value = "";
@@ -12551,6 +13812,17 @@
                                     $('#MDiv_1_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                                     $('#MDiv_1_FieldType').val(SepData[20].trim());
                                     $('#MDiv_1_FieldType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    $('#MDiv_1_MinDate').val(SepData[22].trim());
+                                    $('#MDiv_1_MinDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    document.getElementById("MDiv_1_MinDate_Diff").value = SepData[23].trim();
+                                    $('#MDiv_1_MinDate_Position').val(SepData[25].trim());
+                                    $('#MDiv_1_MinDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    $('#MDiv_1_MaxDate').val(SepData[27].trim());
+                                    $('#MDiv_1_MaxDate').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    document.getElementById("MDiv_1_MaxDate_Diff").value = SepData[28].trim();
+                                    $('#MDiv_1_MaxDate_Position').val(SepData[30].trim());
+                                    $('#MDiv_1_MaxDate_Position').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    document.getElementById("MDiv_1_Value").value = SepData[31].trim();
                                     break;
                                 }
                                 case "2": {
@@ -12716,6 +13988,40 @@
                                     document.getElementById("MDiv_5_R30").value = SepData[39].trim();
                                     $('#MDiv_5_Country').val(SepData[41].trim());
                                     $('#MDiv_5_Country').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    document.getElementById("MDiv_5_DecriptionTitle").value = SepData[42].trim();
+                                    document.getElementById("MDiv_5_Description_Fontsize").value = SepData[43].trim();
+                                    $('#MDiv_5_Description_FontStyle').val(SepData[45].trim());
+                                    $('#MDiv_5_Description_FontStyle').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    document.getElementById("MDiv_5_R1T").value = SepData[46].trim();
+                                    document.getElementById("MDiv_5_R2T").value = SepData[47].trim();
+                                    document.getElementById("MDiv_5_R3T").value = SepData[48].trim();
+                                    document.getElementById("MDiv_5_R4T").value = SepData[49].trim();
+                                    document.getElementById("MDiv_5_R5T").value = SepData[50].trim();
+                                    document.getElementById("MDiv_5_R6T").value = SepData[51].trim();
+                                    document.getElementById("MDiv_5_R7T").value = SepData[52].trim();
+                                    document.getElementById("MDiv_5_R8T").value = SepData[53].trim();
+                                    document.getElementById("MDiv_5_R9T").value = SepData[54].trim();
+                                    document.getElementById("MDiv_5_R10T").value = SepData[55].trim();
+                                    document.getElementById("MDiv_5_R11T").value = SepData[56].trim();
+                                    document.getElementById("MDiv_5_R12T").value = SepData[57].trim();
+                                    document.getElementById("MDiv_5_R13T").value = SepData[58].trim();
+                                    document.getElementById("MDiv_5_R14T").value = SepData[59].trim();
+                                    document.getElementById("MDiv_5_R15T").value = SepData[60].trim();
+                                    document.getElementById("MDiv_5_R16T").value = SepData[61].trim();
+                                    document.getElementById("MDiv_5_R17T").value = SepData[62].trim();
+                                    document.getElementById("MDiv_5_R18T").value = SepData[63].trim();
+                                    document.getElementById("MDiv_5_R19T").value = SepData[64].trim();
+                                    document.getElementById("MDiv_5_R20T").value = SepData[65].trim();
+                                    document.getElementById("MDiv_5_R21T").value = SepData[66].trim();
+                                    document.getElementById("MDiv_5_R22T").value = SepData[67].trim();
+                                    document.getElementById("MDiv_5_R23T").value = SepData[68].trim();
+                                    document.getElementById("MDiv_5_R24T").value = SepData[69].trim();
+                                    document.getElementById("MDiv_5_R25T").value = SepData[70].trim();
+                                    document.getElementById("MDiv_5_R26T").value = SepData[71].trim();
+                                    document.getElementById("MDiv_5_R27T").value = SepData[72].trim();
+                                    document.getElementById("MDiv_5_R28T").value = SepData[73].trim();
+                                    document.getElementById("MDiv_5_R29T").value = SepData[74].trim();
+                                    document.getElementById("MDiv_5_R30T").value = SepData[75].trim();
                                     break;
                                 }
                                 case "6": {
@@ -12733,6 +14039,14 @@
                                     $('#MDiv_6_DocumentType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                                     $('#MDiv_6_CaptureType').val(SepData[15].trim());
                                     $('#MDiv_6_CaptureType').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    $('#MDiv_6_Show_Desktop').val(SepData[17].trim());
+                                    $('#MDiv_6_Show_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    $('#MDiv_6_Show_Mobile').val(SepData[19].trim());
+                                    $('#MDiv_6_Show_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    $('#MDiv_6_Upload_Desktop').val(SepData[21].trim());
+                                    $('#MDiv_6_Upload_Desktop').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    $('#MDiv_6_Upload_Mobile').val(SepData[23].trim());
+                                    $('#MDiv_6_Upload_Mobile').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                                     break;
                                 }
                                 case "7": {
@@ -13254,6 +14568,17 @@
                         FrmDataPro.append("A17", $("#MDiv_1_FontStyle :selected").val().trim());
                         FrmDataPro.append("A18", $("#MDiv_1_FieldType :selected").text().trim());
                         FrmDataPro.append("A19", $("#MDiv_1_FieldType :selected").val().trim());
+                        FrmDataPro.append("A20", $("#MDiv_1_MinDate :selected").text().trim());
+                        FrmDataPro.append("A21", $("#MDiv_1_MinDate :selected").val().trim());
+                        FrmDataPro.append("A22", document.getElementById("MDiv_1_MinDate_Diff").value.trim());
+                        FrmDataPro.append("A23", $("#MDiv_1_MinDate_Position :selected").text().trim());
+                        FrmDataPro.append("A24", $("#MDiv_1_MinDate_Position :selected").val().trim());
+                        FrmDataPro.append("A25", $("#MDiv_1_MaxDate :selected").text().trim());
+                        FrmDataPro.append("A26", $("#MDiv_1_MaxDate :selected").val().trim());
+                        FrmDataPro.append("A27", document.getElementById("MDiv_1_MaxDate_Diff").value.trim());
+                        FrmDataPro.append("A28", $("#MDiv_1_MaxDate_Position :selected").text().trim());
+                        FrmDataPro.append("A29", $("#MDiv_1_MaxDate_Position :selected").val().trim());
+                        FrmDataPro.append("A30", document.getElementById("MDiv_1_Value").value.trim());
                         break;
                     }
                     case '2': {
@@ -13419,6 +14744,40 @@
                         FrmDataPro.append("A38", document.getElementById("MDiv_5_R30").value.trim());
                         FrmDataPro.append("A39", $("#MDiv_5_Country :selected").text().trim());
                         FrmDataPro.append("A40", $("#MDiv_5_Country :selected").val().trim());
+                        FrmDataPro.append("A41", document.getElementById("MDiv_5_DecriptionTitle").value.trim());
+                        FrmDataPro.append("A42", document.getElementById("MDiv_5_Description_Fontsize").value.trim());
+                        FrmDataPro.append("A43", $("#MDiv_5_Description_FontStyle :selected").text().trim());
+                        FrmDataPro.append("A44", $("#MDiv_5_Description_FontStyle :selected").val().trim());
+                        FrmDataPro.append("A45", document.getElementById("MDiv_5_R1T").value.trim());
+                        FrmDataPro.append("A46", document.getElementById("MDiv_5_R2T").value.trim());
+                        FrmDataPro.append("A47", document.getElementById("MDiv_5_R3T").value.trim());
+                        FrmDataPro.append("A48", document.getElementById("MDiv_5_R4T").value.trim());
+                        FrmDataPro.append("A49", document.getElementById("MDiv_5_R5T").value.trim());
+                        FrmDataPro.append("A50", document.getElementById("MDiv_5_R6T").value.trim());
+                        FrmDataPro.append("A51", document.getElementById("MDiv_5_R7T").value.trim());
+                        FrmDataPro.append("A52", document.getElementById("MDiv_5_R8T").value.trim());
+                        FrmDataPro.append("A53", document.getElementById("MDiv_5_R9T").value.trim());
+                        FrmDataPro.append("A54", document.getElementById("MDiv_5_R10T").value.trim());
+                        FrmDataPro.append("A55", document.getElementById("MDiv_5_R11T").value.trim());
+                        FrmDataPro.append("A56", document.getElementById("MDiv_5_R12T").value.trim());
+                        FrmDataPro.append("A57", document.getElementById("MDiv_5_R13T").value.trim());
+                        FrmDataPro.append("A58", document.getElementById("MDiv_5_R14T").value.trim());
+                        FrmDataPro.append("A59", document.getElementById("MDiv_5_R15T").value.trim());
+                        FrmDataPro.append("A60", document.getElementById("MDiv_5_R16T").value.trim());
+                        FrmDataPro.append("A61", document.getElementById("MDiv_5_R17T").value.trim());
+                        FrmDataPro.append("A62", document.getElementById("MDiv_5_R18T").value.trim());
+                        FrmDataPro.append("A63", document.getElementById("MDiv_5_R19T").value.trim());
+                        FrmDataPro.append("A64", document.getElementById("MDiv_5_R20T").value.trim());
+                        FrmDataPro.append("A65", document.getElementById("MDiv_5_R21T").value.trim());
+                        FrmDataPro.append("A66", document.getElementById("MDiv_5_R22T").value.trim());
+                        FrmDataPro.append("A67", document.getElementById("MDiv_5_R23T").value.trim());
+                        FrmDataPro.append("A68", document.getElementById("MDiv_5_R24T").value.trim());
+                        FrmDataPro.append("A69", document.getElementById("MDiv_5_R25T").value.trim());
+                        FrmDataPro.append("A70", document.getElementById("MDiv_5_R26T").value.trim());
+                        FrmDataPro.append("A71", document.getElementById("MDiv_5_R27T").value.trim());
+                        FrmDataPro.append("A72", document.getElementById("MDiv_5_R28T").value.trim());
+                        FrmDataPro.append("A73", document.getElementById("MDiv_5_R29T").value.trim());
+                        FrmDataPro.append("A74", document.getElementById("MDiv_5_R30T").value.trim());
                         break;
                     }
                     case '6': {
@@ -13436,6 +14795,14 @@
                         FrmDataPro.append("A12", $("#MDiv_6_DocumentType :selected").val().trim());
                         FrmDataPro.append("A13", $("#MDiv_6_CaptureType :selected").text().trim());
                         FrmDataPro.append("A14", $("#MDiv_6_CaptureType :selected").val().trim());
+                        FrmDataPro.append("A15", $("#MDiv_6_Show_Desktop :selected").text().trim());
+                        FrmDataPro.append("A16", $("#MDiv_6_Show_Desktop :selected").val().trim());
+                        FrmDataPro.append("A17", $("#MDiv_6_Show_Mobile :selected").text().trim());
+                        FrmDataPro.append("A18", $("#MDiv_6_Show_Mobile :selected").val().trim());
+                        FrmDataPro.append("A19", $("#MDiv_6_Upload_Desktop :selected").text().trim());
+                        FrmDataPro.append("A20", $("#MDiv_6_Upload_Desktop :selected").val().trim());
+                        FrmDataPro.append("A21", $("#MDiv_6_Upload_Mobile :selected").text().trim());
+                        FrmDataPro.append("A22", $("#MDiv_6_Upload_Mobile :selected").val().trim());
                         break;
                     }
                     case '7': {
@@ -13801,6 +15168,10 @@
             } catch (e) {
                 toastr.error('An error occurred while processing your request', 'An error has occurred! [C01]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
             }
+        }
+        function Form_ConfigurationST(FID) {
+            var Baseurl = "@Url.Action("RegisterForms_Configuration", "Tools", new { id="AAA" , area="HSU_Portal" })"; Baseurl = Baseurl.replace("AAA", FID);
+            window.open(Baseurl, "_blank");
         }
         $(document).ready(function () {
             $('.dropify').dropify({

@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Data;
+@{
     iCore_Administrator.Modules.SQL_Tranceiver Sq = new iCore_Administrator.Modules.SQL_Tranceiver();
     ViewBag.Title = "Form Preview [ " + ViewBag.DT_Group[0][0].ToString().Trim() + " ]";
     Layout = "~/Areas/HSU_Portal/Views/Shared/_LayoutPortal.cshtml";
@@ -9,6 +10,84 @@
     <link rel="stylesheet" type="text/css" href="~/Theme/Base/assets/dropify/dist/css/dropify.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/vendors/css/extensions/plyr.css">
     <link rel="stylesheet" type="text/css" href="~/Theme/Base/app-assets/css/plugins/extensions/media-plyr.css">
+    @{
+        DataTable DT_HEAD = new DataTable();
+        DT_HEAD = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Head_01_File_Name,Head_01_File_Type,Head_02_File_Name,Head_02_File_Type,Head_03_File_Name,Head_03_File_Type,Head_04_File_Name,Head_04_File_Type,Head_05_File_Name,Head_05_File_Type,Head_06_File_Name,Head_06_File_Type,Head_Script From Users_07_Hospitality_SingleUser_RegisterForms_Configuration Where (Form_ID = '" + ViewBag.FormID + "')");
+        if (DT_HEAD.Rows.Count == 1)
+        {
+            for (int i = 1; i < 7; i++)
+            {
+                try
+                {
+                    if (DT_HEAD.Rows[0][(i - 1) * 2].ToString().Trim() != "")
+                    {
+                        var MainPath = Server.MapPath("~/Drive/Hospitality/Rgfmcon/" + ViewBag.FormID + "/" + DT_HEAD.Rows[0][(i - 1) * 2].ToString().Trim() + "." + DT_HEAD.Rows[0][((i - 1) * 2) + 1].ToString().Trim());
+                        if (System.IO.File.Exists(MainPath) == true)
+                        {
+                            switch (DT_HEAD.Rows[0][((i - 1) * 2) + 1].ToString().Trim().ToUpper())
+                            {
+                                case "CSS":
+                                    {
+                                        <link href="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_HEAD.Rows[0][(i - 1) * 2].ToString().Trim().@DT_HEAD.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" rel="stylesheet" />
+                                        break;
+                                    }
+                                case "JS":
+                                    {
+                                        <script src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_HEAD.Rows[0][(i - 1) * 2].ToString().Trim().@DT_HEAD.Rows[0][((i - 1) * 2) + 1].ToString().Trim()"></script>
+                                        break;
+                                    }
+                                case "PNG":
+                                    {
+                                        <img src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_HEAD.Rows[0][(i - 1) * 2].ToString().Trim().@DT_HEAD.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" />
+                                        break;
+                                    }
+                                case "JPG":
+                                    {
+                                        <img src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_HEAD.Rows[0][(i - 1) * 2].ToString().Trim().@DT_HEAD.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" />
+                                        break;
+                                    }
+                                case "JPEG":
+                                    {
+                                        <img src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_HEAD.Rows[0][(i - 1) * 2].ToString().Trim().@DT_HEAD.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" />
+                                        break;
+                                    }
+                                case "ICO":
+                                    {
+                                        <img src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_HEAD.Rows[0][(i - 1) * 2].ToString().Trim().@DT_HEAD.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" />
+                                        break;
+                                    }
+                                case "GIF":
+                                    {
+                                        <img src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_HEAD.Rows[0][(i - 1) * 2].ToString().Trim().@DT_HEAD.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" />
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        <a href="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_HEAD.Rows[0][(i - 1) * 2].ToString().Trim().@DT_HEAD.Rows[0][((i - 1) * 2) + 1].ToString().Trim()">@DT_HEAD.Rows[0][(i - 1) * 2].ToString().Trim().@DT_HEAD.Rows[0][((i - 1) * 2) + 1].ToString().Trim()</a>
+                                        break;
+                                    }
+                            }
+                        }
+                    }
+
+                }
+                catch (Exception) { }
+            }
+            try
+            {
+                if (DT_HEAD.Rows[0][12].ToString().Trim() == "1")
+                {
+                    var MainPath = Server.MapPath("~/Drive/Hospitality/Rgfmcon/" + ViewBag.FormID);
+                    if (System.IO.File.Exists(MainPath + "/" + "HEADSCR.txt") == true)
+                    {
+                        string readText = System.IO.File.ReadAllText(MainPath + "/" + "HEADSCR.txt");
+                        @Html.Raw(HttpUtility.HtmlDecode(readText))
+                    }
+                }
+            }
+            catch (Exception) { }
+        }
+    }
     <style>
         .ELMT {
         }
@@ -123,6 +202,11 @@
                                                                             string IT_ObjectRef = "";
                                                                             string PXS = "px";
                                                                             string IconWO = "";
+                                                                            string MinDate = "";
+                                                                            string MaxDate = "";
+                                                                            string Def_Value = "";
+                                                                            string MinDate_Tag = "";
+                                                                            string MaxDate_Tag = "";
                                                                             switch (ElRw[37].ToString().Trim())
                                                                             {
                                                                                 case "1": { TxtAlign = "Left"; break; }
@@ -148,6 +232,76 @@
                                                                                 case "8": { InputType = "time"; IT_Class = ""; IT_ObjectRef = "1"; break; }
 
                                                                             }
+                                                                            if ((ElRw[39].ToString().Trim() == "5") || (ElRw[39].ToString().Trim() == "6"))
+                                                                            {
+                                                                                if (ElRw[52].ToString().Trim() == "2")
+                                                                                {
+                                                                                    try
+                                                                                    {
+                                                                                        DateTime DT_Now = DateTime.Now;
+                                                                                        int ChangeDay = int.Parse(ElRw[53].ToString().Trim());
+                                                                                        if (ElRw[55].ToString().Trim() == "1")
+                                                                                        {
+                                                                                            ChangeDay = ChangeDay * -1;
+                                                                                        }
+                                                                                        DateTime Date_Min = DT_Now.AddDays(ChangeDay);
+                                                                                        MinDate = Date_Min.ToString("yyyy-MM-dd");
+                                                                                        MinDate_Tag = "Min=" + MinDate;
+                                                                                    }
+                                                                                    catch (Exception) { }
+                                                                                }
+                                                                                if (ElRw[57].ToString().Trim() == "2")
+                                                                                {
+                                                                                    try
+                                                                                    {
+                                                                                        DateTime DT_Now2 = DateTime.Now;
+                                                                                        int ChangeDay2 = int.Parse(ElRw[58].ToString().Trim());
+                                                                                        if (ElRw[60].ToString().Trim() == "1")
+                                                                                        {
+                                                                                            ChangeDay2 = ChangeDay2 * -1;
+                                                                                        }
+                                                                                        DateTime Date_Max = DT_Now2.AddDays(ChangeDay2);
+                                                                                        MaxDate = Date_Max.ToString("yyyy-MM-dd");
+                                                                                        MaxDate_Tag = "Max=" + MaxDate;
+                                                                                    }
+                                                                                    catch (Exception) { }
+                                                                                }
+                                                                            }
+                                                                            if ((ElRw[39].ToString().Trim() == "7") || (ElRw[39].ToString().Trim() == "8"))
+                                                                            {
+                                                                                if (ElRw[52].ToString().Trim() == "2")
+                                                                                {
+                                                                                    try
+                                                                                    {
+                                                                                        DateTime DT_Now = DateTime.Now;
+                                                                                        int ChangeDay = int.Parse(ElRw[53].ToString().Trim());
+                                                                                        if (ElRw[55].ToString().Trim() == "1")
+                                                                                        {
+                                                                                            ChangeDay = ChangeDay * -1;
+                                                                                        }
+                                                                                        DateTime Date_Min = DT_Now.AddMinutes(ChangeDay);
+                                                                                        MinDate = Date_Min.ToString("HH:mm");
+                                                                                        MinDate_Tag = "Min=" + MinDate;
+                                                                                    }
+                                                                                    catch (Exception) { }
+                                                                                }
+                                                                                if (ElRw[57].ToString().Trim() == "2")
+                                                                                {
+                                                                                    try
+                                                                                    {
+                                                                                        DateTime DT_Now2 = DateTime.Now;
+                                                                                        int ChangeDay2 = int.Parse(ElRw[58].ToString().Trim());
+                                                                                        if (ElRw[60].ToString().Trim() == "1")
+                                                                                        {
+                                                                                            ChangeDay2 = ChangeDay2 * -1;
+                                                                                        }
+                                                                                        DateTime Date_Max = DT_Now2.AddMinutes(ChangeDay2);
+                                                                                        MaxDate = Date_Max.ToString("HH:mm");
+                                                                                        MaxDate_Tag = "Max=" + MaxDate;
+                                                                                    }
+                                                                                    catch (Exception) { }
+                                                                                }
+                                                                            }
                                                                             if (ElRw[44].ToString().Trim() != "")
                                                                             {
                                                                                 IconWO = "has-icon-left";
@@ -156,6 +310,23 @@
                                                                             {
                                                                                 OnFocus_GoogleAdd = "geolocate()";
                                                                                 GoogleSugAddress = "ELMNTTXTGOOGLE";
+                                                                            }
+                                                                            try
+                                                                            {
+                                                                                if (ElRw[61].ToString().Trim() != "")
+                                                                                {
+                                                                                    Def_Value = ElRw[61].ToString().Trim();
+                                                                                    Def_Value = Def_Value.Replace("{DateMin}", MinDate);
+                                                                                    Def_Value = Def_Value.Replace("{TimeMin}", MinDate);
+                                                                                    Def_Value = Def_Value.Replace("{DateMax}", MaxDate);
+                                                                                    Def_Value = Def_Value.Replace("{TimeMax}", MaxDate);
+                                                                                    Def_Value = Def_Value.Replace("{DateNow}", Sq.Sql_Date().Trim());
+                                                                                    Def_Value = Def_Value.Replace("{TimeNow}", Sq.Sql_Time().Trim().Substring(0, 5));
+                                                                                }
+                                                                            }
+                                                                            catch (Exception)
+                                                                            {
+                                                                                Def_Value = "";
                                                                             }
                                                                             <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
                                                                                 @ElRw[32].ToString().Trim()
@@ -167,12 +338,12 @@
                                                                                     {
                                                                                         case "1":
                                                                                             {
-                                                                                                <input type="@InputType" class="form-control  @IT_Class @GoogleSugAddress" onfocus="@OnFocus_GoogleAdd" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()">
+                                                                                                <input type="@InputType" class="form-control  @IT_Class @GoogleSugAddress" onfocus="@OnFocus_GoogleAdd" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()" @MinDate_Tag @MaxDate_Tag value="@Def_Value">
                                                                                                 break;
                                                                                             }
                                                                                         case "2":
                                                                                             {
-                                                                                                <input type="@InputType" class="form-control @IT_Class @GoogleSugAddress" onfocus="@OnFocus_GoogleAdd" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()">
+                                                                                                <input type="@InputType" class="form-control @IT_Class @GoogleSugAddress" onfocus="@OnFocus_GoogleAdd" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()" value="@Def_Value">
                                                                                                 break;
                                                                                             }
                                                                                     }
@@ -184,12 +355,12 @@
                                                                                     {
                                                                                         case "1":
                                                                                             {
-                                                                                                <textarea class="form-control @IT_Class @GoogleSugAddress" id="ELI_@ElRw[0].ToString().Trim()" onfocus="@OnFocus_GoogleAdd" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()"></textarea>
+                                                                                                <textarea class="form-control @IT_Class @GoogleSugAddress" id="ELI_@ElRw[0].ToString().Trim()" onfocus="@OnFocus_GoogleAdd" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()">@Def_Value</textarea>
                                                                                                 break;
                                                                                             }
                                                                                         case "2":
                                                                                             {
-                                                                                                <textarea class="form-control @IT_Class @GoogleSugAddress" onfocus="@OnFocus_GoogleAdd" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()"></textarea>
+                                                                                                <textarea class="form-control @IT_Class @GoogleSugAddress" onfocus="@OnFocus_GoogleAdd" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="ELI_@ElRw[0].ToString().Trim()" placeholder="@ElRw[33].ToString().Trim()" style="width:100%;font-size:@ElRw[45].ToString().Trim()@PXS;text-align:@TxtAlign;font-weight:@FW;font-style:@FS" maxlength="@ElRw[46].ToString().Trim()">@Def_Value</textarea>
                                                                                                 break;
                                                                                             }
                                                                                     }
@@ -427,12 +598,21 @@
                                                                             string Pxs = "px";
                                                                             string FW = "normal";
                                                                             string FS = "normal";
+                                                                            string FW2 = "normal";
+                                                                            string FS2 = "normal";
                                                                             switch (ElRw[39].ToString().Trim())
                                                                             {
                                                                                 case "1": { FW = "normal"; FS = "normal"; break; }
                                                                                 case "2": { FW = "bold"; FS = "normal"; break; }
                                                                                 case "3": { FW = "normal"; FS = "italic"; break; }
                                                                                 case "4": { FW = "bold"; FS = "italic"; break; }
+                                                                            }
+                                                                            switch (ElRw[75].ToString().Trim())
+                                                                            {
+                                                                                case "1": { FW2 = "normal"; FS2 = "normal"; break; }
+                                                                                case "2": { FW2 = "bold"; FS2 = "normal"; break; }
+                                                                                case "3": { FW2 = "normal"; FS2 = "italic"; break; }
+                                                                                case "4": { FW2 = "bold"; FS2 = "italic"; break; }
                                                                             }
                                                                             if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
                                                                             {
@@ -443,7 +623,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             }
-                                                                            <select class="select2 form-control" id="ELD_@ElRw[0].ToString().Trim()">
+                                                                            <select class="select2 form-control" id="ELD_@ElRw[0].ToString().Trim()" onchange="IDV_DD_Description('@ElRw[0].ToString().Trim()', this.value)">
                                                                                 @if (ElRw[34].ToString().Trim() != "")
                                                                                 {
                                                                                     <option value="0" style="font-size:@ElRw[37].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS">@ElRw[34].ToString().Trim()</option>
@@ -464,12 +644,27 @@
                                                                                     DTCountry = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select * From Users_07_Hospitality_SingleUser_RegisterForms_Countries Order By Name");
                                                                                     foreach (System.Data.DataRow RwC in DTCountry.Rows)
                                                                                     {
-                                                                                        <option value="@RwC[2].ToString().Trim()_@RwC[1].ToString().Trim()" style="font-size:@ElRw[37].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS">@RwC[1].ToString().Trim()</option>
+                                                                                        if (RwC[1].ToString().Trim().ToLower() == "australia")
+                                                                                        {
+                                                                                            <option value="@RwC[2].ToString().Trim()_@RwC[1].ToString().Trim()" style="font-size:@ElRw[37].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS" selected>@RwC[1].ToString().Trim()</option>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <option value="@RwC[2].ToString().Trim()_@RwC[1].ToString().Trim()" style="font-size:@ElRw[37].ToString().Trim()@Pxs;font-weight:@FW;font-style:@FS">@RwC[1].ToString().Trim()</option>
+                                                                                        }
                                                                                     }
                                                                                 }
                                                                             </select>
+                                                                            for (int i = 1; i < 31; i++)
+                                                                            {
+                                                                                <input type="hidden" id="DD_Desc_@ElRw[0].ToString().Trim()_R_@i" value="@ElRw[75 + i].ToString().Trim()" />
+                                                                            }
                                                                             <input type="hidden" id="Man_EL_@ElRw[0].ToString().Trim()" value="@ElRw[36].ToString().Trim()" />
                                                                             <input type="hidden" id="Country_EL_@ElRw[0].ToString().Trim()" value="@ElRw[71].ToString().Trim()" />
+                                                                            <div class="col-lg-12" id="DD_Desc_@ElRw[0].ToString().Trim()" style="display:none;padding:0px;margin:0px;margin-top:10px">
+                                                                                <div class="col-lg-12 text-primary" style="font-size:@ElRw[73].ToString().Trim()@Pxs;font-weight:@FW2;font-style:@FS2">@ElRw[72].ToString().Trim() :</div>
+                                                                                <div class="col-lg-12" id="DD_Desc_T_@ElRw[0].ToString().Trim()"></div>
+                                                                            </div>
                                                                             break;
                                                                         }
                                                                     case "6"://Upload
@@ -1428,6 +1623,84 @@
     <script src="~/Theme/Base/app-assets/vendors/js/media/plyr.js"></script>
     <script src="~/Theme/Base/app-assets/vendors/js/media/plyr.polyfilled.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=@ViewBag.Google_API_Place"></script>
+    @{
+        DataTable DT_FOOTER = new DataTable();
+        DT_FOOTER = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Footer_01_File_Name,Footer_01_File_Type,Footer_02_File_Name,Footer_02_File_Type,Footer_03_File_Name,Footer_03_File_Type,Footer_04_File_Name,Footer_04_File_Type,Footer_05_File_Name,Footer_05_File_Type,Footer_06_File_Name,Footer_06_File_Type,Footer_Script From Users_07_Hospitality_SingleUser_RegisterForms_Configuration Where (Form_ID = '" + ViewBag.FormID + "')");
+        if (DT_FOOTER.Rows.Count == 1)
+        {
+            for (int i = 1; i < 7; i++)
+            {
+                try
+                {
+                    if (DT_FOOTER.Rows[0][(i - 1) * 2].ToString().Trim() != "")
+                    {
+                        var MainPath = Server.MapPath("~/Drive/Hospitality/Rgfmcon/" + ViewBag.FormID + "/" + DT_FOOTER.Rows[0][(i - 1) * 2].ToString().Trim() + "." + DT_FOOTER.Rows[0][((i - 1) * 2) + 1].ToString().Trim());
+                        if (System.IO.File.Exists(MainPath) == true)
+                        {
+                            switch (DT_FOOTER.Rows[0][((i - 1) * 2) + 1].ToString().Trim().ToUpper())
+                            {
+                                case "CSS":
+                                    {
+                                        <link href="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_FOOTER.Rows[0][(i - 1) * 2].ToString().Trim().@DT_FOOTER.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" rel="stylesheet" />
+                                        break;
+                                    }
+                                case "JS":
+                                    {
+                                        <script src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_FOOTER.Rows[0][(i - 1) * 2].ToString().Trim().@DT_FOOTER.Rows[0][((i - 1) * 2) + 1].ToString().Trim()"></script>
+                                        break;
+                                    }
+                                case "PNG":
+                                    {
+                                        <img src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_FOOTER.Rows[0][(i - 1) * 2].ToString().Trim().@DT_FOOTER.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" />
+                                        break;
+                                    }
+                                case "JPG":
+                                    {
+                                        <img src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_FOOTER.Rows[0][(i - 1) * 2].ToString().Trim().@DT_FOOTER.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" />
+                                        break;
+                                    }
+                                case "JPEG":
+                                    {
+                                        <img src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_FOOTER.Rows[0][(i - 1) * 2].ToString().Trim().@DT_FOOTER.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" />
+                                        break;
+                                    }
+                                case "ICO":
+                                    {
+                                        <img src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_FOOTER.Rows[0][(i - 1) * 2].ToString().Trim().@DT_FOOTER.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" />
+                                        break;
+                                    }
+                                case "GIF":
+                                    {
+                                        <img src="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_FOOTER.Rows[0][(i - 1) * 2].ToString().Trim().@DT_FOOTER.Rows[0][((i - 1) * 2) + 1].ToString().Trim()" />
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        <a href="~/Drive/Hospitality/Rgfmcon/@ViewBag.FormID/@DT_FOOTER.Rows[0][(i - 1) * 2].ToString().Trim().@DT_FOOTER.Rows[0][((i - 1) * 2) + 1].ToString().Trim()">@DT_FOOTER.Rows[0][(i - 1) * 2].ToString().Trim().@DT_FOOTER.Rows[0][((i - 1) * 2) + 1].ToString().Trim()</a>
+                                        break;
+                                    }
+                            }
+                        }
+                    }
+
+                }
+                catch (Exception) { }
+            }
+            try
+            {
+                if (DT_FOOTER.Rows[0][12].ToString().Trim() == "1")
+                {
+                    var MainPath = Server.MapPath("~/Drive/Hospitality/Rgfmcon/" + ViewBag.FormID);
+                    if (System.IO.File.Exists(MainPath + "/" + "FOTRSCR.txt") == true)
+                    {
+                        string readText = System.IO.File.ReadAllText(MainPath + "/" + "FOTRSCR.txt");
+                        @Html.Raw(HttpUtility.HtmlDecode(readText))
+                    }
+                }
+            }
+            catch (Exception) { }
+        }
+    }
     <script>
         var V1 = ""; var V2 = ""; var V3 = ""; var V4 = ""; var V5 = ""; var V6 = ""; var V7 = "";
         var autocomplete;
@@ -1552,11 +1825,13 @@
                 document.getElementById('Page_Master').style.display = "flex";
             }
         }
-        $(document).ready(function () { const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p)); });
+        $(document).ready(function () { try { const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p)); } catch (e) { } });
         function initAutocomplete() { Array.from(document.getElementsByClassName('ELMNTTXTGOOGLE')).forEach(function (element) { autocomplete = new google.maps.places.Autocomplete((element), { types: ['geocode'] }); }); }
         function geolocate() { if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(function (position) { var geolocation = { lat: position.coords.latitude, lng: position.coords.longitude }; var circle = new google.maps.Circle({ center: geolocation, radius: position.coords.accuracy }); autocomplete.setBounds(circle.getBounds()); }); } }
-        $(document).ready(function () { $('.dropify').dropify({ messages: { 'default': 'Drag and drop a file here or click', 'replace': 'Drag and drop or click to replace', 'remove': 'Remove', 'error': 'Ooops, something wrong happended.' } }); google.maps.event.addDomListener(window, "load", initAutocomplete); });
+        $(document).ready(function () { try { $('.dropify').dropify({ messages: { 'default': 'Drag and drop a file here or click', 'replace': 'Drag and drop or click to replace', 'remove': 'Remove', 'error': 'Ooops, something wrong happended.' } }); google.maps.event.addDomListener(window, "load", initAutocomplete); } catch (e) { } });
         function CreateGroupinput(EID) { var Counter_Now = 0; var CntrStr = document.getElementById('DI_GroupInput_' + EID).value; try { Counter_Now = parseInt(CntrStr, 10); } catch (e) { } Counter_Now = Counter_Now + 1; document.getElementById('DI_GroupInput_' + EID).value = Counter_Now; try { var formData = new FormData(); formData.append("EID", EID); formData.append("Cnt", Counter_Now); $.ajax({ url: "@Url.Action("RegisterForms_GroupInput", "Tools")", type: "POST", data: formData, dataType: 'json', contentType: false, processData: false, async: true, error: function () { }, success: function (data) { var ErrorCode = ""; var ErrorResult = ""; $.each(data, function (i, item) { ErrorResult = item.Text; ErrorCode = item.Value; }); if (ErrorCode == "0") { document.getElementById('GroupInput_' + EID).innerHTML += "<hr id=\"GroupInput_" + EID + "_" + Counter_Now + "_Hr\" style=\"margin-top:30px\">" + ErrorResult; } } }); } catch (e) {} }
         function RemoveGroupinput(GID) { try { document.getElementById(GID).remove(); } catch (e) { } try { document.getElementById(GID + "_Hr").remove(); } catch (e) { } }
+        function IDV_DD_Description(EID, RID) { try { document.getElementById('DD_Desc_' + EID).style.display = "none"; var DDInText = ""; DDInText = document.getElementById('DD_Desc_' + EID + '_R_' + RID).value; if (DDInText.trim() != "") { document.getElementById('DD_Desc_T_' + EID).innerText = ""; document.getElementById('DD_Desc_T_' + EID).innerText = DDInText; document.getElementById('DD_Desc_' + EID).style.display = "block"; } } catch (e) { try { document.getElementById('DD_Desc_' + EID).style.display = "none"; } catch (e) { } } }
+        $(document).ready(function () { try { $("select").trigger('change'); } catch (e) { } });
     </script>
 }

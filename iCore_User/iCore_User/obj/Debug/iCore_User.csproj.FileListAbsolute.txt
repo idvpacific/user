@@ -89,4 +89,8 @@ E:\01- Project\05- User Portal\01- Source\iCore_User\iCore_User\obj\Debug\iCore_
 E:\01- Project\05- User Portal\01- Source\iCore_User\iCore_User\bin\AssureTec.AssureID.Web.SDK.dll
 E:\01- Project\05- User Portal\01- Source\iCore_User\iCore_User\bin\RestSharp.dll
 E:\01- Project\05- User Portal\01- Source\iCore_User\iCore_User\bin\RestSharp.xml
+E:\01- Project\05- User Portal\01- Source\iCore_User\iCore_User\bin\zxing.dll
+E:\01- Project\05- User Portal\01- Source\iCore_User\iCore_User\bin\zxing.presentation.dll
+E:\01- Project\05- User Portal\01- Source\iCore_User\iCore_User\bin\zxing.xml
+E:\01- Project\05- User Portal\01- Source\iCore_User\iCore_User\bin\zxing.presentation.xml
 E:\01- Project\05- User Portal\01- Source\iCore_User\iCore_User\obj\Debug\iCore_User.csprojAssemblyReference.cache

@@ -86,6 +86,12 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="zxing, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net48\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net48\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -1327,6 +1333,9 @@
     <Compile Include="..\..\..\..\02- iCore Admin\01- Source\iCore_Administrator\iCore_Administrator\Modules\HSU_Application\Conditions\HSU_1.cs">
       <Link>Modules\HSU_Application\Conditions\HSU_1.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\..\02- iCore Admin\01- Source\iCore_Administrator\iCore_Administrator\Modules\HSU_Application\HSU_Callback.cs">
+      <Link>Modules\HSU_Application\HSU_Callback.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\..\02- iCore Admin\01- Source\iCore_Administrator\iCore_Administrator\Modules\MimeTypeMap.cs">
       <Link>Modules\MimeTypeMap.cs</Link>
     </Compile>
@@ -1370,6 +1379,7 @@
     <Content Include="Areas\HSU_Portal\Views\Applications\HSU.cshtml" />
     <Content Include="Areas\HSU_Portal\Views\Applications\HSU_New.cshtml" />
     <Content Include="Areas\HSU_Portal\Views\Applications\HSU_Application.cshtml" />
+    <Content Include="Areas\HSU_Portal\Views\Tools\RegisterForms_Configuration.cshtml" />
     <None Include="packages.config" />
     <Content Include="Theme\Base\app-assets\data\ag-grid-data.json" />
     <Content Include="Theme\Base\app-assets\data\cities.json" />
@@ -1699,6 +1709,7 @@
     <Folder Include="Drive\Hospitality\CustomerData\" />
     <Folder Include="Drive\Hospitality\Logo\" />
     <Folder Include="Drive\Hospitality\RegisterForms\" />
+    <Folder Include="Drive\Hospitality\Rgfmcon\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
