@@ -181,6 +181,7 @@
                                                             <a class="dropdown-item" href="javascript:void(0)" onclick="Form_Edit('@RW[0].ToString().Trim()','@RW[2].ToString().Trim()')"><i class="fa fa-pencil-square-o text-primary" style="width:24px;font-size: 14px"></i>Edit form</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item" href="javascript:void(0)" onclick="Form_ConfigurationST('@RW[1].ToString().Trim()')"><i class="fa fa-cogs text-primary" style="width:24px;font-size: 14px"></i>Form configuration</a>
+                                                            <a class="dropdown-item" href="javascript:void(0)" onclick="Form_ConditionsST('@RW[1].ToString().Trim()')"><i class="fa fa-cogs text-primary" style="width:24px;font-size: 14px"></i>Form conditions</a>
                                                             <div class="dropdown-menu" style="font-size:12px">
                                                                 <a class="dropdown-item" href="javascript:void(0)" onclick="Form_CopyLink('1', '@RW[0].ToString().Trim()')"><i class="fa fa-copy text-primary" style="width:24px;font-size: 14px"></i> Copy Customer URL link </a>
                                                                 <a class="dropdown-item" href="javascript:void(0)" onclick="Form_CopyLink('2', '@RW[0].ToString().Trim()')"><i class="fa fa-copy text-primary" style="width:24px;font-size: 14px"></i> Copy Customer iFrame URL </a>
@@ -317,7 +318,7 @@
                 <div class="card-content">
                     <div class="card-body card-dashboard" style="padding-bottom:35px;">
                         <div class="col-lg-12 form-inline" id="Sec_Section_Management" style="pointer-events:auto;opacity:1;margin-bottom:20px">
-                            <div class="col-lg-5">
+                            <div class="col-lg-3">
                                 <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
                                     Section Name :
                                 </div>
@@ -367,6 +368,15 @@
                                     <option value="10">Col 10</option>
                                     <option value="11">Col 11</option>
                                     <option value="12">Col 12</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Default Display :
+                                </div>
+                                <select class="select2 form-control" id="Txt_Section_Display">
+                                    <option value="1">Show</option>
+                                    <option value="2">Hidden</option>
                                 </select>
                             </div>
                             <div class="col-lg-12" style="text-align:right">
@@ -482,7 +492,7 @@
                             </div>
                             <div style="width:100%;" class="form-inline">
                                 <h5 class="col-lg-12 text-primary text-italic" style="margin-top:10px">Element tag :</h5>
-                                <div class="col-lg-8">
+                                <div class="col-lg-6">
                                     <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
                                         Element name :
                                     </div>
@@ -521,6 +531,15 @@
                                         <option value="10">Col 10</option>
                                         <option value="11">Col 11</option>
                                         <option value="12">Col 12</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Default Display :
+                                    </div>
+                                    <select class="select2 form-control" id="Txt_Element_Display">
+                                        <option value="1">Show</option>
+                                        <option value="2">Hidden</option>
                                     </select>
                                 </div>
                             </div>
@@ -4314,6 +4333,258 @@
                                         </div>
                                     </fieldset>
                                 </div>
+                                <hr style="width:100%" />
+                                <div class="col-lg-2">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Width #1 :
+                                    </div>
+                                    <select class="select2 form-control" id="Div_14_Width_7">
+                                        <option value="1">Col 1</option>
+                                        <option value="2">Col 2</option>
+                                        <option value="3">Col 3</option>
+                                        <option value="4">Col 4</option>
+                                        <option value="5">Col 5</option>
+                                        <option value="6">Col 6</option>
+                                        <option value="7">Col 7</option>
+                                        <option value="8">Col 8</option>
+                                        <option value="9">Col 9</option>
+                                        <option value="10">Col 10</option>
+                                        <option value="11">Col 11</option>
+                                        <option value="12">Col 12</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-10">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Title #1 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #1 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_1" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #2 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_2" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #3 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_3" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #4 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_4" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #5 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_5" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #6 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_6" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #7 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_7" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #8 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_8" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #9 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_9" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #10 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_10" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #11 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_11" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #12 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_12" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #13 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_13" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #14 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_14" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #15 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_15" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #16 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_16" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #17 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_17" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #18 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_18" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #19 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_19" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #20 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_7_20" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <hr style="width:100%" />
                                 <div class="col-lg-2">
                                     <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
                                         Width #4 :
@@ -4432,6 +4703,257 @@
                                     </div>
                                     <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
                                         <input type="text" class="form-control" id="Div_14_Text_Placeholder_6" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <hr style="width:100%" />
+                                <div class="col-lg-2">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Width #2 :
+                                    </div>
+                                    <select class="select2 form-control" id="Div_14_Width_8">
+                                        <option value="1">Col 1</option>
+                                        <option value="2">Col 2</option>
+                                        <option value="3">Col 3</option>
+                                        <option value="4">Col 4</option>
+                                        <option value="5">Col 5</option>
+                                        <option value="6">Col 6</option>
+                                        <option value="7">Col 7</option>
+                                        <option value="8">Col 8</option>
+                                        <option value="9">Col 9</option>
+                                        <option value="10">Col 10</option>
+                                        <option value="11">Col 11</option>
+                                        <option value="12">Col 12</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-10">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Dropdown Title #2 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #1 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_1" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #2 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_2" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #3 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_3" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #4 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_4" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #5 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_5" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #6 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_6" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #7 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_7" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #8 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_8" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #9 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_9" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #10 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_10" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #11 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_11" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #12 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_12" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #13 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_13" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #14 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_14" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #15 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_15" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #16 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_16" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #17 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_17" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #18 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_18" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #19 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_19" placeholder="" style="width:100%" maxlength="200">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-tag"></i>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                        Row item #20 :
+                                    </div>
+                                    <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                        <input type="text" class="form-control" id="Div_14_Text_Title_8_20" placeholder="" style="width:100%" maxlength="200">
                                         <div class="form-control-position">
                                             <i class="fa fa-tag"></i>
                                         </div>
@@ -4717,6 +5239,15 @@
                             <option value="12">Col 12</option>
                         </select>
                     </div>
+                    <div class="col-lg-12">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Default Display :
+                        </div>
+                        <select class="select2 form-control" id="Modal_Txt_Section_Display">
+                            <option value="1">Show</option>
+                            <option value="2">Hidden</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="col-lg-12" id="Modal_Sec_Wait" style="display:none;text-align:center;padding:10px">
                     <div class="lds-ripple"><div></div><div></div></div>
@@ -4777,6 +5308,15 @@
                             <option value="10">Col 10</option>
                             <option value="11">Col 11</option>
                             <option value="12">Col 12</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                            Default Display :
+                        </div>
+                        <select class="select2 form-control" id="M_Txt_Element_Display">
+                            <option value="1">Show</option>
+                            <option value="2">Hidden</option>
                         </select>
                     </div>
                 </div>
@@ -8815,6 +9355,258 @@
                                 </div>
                             </fieldset>
                         </div>
+                        <hr style="width:100%" />
+                        <div class="col-lg-2">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Width #1 :
+                            </div>
+                            <select class="select2 form-control" id="MDiv_14_Width_7">
+                                <option value="1">Col 1</option>
+                                <option value="2">Col 2</option>
+                                <option value="3">Col 3</option>
+                                <option value="4">Col 4</option>
+                                <option value="5">Col 5</option>
+                                <option value="6">Col 6</option>
+                                <option value="7">Col 7</option>
+                                <option value="8">Col 8</option>
+                                <option value="9">Col 9</option>
+                                <option value="10">Col 10</option>
+                                <option value="11">Col 11</option>
+                                <option value="12">Col 12</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Title #1 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #1 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_1" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #2 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_2" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #3 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_3" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #4 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_4" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #5 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_5" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #6 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_6" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #7 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_7" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #8 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_8" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #9 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_9" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #10 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_10" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #11 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_11" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #12 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_12" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #13 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_13" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #14 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_14" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #15 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_15" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #16 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_16" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #17 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_17" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #18 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_18" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #19 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_19" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #20 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_7_20" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <hr style="width:100%" />
                         <div class="col-lg-2">
                             <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
                                 Width #4 :
@@ -8933,6 +9725,257 @@
                             </div>
                             <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
                                 <input type="text" class="form-control" id="MDiv_14_Text_Placeholder_6" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <hr style="width:100%" />
+                        <div class="col-lg-2">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Width #2 :
+                            </div>
+                            <select class="select2 form-control" id="MDiv_14_Width_8">
+                                <option value="1">Col 1</option>
+                                <option value="2">Col 2</option>
+                                <option value="3">Col 3</option>
+                                <option value="4">Col 4</option>
+                                <option value="5">Col 5</option>
+                                <option value="6">Col 6</option>
+                                <option value="7">Col 7</option>
+                                <option value="8">Col 8</option>
+                                <option value="9">Col 9</option>
+                                <option value="10">Col 10</option>
+                                <option value="11">Col 11</option>
+                                <option value="12">Col 12</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Dropdown Title #2 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #1 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_1" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #2 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_2" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #3 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_3" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #4 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_4" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #5 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_5" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #6 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_6" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #7 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_7" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #8 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_8" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #9 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_9" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #10 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_10" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #11 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_11" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #12 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_12" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #13 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_13" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #14 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_14" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #15 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_15" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #16 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_16" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #17 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_17" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #18 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_18" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #19 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_19" placeholder="" style="width:100%" maxlength="200">
+                                <div class="form-control-position">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                Row item #20 :
+                            </div>
+                            <fieldset class="form-group position-relative has-icon-left input-divider-left" style="width:100%">
+                                <input type="text" class="form-control" id="MDiv_14_Text_Title_8_20" placeholder="" style="width:100%" maxlength="200">
                                 <div class="form-control-position">
                                     <i class="fa fa-tag"></i>
                                 </div>
@@ -9539,6 +10582,8 @@
             document.getElementById('Txt_Section_Index').value = "";
             $('#Txt_Section_Width').val("1");
             $('#Txt_Section_Width').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            $('#Txt_Section_Display').val("1");
+            $('#Txt_Section_Display').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
             GetSectionLastIndex();
             document.getElementById('Txt_Section_Name').focus();
             $('html, body').animate({ scrollTop: 0 }, 'slow');
@@ -9550,6 +10595,8 @@
                 var ShowIndex = document.getElementById('Txt_Section_Index').value.trim();
                 var SelectOPT = document.getElementById("Txt_Section_Width");
                 var ColWidth = SelectOPT.options[SelectOPT.selectedIndex].value;
+                var SelectOPT2 = document.getElementById("Txt_Section_Display");
+                var DefDisplay = SelectOPT2.options[SelectOPT2.selectedIndex].value;
                 if (SName == "") { toastr.warning('It is necessary to enter the section name, to add a new section', 'An error has occurred ...', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 }); return; }
                 if (ShowIndex == "") { toastr.warning('It is necessary to enter the Section order No., to add a new section', 'An error has occurred ...', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 }); return; }
                 if (ShowIndex == "") { ShowIndex = "1"; }
@@ -9563,6 +10610,7 @@
                 formData.append("Sec_Icon", IconKey);
                 formData.append("Sec_Index", ShowIndex);
                 formData.append("Sec_Col", ColWidth);
+                formData.append("DefDisplay", DefDisplay);
                 $.ajax({
                     url: "@Url.Action("RegisterForms_AddSection", "Tools")", type: "POST", data: formData, dataType: 'json', contentType: false, processData: false, async: true,
                     error: function () {
@@ -9713,6 +10761,8 @@
                 $('#Modal_Section_Editor').modal('show');
                 $('#Modal_Txt_Section_Width').val("1");
                 $('#Modal_Txt_Section_Width').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                $('#Modal_Txt_Section_Display').val("1");
+                $('#Modal_Txt_Section_Display').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                 var formData = new FormData();
                 formData.append("GroupID", SelGroup);
                 formData.append("SecID", Sec_ID);
@@ -9736,6 +10786,8 @@
                             document.getElementById("Modal_Txt_Section_Index").value = SepData[2].trim();
                             $('#Modal_Txt_Section_Width').val(SepData[3].trim());
                             $('#Modal_Txt_Section_Width').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            $('#Modal_Txt_Section_Display').val(SepData[4].trim());
+                            $('#Modal_Txt_Section_Display').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                             document.getElementById("Modal_Sec_Wait").style.display = "none";
                             document.getElementById("Modal_Sec_Body").style.display = "block";
                             document.getElementById("Modal_Sec_Btn").style.opacity = "1";
@@ -9766,6 +10818,10 @@
                 var SelectOPT = document.getElementById("Modal_Txt_Section_Width");
                 var SecIDL = document.getElementById("Modal_SecID").value;
                 var ColWidth = SelectOPT.options[SelectOPT.selectedIndex].value;
+
+                var SelectOPT2 = document.getElementById("Modal_Txt_Section_Display");
+                var DefDisplay = SelectOPT2.options[SelectOPT2.selectedIndex].value;
+
                 if (SName == "") { toastr.warning('It is necessary to enter the section name, to edit section', 'An error has occurred ...', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 }); return; }
                 if (ShowIndex == "") { toastr.warning('It is necessary to enter the Section order No., to edit section', 'An error has occurred ...', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 }); return; }
                 if (ShowIndex == "") { ShowIndex = "1"; }
@@ -9780,6 +10836,7 @@
                 formData.append("Sec_Icon", IconKey);
                 formData.append("Sec_Index", ShowIndex);
                 formData.append("Sec_Col", ColWidth);
+                formData.append("DefDisplay", DefDisplay);
                 $.ajax({
                     url: "@Url.Action("RegisterForms_SaveEditSection", "Tools")", type: "POST", data: formData, dataType: 'json', contentType: false, processData: false, async: true,
                     error: function () {
@@ -9902,6 +10959,8 @@
                         document.getElementById("Txt_Element_Index").value = "1";
                         $('#Txt_Element_Width').val("1");
                         $('#Txt_Element_Width').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Txt_Element_Display').val("1");
+                        $('#Txt_Element_Display').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                         document.getElementById("Txt_Element_LinkIcon").value = "";
                         document.getElementById("Txt_Element_LinkPreText").value = "";
                         document.getElementById("Txt_Element_LinkAddress").value = "";
@@ -10356,6 +11415,52 @@
                         $('#Div_14_Width_6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                         document.getElementById("Div_14_Text_Title_6").value = "";
                         document.getElementById("Div_14_Text_Placeholder_6").value = "";
+                        $('#Div_14_Width_7').val("1");
+                        $('#Div_14_Width_7').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_14_Text_Title_7").value = "";
+                        document.getElementById("Div_14_Text_Title_7_1").value = "";
+                        document.getElementById("Div_14_Text_Title_7_2").value = "";
+                        document.getElementById("Div_14_Text_Title_7_3").value = "";
+                        document.getElementById("Div_14_Text_Title_7_4").value = "";
+                        document.getElementById("Div_14_Text_Title_7_5").value = "";
+                        document.getElementById("Div_14_Text_Title_7_6").value = "";
+                        document.getElementById("Div_14_Text_Title_7_7").value = "";
+                        document.getElementById("Div_14_Text_Title_7_8").value = "";
+                        document.getElementById("Div_14_Text_Title_7_9").value = "";
+                        document.getElementById("Div_14_Text_Title_7_10").value = "";
+                        document.getElementById("Div_14_Text_Title_7_11").value = "";
+                        document.getElementById("Div_14_Text_Title_7_12").value = "";
+                        document.getElementById("Div_14_Text_Title_7_13").value = "";
+                        document.getElementById("Div_14_Text_Title_7_14").value = "";
+                        document.getElementById("Div_14_Text_Title_7_15").value = "";
+                        document.getElementById("Div_14_Text_Title_7_16").value = "";
+                        document.getElementById("Div_14_Text_Title_7_17").value = "";
+                        document.getElementById("Div_14_Text_Title_7_18").value = "";
+                        document.getElementById("Div_14_Text_Title_7_19").value = "";
+                        document.getElementById("Div_14_Text_Title_7_20").value = "";
+                        $('#Div_14_Width_8').val("1");
+                        $('#Div_14_Width_8').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_14_Text_Title_8").value = "";
+                        document.getElementById("Div_14_Text_Title_8_1").value = "";
+                        document.getElementById("Div_14_Text_Title_8_2").value = "";
+                        document.getElementById("Div_14_Text_Title_8_3").value = "";
+                        document.getElementById("Div_14_Text_Title_8_4").value = "";
+                        document.getElementById("Div_14_Text_Title_8_5").value = "";
+                        document.getElementById("Div_14_Text_Title_8_6").value = "";
+                        document.getElementById("Div_14_Text_Title_8_7").value = "";
+                        document.getElementById("Div_14_Text_Title_8_8").value = "";
+                        document.getElementById("Div_14_Text_Title_8_9").value = "";
+                        document.getElementById("Div_14_Text_Title_8_10").value = "";
+                        document.getElementById("Div_14_Text_Title_8_11").value = "";
+                        document.getElementById("Div_14_Text_Title_8_12").value = "";
+                        document.getElementById("Div_14_Text_Title_8_13").value = "";
+                        document.getElementById("Div_14_Text_Title_8_14").value = "";
+                        document.getElementById("Div_14_Text_Title_8_15").value = "";
+                        document.getElementById("Div_14_Text_Title_8_16").value = "";
+                        document.getElementById("Div_14_Text_Title_8_17").value = "";
+                        document.getElementById("Div_14_Text_Title_8_18").value = "";
+                        document.getElementById("Div_14_Text_Title_8_19").value = "";
+                        document.getElementById("Div_14_Text_Title_8_20").value = "";
                         ReloadGrid_Elements();
                         ElementPage_Show('1');
                         $('html, body').animate({ scrollTop: 0 }, 'slow');
@@ -10373,6 +11478,8 @@
                 document.getElementById("Txt_Element_Index").value = "1";
                 $('#Txt_Element_Width').val("1");
                 $('#Txt_Element_Width').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                $('#Txt_Element_Display').val("1");
+                $('#Txt_Element_Display').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                 document.getElementById("Txt_Element_LinkIcon").value = "";
                 document.getElementById("Txt_Element_LinkPreText").value = "";
                 document.getElementById("Txt_Element_LinkAddress").value = "";
@@ -10827,6 +11934,52 @@
                 $('#Div_14_Width_6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                 document.getElementById("Div_14_Text_Title_6").value = "";
                 document.getElementById("Div_14_Text_Placeholder_6").value = "";
+                $('#Div_14_Width_7').val("1");
+                $('#Div_14_Width_7').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                document.getElementById("Div_14_Text_Title_7").value = "";
+                document.getElementById("Div_14_Text_Title_7_1").value = "";
+                document.getElementById("Div_14_Text_Title_7_2").value = "";
+                document.getElementById("Div_14_Text_Title_7_3").value = "";
+                document.getElementById("Div_14_Text_Title_7_4").value = "";
+                document.getElementById("Div_14_Text_Title_7_5").value = "";
+                document.getElementById("Div_14_Text_Title_7_6").value = "";
+                document.getElementById("Div_14_Text_Title_7_7").value = "";
+                document.getElementById("Div_14_Text_Title_7_8").value = "";
+                document.getElementById("Div_14_Text_Title_7_9").value = "";
+                document.getElementById("Div_14_Text_Title_7_10").value = "";
+                document.getElementById("Div_14_Text_Title_7_11").value = "";
+                document.getElementById("Div_14_Text_Title_7_12").value = "";
+                document.getElementById("Div_14_Text_Title_7_13").value = "";
+                document.getElementById("Div_14_Text_Title_7_14").value = "";
+                document.getElementById("Div_14_Text_Title_7_15").value = "";
+                document.getElementById("Div_14_Text_Title_7_16").value = "";
+                document.getElementById("Div_14_Text_Title_7_17").value = "";
+                document.getElementById("Div_14_Text_Title_7_18").value = "";
+                document.getElementById("Div_14_Text_Title_7_19").value = "";
+                document.getElementById("Div_14_Text_Title_7_20").value = "";
+                $('#Div_14_Width_8').val("1");
+                $('#Div_14_Width_8').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                document.getElementById("Div_14_Text_Title_8").value = "";
+                document.getElementById("Div_14_Text_Title_8_1").value = "";
+                document.getElementById("Div_14_Text_Title_8_2").value = "";
+                document.getElementById("Div_14_Text_Title_8_3").value = "";
+                document.getElementById("Div_14_Text_Title_8_4").value = "";
+                document.getElementById("Div_14_Text_Title_8_5").value = "";
+                document.getElementById("Div_14_Text_Title_8_6").value = "";
+                document.getElementById("Div_14_Text_Title_8_7").value = "";
+                document.getElementById("Div_14_Text_Title_8_8").value = "";
+                document.getElementById("Div_14_Text_Title_8_9").value = "";
+                document.getElementById("Div_14_Text_Title_8_10").value = "";
+                document.getElementById("Div_14_Text_Title_8_11").value = "";
+                document.getElementById("Div_14_Text_Title_8_12").value = "";
+                document.getElementById("Div_14_Text_Title_8_13").value = "";
+                document.getElementById("Div_14_Text_Title_8_14").value = "";
+                document.getElementById("Div_14_Text_Title_8_15").value = "";
+                document.getElementById("Div_14_Text_Title_8_16").value = "";
+                document.getElementById("Div_14_Text_Title_8_17").value = "";
+                document.getElementById("Div_14_Text_Title_8_18").value = "";
+                document.getElementById("Div_14_Text_Title_8_19").value = "";
+                document.getElementById("Div_14_Text_Title_8_20").value = "";
                 ReloadGrid_Elements();
                 ElementPage_Show('1');
                 $('html, body').animate({ scrollTop: 0 }, 'slow');
@@ -10858,6 +12011,8 @@
                         document.getElementById("Txt_Element_Index").value = "1";
                         $('#Txt_Element_Width').val("1");
                         $('#Txt_Element_Width').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        $('#Txt_Element_Display').val("1");
+                        $('#Txt_Element_Display').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                         document.getElementById("Txt_Element_LinkIcon").value = "";
                         document.getElementById("Txt_Element_LinkPreText").value = "";
                         document.getElementById("Txt_Element_LinkAddress").value = "";
@@ -11354,6 +12509,52 @@
                             $('#Div_14_Width_6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                             document.getElementById("Div_14_Text_Title_6").value = "";
                             document.getElementById("Div_14_Text_Placeholder_6").value = "";
+                            $('#Div_14_Width_7').val("1");
+                            $('#Div_14_Width_7').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            document.getElementById("Div_14_Text_Title_7").value = "";
+                            document.getElementById("Div_14_Text_Title_7_1").value = "";
+                            document.getElementById("Div_14_Text_Title_7_2").value = "";
+                            document.getElementById("Div_14_Text_Title_7_3").value = "";
+                            document.getElementById("Div_14_Text_Title_7_4").value = "";
+                            document.getElementById("Div_14_Text_Title_7_5").value = "";
+                            document.getElementById("Div_14_Text_Title_7_6").value = "";
+                            document.getElementById("Div_14_Text_Title_7_7").value = "";
+                            document.getElementById("Div_14_Text_Title_7_8").value = "";
+                            document.getElementById("Div_14_Text_Title_7_9").value = "";
+                            document.getElementById("Div_14_Text_Title_7_10").value = "";
+                            document.getElementById("Div_14_Text_Title_7_11").value = "";
+                            document.getElementById("Div_14_Text_Title_7_12").value = "";
+                            document.getElementById("Div_14_Text_Title_7_13").value = "";
+                            document.getElementById("Div_14_Text_Title_7_14").value = "";
+                            document.getElementById("Div_14_Text_Title_7_15").value = "";
+                            document.getElementById("Div_14_Text_Title_7_16").value = "";
+                            document.getElementById("Div_14_Text_Title_7_17").value = "";
+                            document.getElementById("Div_14_Text_Title_7_18").value = "";
+                            document.getElementById("Div_14_Text_Title_7_19").value = "";
+                            document.getElementById("Div_14_Text_Title_7_20").value = "";
+                            $('#Div_14_Width_8').val("1");
+                            $('#Div_14_Width_8').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            document.getElementById("Div_14_Text_Title_8").value = "";
+                            document.getElementById("Div_14_Text_Title_8_1").value = "";
+                            document.getElementById("Div_14_Text_Title_8_2").value = "";
+                            document.getElementById("Div_14_Text_Title_8_3").value = "";
+                            document.getElementById("Div_14_Text_Title_8_4").value = "";
+                            document.getElementById("Div_14_Text_Title_8_5").value = "";
+                            document.getElementById("Div_14_Text_Title_8_6").value = "";
+                            document.getElementById("Div_14_Text_Title_8_7").value = "";
+                            document.getElementById("Div_14_Text_Title_8_8").value = "";
+                            document.getElementById("Div_14_Text_Title_8_9").value = "";
+                            document.getElementById("Div_14_Text_Title_8_10").value = "";
+                            document.getElementById("Div_14_Text_Title_8_11").value = "";
+                            document.getElementById("Div_14_Text_Title_8_12").value = "";
+                            document.getElementById("Div_14_Text_Title_8_13").value = "";
+                            document.getElementById("Div_14_Text_Title_8_14").value = "";
+                            document.getElementById("Div_14_Text_Title_8_15").value = "";
+                            document.getElementById("Div_14_Text_Title_8_16").value = "";
+                            document.getElementById("Div_14_Text_Title_8_17").value = "";
+                            document.getElementById("Div_14_Text_Title_8_18").value = "";
+                            document.getElementById("Div_14_Text_Title_8_19").value = "";
+                            document.getElementById("Div_14_Text_Title_8_20").value = "";
                             break;
                         }
                     }
@@ -11372,6 +12573,8 @@
                 document.getElementById("Txt_Element_Index").value = "1";
                 $('#Txt_Element_Width').val("1");
                 $('#Txt_Element_Width').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                $('#Txt_Element_Display').val("1");
+                $('#Txt_Element_Display').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                 document.getElementById("Txt_Element_LinkIcon").value = "";
                 document.getElementById("Txt_Element_LinkPreText").value = "";
                 document.getElementById("Txt_Element_LinkAddress").value = "";
@@ -11867,6 +13070,52 @@
                         $('#Div_14_Width_6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                         document.getElementById("Div_14_Text_Title_6").value = "";
                         document.getElementById("Div_14_Text_Placeholder_6").value = "";
+                        $('#Div_14_Width_7').val("1");
+                        $('#Div_14_Width_7').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_14_Text_Title_7").value = "";
+                        document.getElementById("Div_14_Text_Title_7_1").value = "";
+                        document.getElementById("Div_14_Text_Title_7_2").value = "";
+                        document.getElementById("Div_14_Text_Title_7_3").value = "";
+                        document.getElementById("Div_14_Text_Title_7_4").value = "";
+                        document.getElementById("Div_14_Text_Title_7_5").value = "";
+                        document.getElementById("Div_14_Text_Title_7_6").value = "";
+                        document.getElementById("Div_14_Text_Title_7_7").value = "";
+                        document.getElementById("Div_14_Text_Title_7_8").value = "";
+                        document.getElementById("Div_14_Text_Title_7_9").value = "";
+                        document.getElementById("Div_14_Text_Title_7_10").value = "";
+                        document.getElementById("Div_14_Text_Title_7_11").value = "";
+                        document.getElementById("Div_14_Text_Title_7_12").value = "";
+                        document.getElementById("Div_14_Text_Title_7_13").value = "";
+                        document.getElementById("Div_14_Text_Title_7_14").value = "";
+                        document.getElementById("Div_14_Text_Title_7_15").value = "";
+                        document.getElementById("Div_14_Text_Title_7_16").value = "";
+                        document.getElementById("Div_14_Text_Title_7_17").value = "";
+                        document.getElementById("Div_14_Text_Title_7_18").value = "";
+                        document.getElementById("Div_14_Text_Title_7_19").value = "";
+                        document.getElementById("Div_14_Text_Title_7_20").value = "";
+                        $('#Div_14_Width_8').val("1");
+                        $('#Div_14_Width_8').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        document.getElementById("Div_14_Text_Title_8").value = "";
+                        document.getElementById("Div_14_Text_Title_8_1").value = "";
+                        document.getElementById("Div_14_Text_Title_8_2").value = "";
+                        document.getElementById("Div_14_Text_Title_8_3").value = "";
+                        document.getElementById("Div_14_Text_Title_8_4").value = "";
+                        document.getElementById("Div_14_Text_Title_8_5").value = "";
+                        document.getElementById("Div_14_Text_Title_8_6").value = "";
+                        document.getElementById("Div_14_Text_Title_8_7").value = "";
+                        document.getElementById("Div_14_Text_Title_8_8").value = "";
+                        document.getElementById("Div_14_Text_Title_8_9").value = "";
+                        document.getElementById("Div_14_Text_Title_8_10").value = "";
+                        document.getElementById("Div_14_Text_Title_8_11").value = "";
+                        document.getElementById("Div_14_Text_Title_8_12").value = "";
+                        document.getElementById("Div_14_Text_Title_8_13").value = "";
+                        document.getElementById("Div_14_Text_Title_8_14").value = "";
+                        document.getElementById("Div_14_Text_Title_8_15").value = "";
+                        document.getElementById("Div_14_Text_Title_8_16").value = "";
+                        document.getElementById("Div_14_Text_Title_8_17").value = "";
+                        document.getElementById("Div_14_Text_Title_8_18").value = "";
+                        document.getElementById("Div_14_Text_Title_8_19").value = "";
+                        document.getElementById("Div_14_Text_Title_8_20").value = "";
                         break;
                     }
                 }
@@ -12072,6 +13321,8 @@
                 document.getElementById("Btn_Elements_Wait").style.display = "block";
                 var TagSel1 = document.getElementById("Txt_Element_Width");
                 var El_ColWidth = TagSel1.options[TagSel1.selectedIndex].value;
+                var TagSel1D = document.getElementById("Txt_Element_Display");
+                var El_DefDisplay = TagSel1D.options[TagSel1D.selectedIndex].value;
                 var formData = new FormData();
                 formData.append("GroupID", SelGroup);
                 formData.append("SecID", SelSec);
@@ -12079,6 +13330,7 @@
                 formData.append("El_Title", document.getElementById("Txt_Element_Name").value.trim());
                 formData.append("El_Index", document.getElementById("Txt_Element_Index").value.trim());
                 formData.append("El_Col", El_ColWidth);
+                formData.append("El_DefDisplay", El_DefDisplay);
                 $.ajax({
                     url: "@Url.Action("RegisterForms_AddElement_A", "Tools")", type: "POST", data: formData, dataType: 'json', contentType: false, processData: false, async: true,
                     error: function () {
@@ -12707,6 +13959,52 @@
                                                                                     FrmDataPro.append("A25", $("#Div_14_Width_6 :selected").val().trim());
                                                                                     FrmDataPro.append("A26", document.getElementById("Div_14_Text_Title_6").value.trim());
                                                                                     FrmDataPro.append("A27", document.getElementById("Div_14_Text_Placeholder_6").value.trim());
+                                                                                    FrmDataPro.append("A28", $("#Div_14_Width_7 :selected").text().trim());
+                                                                                    FrmDataPro.append("A29", $("#Div_14_Width_7 :selected").val().trim());
+                                                                                    FrmDataPro.append("A30", document.getElementById("Div_14_Text_Title_7").value.trim());
+                                                                                    FrmDataPro.append("A31", document.getElementById("Div_14_Text_Title_7_1").value.trim());
+                                                                                    FrmDataPro.append("A32", document.getElementById("Div_14_Text_Title_7_2").value.trim());
+                                                                                    FrmDataPro.append("A33", document.getElementById("Div_14_Text_Title_7_3").value.trim());
+                                                                                    FrmDataPro.append("A34", document.getElementById("Div_14_Text_Title_7_4").value.trim());
+                                                                                    FrmDataPro.append("A35", document.getElementById("Div_14_Text_Title_7_5").value.trim());
+                                                                                    FrmDataPro.append("A36", document.getElementById("Div_14_Text_Title_7_6").value.trim());
+                                                                                    FrmDataPro.append("A37", document.getElementById("Div_14_Text_Title_7_7").value.trim());
+                                                                                    FrmDataPro.append("A38", document.getElementById("Div_14_Text_Title_7_8").value.trim());
+                                                                                    FrmDataPro.append("A39", document.getElementById("Div_14_Text_Title_7_9").value.trim());
+                                                                                    FrmDataPro.append("A40", document.getElementById("Div_14_Text_Title_7_10").value.trim());
+                                                                                    FrmDataPro.append("A41", document.getElementById("Div_14_Text_Title_7_11").value.trim());
+                                                                                    FrmDataPro.append("A42", document.getElementById("Div_14_Text_Title_7_12").value.trim());
+                                                                                    FrmDataPro.append("A43", document.getElementById("Div_14_Text_Title_7_13").value.trim());
+                                                                                    FrmDataPro.append("A44", document.getElementById("Div_14_Text_Title_7_14").value.trim());
+                                                                                    FrmDataPro.append("A45", document.getElementById("Div_14_Text_Title_7_15").value.trim());
+                                                                                    FrmDataPro.append("A46", document.getElementById("Div_14_Text_Title_7_16").value.trim());
+                                                                                    FrmDataPro.append("A47", document.getElementById("Div_14_Text_Title_7_17").value.trim());
+                                                                                    FrmDataPro.append("A48", document.getElementById("Div_14_Text_Title_7_18").value.trim());
+                                                                                    FrmDataPro.append("A49", document.getElementById("Div_14_Text_Title_7_19").value.trim());
+                                                                                    FrmDataPro.append("A50", document.getElementById("Div_14_Text_Title_7_20").value.trim());
+                                                                                    FrmDataPro.append("A51", $("#Div_14_Width_8 :selected").text().trim());
+                                                                                    FrmDataPro.append("A52", $("#Div_14_Width_8 :selected").val().trim());
+                                                                                    FrmDataPro.append("A53", document.getElementById("Div_14_Text_Title_8").value.trim());
+                                                                                    FrmDataPro.append("A54", document.getElementById("Div_14_Text_Title_8_1").value.trim());
+                                                                                    FrmDataPro.append("A55", document.getElementById("Div_14_Text_Title_8_2").value.trim());
+                                                                                    FrmDataPro.append("A56", document.getElementById("Div_14_Text_Title_8_3").value.trim());
+                                                                                    FrmDataPro.append("A57", document.getElementById("Div_14_Text_Title_8_4").value.trim());
+                                                                                    FrmDataPro.append("A58", document.getElementById("Div_14_Text_Title_8_5").value.trim());
+                                                                                    FrmDataPro.append("A59", document.getElementById("Div_14_Text_Title_8_6").value.trim());
+                                                                                    FrmDataPro.append("A60", document.getElementById("Div_14_Text_Title_8_7").value.trim());
+                                                                                    FrmDataPro.append("A61", document.getElementById("Div_14_Text_Title_8_8").value.trim());
+                                                                                    FrmDataPro.append("A62", document.getElementById("Div_14_Text_Title_8_9").value.trim());
+                                                                                    FrmDataPro.append("A63", document.getElementById("Div_14_Text_Title_8_10").value.trim());
+                                                                                    FrmDataPro.append("A64", document.getElementById("Div_14_Text_Title_8_11").value.trim());
+                                                                                    FrmDataPro.append("A65", document.getElementById("Div_14_Text_Title_8_12").value.trim());
+                                                                                    FrmDataPro.append("A66", document.getElementById("Div_14_Text_Title_8_13").value.trim());
+                                                                                    FrmDataPro.append("A67", document.getElementById("Div_14_Text_Title_8_14").value.trim());
+                                                                                    FrmDataPro.append("A68", document.getElementById("Div_14_Text_Title_8_15").value.trim());
+                                                                                    FrmDataPro.append("A69", document.getElementById("Div_14_Text_Title_8_16").value.trim());
+                                                                                    FrmDataPro.append("A70", document.getElementById("Div_14_Text_Title_8_17").value.trim());
+                                                                                    FrmDataPro.append("A71", document.getElementById("Div_14_Text_Title_8_18").value.trim());
+                                                                                    FrmDataPro.append("A72", document.getElementById("Div_14_Text_Title_8_19").value.trim());
+                                                                                    FrmDataPro.append("A73", document.getElementById("Div_14_Text_Title_8_20").value.trim());
                                                                                     break;
                                                                                 }
                                                                             }
@@ -12839,6 +14137,8 @@
                 document.getElementById("M_Txt_Element_Index").value = "";
                 $('#M_Txt_Element_Width').val("1");
                 $('#M_Txt_Element_Width').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                $('#M_Txt_Element_Display').val("1");
+                $('#M_Txt_Element_Display').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                 $('#Modal_ElementEditor_Tag').modal('show');
                 var formData = new FormData();
                 formData.append("GID", SelGroup);
@@ -12863,6 +14163,8 @@
                             document.getElementById("M_Txt_Element_Index").value = SepData[1].trim();
                             $('#M_Txt_Element_Width').val(SepData[2].trim());
                             $('#M_Txt_Element_Width').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                            $('#M_Txt_Element_Display').val(SepData[3].trim());
+                            $('#M_Txt_Element_Display').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                             document.getElementById("Modal_ElementEditor_Tag_Wait").style.display = "none";
                             document.getElementById("Modal_ElementEditor_Tag_Body").style.display = "block";
                             document.getElementById("Modal_ElementEditor_Tag_Btn").style.opacity = "1";
@@ -12892,6 +14194,7 @@
                 if (ElName == "") { toastr.warning('It is necessary to enter the element name, to save element tag information', 'An error has occurred ...', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 }); return; }
                 if ((ElIndex == "") || (ElIndex == "0")) { toastr.warning('It is necessary to enter the element order no., to save element tag information', 'An error has occurred ...', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 }); return; }
                 var ElWidth = $("#M_Txt_Element_Width :selected").val().trim();
+                var DefDisplay = $("#M_Txt_Element_Display :selected").val().trim();
                 document.getElementById("Modal_ElementEditor_Tag_Body").style.display = "none";
                 document.getElementById("Modal_ElementEditor_Tag_Wait").style.display = "block";
                 document.getElementById("Modal_ElementEditor_Tag_Btn").style.opacity = "0.7";
@@ -12903,6 +14206,7 @@
                 formData.append("ElName", ElName);
                 formData.append("ElIndex", ElIndex);
                 formData.append("ElWidth", ElWidth);
+                formData.append("DefDisplay", DefDisplay);
                 $.ajax({
                     url: "@Url.Action("RegisterForms_SaveEdit_Element_Tag", "Tools")", type: "POST", data: formData, dataType: 'json', contentType: false, processData: false, async: true,
                     error: function () {
@@ -13744,6 +15048,52 @@
             $('#MDiv_14_Width_6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
             document.getElementById("MDiv_14_Text_Title_6").value = "";
             document.getElementById("MDiv_14_Text_Placeholder_6").value = "";
+            $('#MDiv_14_Width_7').val("1");
+            $('#MDiv_14_Width_7').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            document.getElementById("MDiv_14_Text_Title_7").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_1").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_2").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_3").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_4").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_5").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_6").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_7").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_8").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_9").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_10").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_11").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_12").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_13").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_14").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_15").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_16").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_17").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_18").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_19").value = "";
+            document.getElementById("MDiv_14_Text_Title_7_20").value = "";
+            $('#Div_14_Width_8').val("1");
+            $('#Div_14_Width_8').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+            document.getElementById("MDiv_14_Text_Title_8").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_1").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_2").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_3").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_4").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_5").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_6").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_7").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_8").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_9").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_10").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_11").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_12").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_13").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_14").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_15").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_16").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_17").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_18").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_19").value = "";
+            document.getElementById("MDiv_14_Text_Title_8_20").value = "";
         }
         function Elements_Edit_Properties(EID) {
             try {
@@ -14329,6 +15679,52 @@
                                     $('#MDiv_14_Width_6').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
                                     document.getElementById("MDiv_14_Text_Title_6").value = SepData[27].trim();
                                     document.getElementById("MDiv_14_Text_Placeholder_6").value = SepData[28].trim();
+                                    $('#MDiv_14_Width_7').val(SepData[30].trim());
+                                    $('#MDiv_14_Width_7').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    document.getElementById("MDiv_14_Text_Title_7").value = SepData[31].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_1").value = SepData[32].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_2").value = SepData[33].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_3").value = SepData[34].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_4").value = SepData[35].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_5").value = SepData[36].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_6").value = SepData[37].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_7").value = SepData[38].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_8").value = SepData[39].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_9").value = SepData[40].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_10").value = SepData[41].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_11").value = SepData[42].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_12").value = SepData[43].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_13").value = SepData[44].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_14").value = SepData[45].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_15").value = SepData[46].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_16").value = SepData[47].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_17").value = SepData[48].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_18").value = SepData[49].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_19").value = SepData[50].trim();
+                                    document.getElementById("MDiv_14_Text_Title_7_20").value = SepData[51].trim();
+                                    $('#MDiv_14_Width_8').val(SepData[53].trim());
+                                    $('#MDiv_14_Width_8').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                    document.getElementById("MDiv_14_Text_Title_8").value = SepData[54].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_1").value = SepData[55].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_2").value = SepData[56].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_3").value = SepData[57].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_4").value = SepData[58].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_5").value = SepData[59].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_6").value = SepData[60].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_7").value = SepData[61].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_8").value = SepData[62].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_9").value = SepData[63].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_10").value = SepData[64].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_11").value = SepData[65].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_12").value = SepData[66].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_13").value = SepData[67].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_14").value = SepData[68].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_15").value = SepData[69].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_16").value = SepData[70].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_17").value = SepData[71].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_18").value = SepData[72].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_19").value = SepData[73].trim();
+                                    document.getElementById("MDiv_14_Text_Title_8_20").value = SepData[74].trim();
                                     break;
                                 }
                             }
@@ -15063,6 +16459,52 @@
                         FrmDataPro.append("A25", $("#MDiv_14_Width_6 :selected").val().trim());
                         FrmDataPro.append("A26", document.getElementById("MDiv_14_Text_Title_6").value.trim());
                         FrmDataPro.append("A27", document.getElementById("MDiv_14_Text_Placeholder_6").value.trim());
+                        FrmDataPro.append("A28", $("#MDiv_14_Width_7 :selected").text().trim());
+                        FrmDataPro.append("A29", $("#MDiv_14_Width_7 :selected").val().trim());
+                        FrmDataPro.append("A30", document.getElementById("MDiv_14_Text_Title_7").value.trim());
+                        FrmDataPro.append("A31", document.getElementById("MDiv_14_Text_Title_7_1").value.trim());
+                        FrmDataPro.append("A32", document.getElementById("MDiv_14_Text_Title_7_2").value.trim());
+                        FrmDataPro.append("A33", document.getElementById("MDiv_14_Text_Title_7_3").value.trim());
+                        FrmDataPro.append("A34", document.getElementById("MDiv_14_Text_Title_7_4").value.trim());
+                        FrmDataPro.append("A35", document.getElementById("MDiv_14_Text_Title_7_5").value.trim());
+                        FrmDataPro.append("A36", document.getElementById("MDiv_14_Text_Title_7_6").value.trim());
+                        FrmDataPro.append("A37", document.getElementById("MDiv_14_Text_Title_7_7").value.trim());
+                        FrmDataPro.append("A38", document.getElementById("MDiv_14_Text_Title_7_8").value.trim());
+                        FrmDataPro.append("A39", document.getElementById("MDiv_14_Text_Title_7_9").value.trim());
+                        FrmDataPro.append("A40", document.getElementById("MDiv_14_Text_Title_7_10").value.trim());
+                        FrmDataPro.append("A41", document.getElementById("MDiv_14_Text_Title_7_11").value.trim());
+                        FrmDataPro.append("A42", document.getElementById("MDiv_14_Text_Title_7_12").value.trim());
+                        FrmDataPro.append("A43", document.getElementById("MDiv_14_Text_Title_7_13").value.trim());
+                        FrmDataPro.append("A44", document.getElementById("MDiv_14_Text_Title_7_14").value.trim());
+                        FrmDataPro.append("A45", document.getElementById("MDiv_14_Text_Title_7_15").value.trim());
+                        FrmDataPro.append("A46", document.getElementById("MDiv_14_Text_Title_7_16").value.trim());
+                        FrmDataPro.append("A47", document.getElementById("MDiv_14_Text_Title_7_17").value.trim());
+                        FrmDataPro.append("A48", document.getElementById("MDiv_14_Text_Title_7_18").value.trim());
+                        FrmDataPro.append("A49", document.getElementById("MDiv_14_Text_Title_7_19").value.trim());
+                        FrmDataPro.append("A50", document.getElementById("MDiv_14_Text_Title_7_20").value.trim());
+                        FrmDataPro.append("A51", $("#MDiv_14_Width_8 :selected").text().trim());
+                        FrmDataPro.append("A52", $("#MDiv_14_Width_8 :selected").val().trim());
+                        FrmDataPro.append("A53", document.getElementById("MDiv_14_Text_Title_8").value.trim());
+                        FrmDataPro.append("A54", document.getElementById("MDiv_14_Text_Title_8_1").value.trim());
+                        FrmDataPro.append("A55", document.getElementById("MDiv_14_Text_Title_8_2").value.trim());
+                        FrmDataPro.append("A56", document.getElementById("MDiv_14_Text_Title_8_3").value.trim());
+                        FrmDataPro.append("A57", document.getElementById("MDiv_14_Text_Title_8_4").value.trim());
+                        FrmDataPro.append("A58", document.getElementById("MDiv_14_Text_Title_8_5").value.trim());
+                        FrmDataPro.append("A59", document.getElementById("MDiv_14_Text_Title_8_6").value.trim());
+                        FrmDataPro.append("A60", document.getElementById("MDiv_14_Text_Title_8_7").value.trim());
+                        FrmDataPro.append("A61", document.getElementById("MDiv_14_Text_Title_8_8").value.trim());
+                        FrmDataPro.append("A62", document.getElementById("MDiv_14_Text_Title_8_9").value.trim());
+                        FrmDataPro.append("A63", document.getElementById("MDiv_14_Text_Title_8_10").value.trim());
+                        FrmDataPro.append("A64", document.getElementById("MDiv_14_Text_Title_8_11").value.trim());
+                        FrmDataPro.append("A65", document.getElementById("MDiv_14_Text_Title_8_12").value.trim());
+                        FrmDataPro.append("A66", document.getElementById("MDiv_14_Text_Title_8_13").value.trim());
+                        FrmDataPro.append("A67", document.getElementById("MDiv_14_Text_Title_8_14").value.trim());
+                        FrmDataPro.append("A68", document.getElementById("MDiv_14_Text_Title_8_15").value.trim());
+                        FrmDataPro.append("A69", document.getElementById("MDiv_14_Text_Title_8_16").value.trim());
+                        FrmDataPro.append("A70", document.getElementById("MDiv_14_Text_Title_8_17").value.trim());
+                        FrmDataPro.append("A71", document.getElementById("MDiv_14_Text_Title_8_18").value.trim());
+                        FrmDataPro.append("A72", document.getElementById("MDiv_14_Text_Title_8_19").value.trim());
+                        FrmDataPro.append("A73", document.getElementById("MDiv_14_Text_Title_8_20").value.trim());
                         break;
                     }
                 }
@@ -15171,6 +16613,10 @@
         }
         function Form_ConfigurationST(FID) {
             var Baseurl = "@Url.Action("RegisterForms_Configuration", "Tools", new { id="AAA" , area="HSU_Portal" })"; Baseurl = Baseurl.replace("AAA", FID);
+            window.open(Baseurl, "_blank");
+        }
+        function Form_ConditionsST(FID) {
+            var Baseurl = "@Url.Action("RegisterForms_Conditions", "Tools", new { id="AAA" , area="HSU_Portal" })"; Baseurl = Baseurl.replace("AAA", FID);
             window.open(Baseurl, "_blank");
         }
         $(document).ready(function () {

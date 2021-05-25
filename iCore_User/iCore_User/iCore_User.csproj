@@ -1380,6 +1380,7 @@
     <Content Include="Areas\HSU_Portal\Views\Applications\HSU_New.cshtml" />
     <Content Include="Areas\HSU_Portal\Views\Applications\HSU_Application.cshtml" />
     <Content Include="Areas\HSU_Portal\Views\Tools\RegisterForms_Configuration.cshtml" />
+    <Content Include="Areas\HSU_Portal\Views\Tools\RegisterForms_Conditions.cshtml" />
     <None Include="packages.config" />
     <Content Include="Theme\Base\app-assets\data\ag-grid-data.json" />
     <Content Include="Theme\Base\app-assets\data\cities.json" />

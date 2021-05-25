@@ -140,6 +140,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                             ResSTR += "<a class=\"dropdown-item\" href=\"javascript:void(0)\" onclick=\"Form_Edit('" + RW[0].ToString().Trim() + "','" + RW[2].ToString().Trim() + "')\"><i class=\"fa fa-pencil-square-o text-primary\" style=\"width:24px;font-size:14px\"></i> Edit form </a>";
                             ResSTR += "<div class=\"dropdown-divider\"></div>";
                             ResSTR += "<a class=\"dropdown-item\" href=\"javascript:void(0)\" onclick=\"Form_ConfigurationST('" + RW[1].ToString().Trim() + "')\"><i class=\"fa fa-cogs text-primary\" style=\"width:24px;font-size:14px\"></i>Form configuration</a>";
+                            ResSTR += "<a class=\"dropdown-item\" href=\"javascript:void(0)\" onclick=\"Form_ConditionsST('" + RW[1].ToString().Trim() + "')\"><i class=\"fa fa-cogs text-primary\" style=\"width:24px;font-size:14px\"></i>Form conditions</a>";
                             ResSTR += "<div class=\"dropdown-menu\" style=\"font-size:12px\">";
                             ResSTR += "<a class=\"dropdown-item\" href=\"javascript:void(0)\" onclick=\"Form_CopyLink('1', '" + RW[0].ToString().Trim() + "')\"><i class=\"fa fa-copy text-primary\" style=\"width:24px;font-size:14px\"></i> Copy Customer URL link </a>";
                             ResSTR += "<a class=\"dropdown-item\" href=\"javascript:void(0)\" onclick=\"Form_CopyLink('2', '" + RW[0].ToString().Trim() + "')\"><i class=\"fa fa-copy text-primary\" style=\"width:24px;font-size:14px\"></i> Copy Customer iFrame URL </a>";
@@ -760,7 +761,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegisterForms_AddSection(string GroupID, string Sec_Name, string Sec_Icon, string Sec_Index, string Sec_Col)
+        public JsonResult RegisterForms_AddSection(string GroupID, string Sec_Name, string Sec_Icon, string Sec_Index, string Sec_Col, string DefDisplay)
         {
             try
             {
@@ -783,6 +784,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                     Sec_Icon = Sec_Icon.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
                     Sec_Index = Sec_Index.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
                     Sec_Col = Sec_Col.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    DefDisplay = DefDisplay.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
                     if ((GroupID == "0") || (GroupID == ""))
                     {
                         ResVal = "1"; ResSTR = "The server encountered an error while reloading group information";
@@ -797,7 +799,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                             {
                                 string InsDate = Sq.Sql_Date();
                                 string InsTime = Sq.Sql_Time();
-                                Sq.Execute_TSql(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Insert Into Users_05_Hospitality_SingleUser_RegisterForms_Section Values ('" + GroupID + "','" + Sec_Name + "','" + Sec_Icon + "','" + Sec_Index + "','" + Sec_Col + "','1','Active','" + InsDate + "','" + InsTime + "','" + UID + "','" + InsDate + "','" + InsTime + "','" + UID + "','0')");
+                                Sq.Execute_TSql(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Insert Into Users_05_Hospitality_SingleUser_RegisterForms_Section Values ('" + GroupID + "','" + Sec_Name + "','" + Sec_Icon + "','" + Sec_Index + "','" + Sec_Col + "','1','Active','" + InsDate + "','" + InsTime + "','" + UID + "','" + InsDate + "','" + InsTime + "','" + UID + "','0','" + DefDisplay + "')");
                                 ResVal = "0"; ResSTR = "Section named " + Sec_Name + " was successfully added";
                             }
                             else
@@ -958,12 +960,12 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                 if (ResVal == "0")
                 {
                     DataTable DT = new DataTable();
-                    DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Name,Icon,Row_Index,Width From Users_05_Hospitality_SingleUser_RegisterForms_Section Where (Group_ID = '" + GroupID + "') And (Section_ID = '" + SecID + "') And (Removed = '0')");
+                    DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Name,Icon,Row_Index,Width,DefDisplay From Users_05_Hospitality_SingleUser_RegisterForms_Section Where (Group_ID = '" + GroupID + "') And (Section_ID = '" + SecID + "') And (Removed = '0')");
                     if (DT.Rows != null)
                     {
                         if (DT.Rows.Count == 1)
                         {
-                            ResSTR = DT.Rows[0][0].ToString().Trim() + "#" + DT.Rows[0][1].ToString().Trim() + "#" + DT.Rows[0][2].ToString().Trim() + "#" + DT.Rows[0][3].ToString().Trim();
+                            ResSTR = DT.Rows[0][0].ToString().Trim() + "#" + DT.Rows[0][1].ToString().Trim() + "#" + DT.Rows[0][2].ToString().Trim() + "#" + DT.Rows[0][3].ToString().Trim() + "#" + DT.Rows[0][4].ToString().Trim();
                         }
                         else
                         {
@@ -987,7 +989,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegisterForms_SaveEditSection(string GroupID, string SecID, string Sec_Name, string Sec_Icon, string Sec_Index, string Sec_Col)
+        public JsonResult RegisterForms_SaveEditSection(string GroupID, string SecID, string Sec_Name, string Sec_Icon, string Sec_Index, string Sec_Col, string DefDisplay)
         {
             try
             {
@@ -1011,6 +1013,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                     Sec_Icon = Sec_Icon.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
                     Sec_Index = Sec_Index.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
                     Sec_Col = Sec_Col.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    DefDisplay = DefDisplay.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
                     if ((GroupID == "0") || (GroupID == ""))
                     {
                         ResVal = "1"; ResSTR = "The server encountered an error while reloading form information";
@@ -1025,7 +1028,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                             {
                                 string InsDate = Sq.Sql_Date();
                                 string InsTime = Sq.Sql_Time();
-                                Sq.Execute_TSql(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Update Users_05_Hospitality_SingleUser_RegisterForms_Section Set [Name] = '" + Sec_Name + "',[Icon] = '" + Sec_Icon + "',[Row_Index] = '" + Sec_Index + "',[Width] = '" + Sec_Col + "',[Last_Update_Date] = '" + InsDate + "',[Last_Update_Time] = '" + InsTime + "',[Last_Update_ID] = '" + UID + "' Where (Group_ID = '" + GroupID + "') And (Section_ID = '" + SecID + "')");
+                                Sq.Execute_TSql(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Update Users_05_Hospitality_SingleUser_RegisterForms_Section Set [Name] = '" + Sec_Name + "',[Icon] = '" + Sec_Icon + "',[Row_Index] = '" + Sec_Index + "',[Width] = '" + Sec_Col + "',[Last_Update_Date] = '" + InsDate + "',[Last_Update_Time] = '" + InsTime + "',[Last_Update_ID] = '" + UID + "',[DefDisplay] = '" + DefDisplay + "' Where (Group_ID = '" + GroupID + "') And (Section_ID = '" + SecID + "')");
                                 ResVal = "0"; ResSTR = "Section named " + Sec_Name + " was successfully edited";
                             }
                             else
@@ -1051,7 +1054,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegisterForms_AddElement_A(string GroupID, string SecID, string ElementCode, string El_Title, string El_Index, string El_Col)
+        public JsonResult RegisterForms_AddElement_A(string GroupID, string SecID, string ElementCode, string El_Title, string El_Index, string El_Col, string El_DefDisplay)
         {
             try
             {
@@ -1074,6 +1077,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                 El_Index = El_Index.Trim();
                 if (El_Index == "") { El_Index = "1"; }
                 El_Col = El_Col.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                El_DefDisplay = El_DefDisplay.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
                 if (UID == "0") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
                 if (UID == "") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
                 if (El_Title == "") { ResVal = "1"; ResSTR = "Tag name not founded to add new element"; }
@@ -1106,7 +1110,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                             string InsDate = Sq.Sql_Date();
                             string InsTime = Sq.Sql_Time();
                             DataTable DT2 = new DataTable();
-                            DT2 = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Insert Into Users_06_Hospitality_SingleUser_RegisterForms_Elements OUTPUT Inserted.Element_ID Values ('" + GroupID + "','" + SecID + "','" + ElementCode + "','" + ElementCode_Text + "','" + El_Title + "','" + El_Index + "','" + El_Col + "','1','Active','" + InsDate + "','" + InsTime + "','" + UID + "','" + InsDate + "','" + InsTime + "','" + UID + "','0','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','')");
+                            DT2 = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Insert Into Users_06_Hospitality_SingleUser_RegisterForms_Elements OUTPUT Inserted.Element_ID Values ('" + GroupID + "','" + SecID + "','" + ElementCode + "','" + ElementCode_Text + "','" + El_Title + "','" + El_Index + "','" + El_Col + "','1','Active','" + InsDate + "','" + InsTime + "','" + UID + "','" + InsDate + "','" + InsTime + "','" + UID + "','0','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','" + El_DefDisplay + "')");
                             ResSTR = DT2.Rows[0][0].ToString().Trim();
                         }
                         else
@@ -1915,12 +1919,12 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                 if (ResVal == "0")
                 {
                     DataTable DT = new DataTable();
-                    DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Element_Tag_Name,Element_Row_Index,Element_Width From Users_06_Hospitality_SingleUser_RegisterForms_Elements Where (Group_ID = '" + GID + "') And (Section_ID = '" + SID + "') And (Element_ID = '" + EID + "') And (Removed = '0')");
+                    DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Element_Tag_Name,Element_Row_Index,Element_Width,DefDisplay From Users_06_Hospitality_SingleUser_RegisterForms_Elements Where (Group_ID = '" + GID + "') And (Section_ID = '" + SID + "') And (Element_ID = '" + EID + "') And (Removed = '0')");
                     if (DT.Rows != null)
                     {
                         if (DT.Rows.Count == 1)
                         {
-                            ResSTR = DT.Rows[0][0].ToString().Trim() + "#" + DT.Rows[0][1].ToString().Trim() + "#" + DT.Rows[0][2].ToString().Trim();
+                            ResSTR = DT.Rows[0][0].ToString().Trim() + "#" + DT.Rows[0][1].ToString().Trim() + "#" + DT.Rows[0][2].ToString().Trim() + "#" + DT.Rows[0][3].ToString().Trim();
                         }
                         else
                         {
@@ -1944,7 +1948,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegisterForms_SaveEdit_Element_Tag(string GID, string SID, string EID, string ElName, string ElIndex, string ElWidth)
+        public JsonResult RegisterForms_SaveEdit_Element_Tag(string GID, string SID, string EID, string ElName, string ElIndex, string ElWidth, string DefDisplay)
         {
             try
             {
@@ -1964,6 +1968,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                 ElName = ElName.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
                 ElIndex = ElIndex.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
                 ElWidth = ElWidth.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                DefDisplay = DefDisplay.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
                 if (ElName == "") { ResVal = "1"; ResSTR = "It is necessary to enter the element name, to save element tag information"; }
                 if ((ElIndex == "") || (ElIndex == "0")) { ResVal = "1"; ResSTR = "It is necessary to enter the element order no., to save element tag information"; }
                 if ((ElWidth == "") || (ElWidth == "0")) { ElWidth = "1"; }
@@ -1983,7 +1988,7 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                             {
                                 string InsDate = Sq.Sql_Date();
                                 string InsTime = Sq.Sql_Time();
-                                Sq.Execute_TSql(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Update Users_06_Hospitality_SingleUser_RegisterForms_Elements Set [Element_Tag_Name] = '" + ElName + "',[Element_Row_Index] = '" + ElIndex + "',[Element_Width] = '" + ElWidth + "',[Last_Update_Date] = '" + InsDate + "',[Last_Update_Time] = '" + InsTime + "',[Last_Update_ID] = '" + UID + "' Where (Group_ID = '" + GID + "') And (Section_ID = '" + SID + "') And (Element_ID = '" + EID + "')");
+                                Sq.Execute_TSql(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Update Users_06_Hospitality_SingleUser_RegisterForms_Elements Set [Element_Tag_Name] = '" + ElName + "',[Element_Row_Index] = '" + ElIndex + "',[Element_Width] = '" + ElWidth + "',[Last_Update_Date] = '" + InsDate + "',[Last_Update_Time] = '" + InsTime + "',[Last_Update_ID] = '" + UID + "',[DefDisplay] = '" + DefDisplay + "' Where (Group_ID = '" + GID + "') And (Section_ID = '" + SID + "') And (Element_ID = '" + EID + "')");
                                 ResVal = "0"; ResSTR = "The element tag information successfully edited";
                             }
                             else
@@ -4202,6 +4207,682 @@ namespace iCore_User.Areas.HSU_Portal.Controllers
                 return Json(FeedBack, JsonRequestBehavior.AllowGet);
             }
         }
+        //====================================================================================================================
+        [HttpGet]
+        public ActionResult RegisterForms_Conditions()
+        {
+            try
+            {
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                // Test Menu Access :
+                ViewBag.MenuCode = 40;
+                if (AAuth.User_Authentication_Action(ViewBag.MenuCode) == false) { return RedirectToAction("Index", "Dashboard", new { id = "", area = "HSU_Portal" }); }
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                string FormID = RouteData.Values["id"].ToString().Trim();
+                if (FormID == null) { return RedirectToAction("RegisterForms", "Tools", new { id = "", area = "HSU_Portal" }); }
+                if (FormID == "") { return RedirectToAction("RegisterForms", "Tools", new { id = "", area = "HSU_Portal" }); }
+                string UserID = Session["User_UID"].ToString().Trim();
+                DataTable DT = new DataTable();
+                DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select ID From Users_04_Hospitality_SingleUser_RegisterForms Where (UnicID = '" + FormID + "') And (User_ID = '" + UserID + "') And (Removed = '0')");
+                if (DT.Rows != null)
+                {
+                    if (DT.Rows.Count == 1)
+                    {
+                        FormID = DT.Rows[0][0].ToString().Trim();
+                        ViewBag.UserID = UserID;
+                        ViewBag.FormID = FormID;
+                        return View();
+                    }
+                    else
+                    {
+                        return RedirectToAction("RegisterForms", "Tools", new { id = "", area = "HSU_Portal" });
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("RegisterForms", "Tools", new { id = "", area = "HSU_Portal" });
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("RegisterForms", "Tools", new { id = "", area = "HSU_Portal" });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RegisterForms_Conditions_Section(string UID, string FID)
+        {
+            try
+            {
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                // Test Menu Access :
+                ViewBag.MenuCode = 40;
+                if (AAuth.User_Authentication_Action(ViewBag.MenuCode) == false) { IList<SelectListItem> FB = new List<SelectListItem> { new SelectListItem { Text = "You do not have permission to access this section", Value = "1" } }; return Json(FB, JsonRequestBehavior.AllowGet); }
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                string ResVal = "0";
+                string ResSTR = "";
+                string UIDL = "0";
+                try { UIDL = Session["User_UID"].ToString().Trim(); } catch (Exception) { UIDL = "0"; }
+                UIDL = UIDL.Trim();
+                if (UIDL == "0") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (UIDL == "") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (ResVal == "0")
+                {
+                    UID = UID.Trim();
+                    FID = FID.Trim();
+                    DataTable DT = new DataTable();
+                    DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Section_ID,Name From Users_05_Hospitality_SingleUser_RegisterForms_Section Where (Group_ID = '" + FID + "') And (Removed = '0') Order By Name");
+                    if (DT.Rows != null)
+                    {
+                        string FRVL = "0";
+                        foreach (DataRow RW in DT.Rows)
+                        {
+                            if (FRVL == "0") { FRVL = RW[0].ToString().Trim(); }
+                            ResSTR += "<option value=\"" + RW[0].ToString().Trim() + "\">" + RW[1].ToString().Trim() + "</option>";
+                        }
+                        ResSTR = FRVL + "$$$" + ResSTR;
+                    }
+                    else
+                    {
+                        ResVal = "1"; ResSTR = "The server encountered an error while reloading information";
+                    }
+                }
+                IList<SelectListItem> FeedBack = new List<SelectListItem> { new SelectListItem { Value = ResVal, Text = ResSTR.Trim() } };
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                IList<SelectListItem> FeedBack = new List<SelectListItem>
+                { new SelectListItem{Text = "The server encountered an error while executing your request" , Value = "1"}};
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RegisterForms_Conditions_Elements(string UID, string FID, string SID)
+        {
+            try
+            {
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                // Test Menu Access :
+                ViewBag.MenuCode = 40;
+                if (AAuth.User_Authentication_Action(ViewBag.MenuCode) == false) { IList<SelectListItem> FB = new List<SelectListItem> { new SelectListItem { Text = "You do not have permission to access this section", Value = "1" } }; return Json(FB, JsonRequestBehavior.AllowGet); }
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                string ResVal = "0";
+                string ResSTR = "";
+                string UIDL = "0";
+                try { UIDL = Session["User_UID"].ToString().Trim(); } catch (Exception) { UIDL = "0"; }
+                UIDL = UIDL.Trim();
+                if (UIDL == "0") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (UIDL == "") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (ResVal == "0")
+                {
+                    UID = UID.Trim();
+                    FID = FID.Trim();
+                    SID = SID.Trim();
+                    DataTable DT = new DataTable();
+                    DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Element_ID,Element_Type_Text,Element_Tag_Name From Users_06_Hospitality_SingleUser_RegisterForms_Elements Where (Group_ID = '" + FID + "') And (Section_ID = '" + SID + "') And (Removed = '0') And (Element_Type_Code In ('1','2','3','4','5')) Order By Element_Type_Text,Element_Tag_Name");
+                    if (DT.Rows != null)
+                    {
+                        foreach (DataRow RW in DT.Rows)
+                        {
+                            ResSTR += "<option value=\"" + RW[0].ToString().Trim() + "\">" + RW[1].ToString().Trim() + " - " + RW[2].ToString().Trim() + "</option>";
+                        }
+                    }
+                    else
+                    {
+                        ResVal = "1"; ResSTR = "The server encountered an error while reloading information";
+                    }
+                }
+                IList<SelectListItem> FeedBack = new List<SelectListItem> { new SelectListItem { Value = ResVal, Text = ResSTR.Trim() } };
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                IList<SelectListItem> FeedBack = new List<SelectListItem>
+                { new SelectListItem{Text = "The server encountered an error while executing your request" , Value = "1"}};
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RegisterForms_Conditions_Add(string U, string F, string S, string E, string TN, string VTC, string VTT, string VCC, string VCT, string EV, string VFC, string VFT, string VLCC, string VLCT, string VRT, string VEM, string IMCC, string IMCT, string IMT, string IM, string T1, string T2, string T3, string T4, string T5, string T6, string T7, string T8, string T9, string T10, string T11, string T12, string T13, string T14, string T15, string T16, string T17, string T18, string T19, string T20, string T21, string T22, string T23, string T24, string T25, string T26, string T27, string T28, string T29, string T30, string T31, string T32, string T33, string T34, string T35, string T36, string T37, string T38, string T39, string T40, string T41, string T42, string T43, string T44, string T45, string T46, string T47, string T48, string T49, string T50, string T51, string T52, string T53, string T54, string T55, string T56, string T57, string T58, string T59, string T60, string T61, string T62, string T63, string T64, string T65, string T66, string T67, string T68, string T69, string T70, string T71, string T72, string T73, string T74, string T75, string T76, string T77, string T78, string T79, string T80, string T81, string T82)
+        {
+            try
+            {
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                // Test Menu Access :
+                ViewBag.MenuCode = 40;
+                if (AAuth.User_Authentication_Action(ViewBag.MenuCode) == false) { IList<SelectListItem> FB = new List<SelectListItem> { new SelectListItem { Text = "You do not have permission to access this section", Value = "1" } }; return Json(FB, JsonRequestBehavior.AllowGet); }
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                string ResVal = "0";
+                string ResSTR = "";
+                string UID2 = "0";
+                try { UID2 = Session["User_UID"].ToString().Trim(); } catch (Exception) { UID2 = "0"; }
+                UID2 = UID2.Trim();
+                if (UID2 == "0") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (UID2 == "") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (ResVal == "0")
+                {
+                    U = U.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    F = F.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    S = S.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    E = E.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    TN = TN.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VTC = VTC.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VTT = VTT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VCC = VCC.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VCT = VCT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    EV = EV.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VFC = VFC.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VFT = VFT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VLCC = VLCC.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VLCT = VLCT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VRT = VRT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VEM = VEM.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    IMCC = IMCC.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    IMCT = IMCT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    IMT = IMT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    IM = IM.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T1 = T1.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T2 = T2.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T3 = T3.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T4 = T4.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T5 = T5.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T6 = T6.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T7 = T7.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T8 = T8.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T9 = T9.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T10 = T10.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T11 = T11.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T12 = T12.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T13 = T13.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T14 = T14.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T15 = T15.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T16 = T16.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T17 = T17.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T18 = T18.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T19 = T19.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T20 = T20.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T21 = T21.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T22 = T22.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T23 = T23.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T24 = T24.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T25 = T25.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T26 = T26.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T27 = T27.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T28 = T28.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T29 = T29.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T30 = T30.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T31 = T31.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T32 = T32.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T33 = T33.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T34 = T34.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T35 = T35.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T36 = T36.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T37 = T37.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T38 = T38.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T39 = T39.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T40 = T40.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T41 = T41.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T42 = T42.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T43 = T43.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T44 = T44.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T45 = T45.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T46 = T46.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T47 = T47.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T48 = T48.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T49 = T49.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T50 = T50.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T51 = T51.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T52 = T52.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T53 = T53.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T54 = T54.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T55 = T55.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T56 = T56.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T57 = T57.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T58 = T58.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T59 = T59.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T60 = T60.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T61 = T61.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T62 = T62.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T63 = T63.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T64 = T64.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T65 = T65.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T66 = T66.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T67 = T67.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T68 = T68.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T69 = T69.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T70 = T70.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T71 = T71.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T72 = T72.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T73 = T73.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T74 = T74.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T75 = T75.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T76 = T76.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T77 = T77.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T78 = T78.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T79 = T79.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T80 = T80.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T81 = T81.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T82 = T82.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    if ((U == "0") || (U == "")) { ResVal = "1"; ResSTR = "The server encountered an error while getting user information"; }
+                    if ((F == "0") || (F == "")) { ResVal = "1"; ResSTR = "The server encountered an error while getting form information"; }
+                    if ((S == "0") || (S == "")) { ResVal = "1"; ResSTR = "The server encountered an error while getting section information"; }
+                    if ((E == "0") || (E == "")) { ResVal = "1"; ResSTR = "The server encountered an error while getting element information"; }
+                    if (ResVal == "0")
+                    {
+                        if (TN == "") { ResVal = "1"; ResSTR = "It is necessary to enter the tag name to add a new condition"; } else { TN = Pb.Text_UpperCase_AfterSpase(TN); }
+                        if (ResVal == "0")
+                        {
+                            string InsDate = Sq.Sql_Date();
+                            string InsTime = Sq.Sql_Time();
+                            Sq.Execute_TSql(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Insert Into Users_07_Hospitality_SingleUser_RegisterForms_Conditions Values ('" + U + "','" + F + "','" + S + "','" + E + "','" + TN + "','" + VTC + "','" + VTT + "','" + VCC + "','" + VCT + "','" + EV + "','" + VFC + "','" + VFT + "','" + VLCC + "','" + VLCT + "','" + VRT + "','" + VEM + "','" + IMCC + "','" + IMCT + "','" + IMT + "','" + IM + "','" + T1 + "','" + T2 + "','" + T3 + "','" + T4 + "','" + T5 + "','" + T6 + "','" + T7 + "','" + T8 + "','" + T9 + "','" + T10 + "','" + T11 + "','" + T12 + "','" + T13 + "','" + T14 + "','" + T15 + "','" + T16 + "','" + T17 + "','" + T18 + "','" + T19 + "','" + T20 + "','" + T21 + "','" + T22 + "','" + T23 + "','" + T24 + "','" + T25 + "','" + T26 + "','" + T27 + "','" + T28 + "','" + T29 + "','" + T30 + "','" + T31 + "','" + T32 + "','" + T33 + "','" + T34 + "','" + T35 + "','" + T36 + "','" + T37 + "','" + T38 + "','" + T39 + "','" + T40 + "','" + T41 + "','" + T42 + "','" + T43 + "','" + T44 + "','" + T45 + "','" + T46 + "','" + T47 + "','" + T48 + "','" + T49 + "','" + T50 + "','" + T51 + "','" + T52 + "','" + T53 + "','" + T54 + "','" + T55 + "','" + T56 + "','" + T57 + "','" + T58 + "','" + T59 + "','" + T60 + "','" + T61 + "','" + T62 + "','" + T63 + "','" + T64 + "','" + T65 + "','" + T66 + "','" + T67 + "','" + T68 + "','" + T69 + "','" + T70 + "','" + T71 + "','" + T72 + "','" + T73 + "','" + T74 + "','" + T75 + "','" + T76 + "','" + T77 + "','" + T78 + "','" + T79 + "','" + T80 + "','" + T81 + "','" + T82 + "','1','Active','0','" + InsDate + "','" + InsTime + "','" + InsDate + "','" + InsTime + "')");
+                            ResSTR = "The condition named " + TN + " successfully added";
+                        }
+                    }
+                }
+                IList<SelectListItem> FeedBack = new List<SelectListItem> { new SelectListItem { Value = ResVal, Text = ResSTR.Trim() } };
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                IList<SelectListItem> FeedBack = new List<SelectListItem>
+                { new SelectListItem{Text = "The server encountered an error while executing your request" , Value = "1"}};
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RegisterForms_Conditions_Grid(string UID, string FID, string SID, string EID)
+        {
+            try
+            {
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                // Test Menu Access :
+                ViewBag.MenuCode = 40;
+                if (AAuth.User_Authentication_Action(ViewBag.MenuCode) == false) { IList<SelectListItem> FB = new List<SelectListItem> { new SelectListItem { Text = "You do not have permission to access this section", Value = "1" } }; return Json(FB, JsonRequestBehavior.AllowGet); }
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                string ResVal = "0";
+                string ResSTR = "";
+                string UID2 = "0";
+                try { UID2 = Session["User_UID"].ToString().Trim(); } catch (Exception) { UID2 = "0"; }
+                UID2 = UID2.Trim();
+                if (UID2 == "0") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (UID2 == "") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (ResVal == "0")
+                {
+                    UID = UID.Trim();
+                    FID = FID.Trim();
+                    SID = SID.Trim();
+                    EID = EID.Trim();
+                    DataTable DT = new DataTable();
+                    DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Condition_ID,Condition_Tag_Name,Value_Type_Text,Value_Condition_Text,Condition_Value,Validation_Failed_Text,Status_Code From Users_07_Hospitality_SingleUser_RegisterForms_Conditions Where (UserID = '" + UID + "') And (FormID = '" + FID + "') And (SectionID = '" + SID + "') And (ElementID = '" + EID + "') And (Removed = '0') Order By Condition_Tag_Name");
+                    if (DT.Rows != null)
+                    {
+                        foreach (DataRow RW in DT.Rows)
+                        {
+                            ResSTR += "<tr>";
+                            ResSTR += "<td>" + RW[1].ToString().Trim() + "</td>";
+                            ResSTR += "<td>" + RW[2].ToString().Trim() + "</td>";
+                            ResSTR += "<td>" + RW[3].ToString().Trim() + "</td>";
+                            ResSTR += "<td>" + RW[4].ToString().Trim() + "</td>";
+                            ResSTR += "<td>" + RW[5].ToString().Trim() + "</td>";
+                            if (RW[6].ToString().Trim() == "0")
+                            {
+                                ResSTR += "<td style=\"text-align:center\">";
+                                ResSTR += "<div class=\"badge badge-pill badge-light-danger\" style=\"width:70px\">Disabled</div>";
+                                ResSTR += "</td>";
+                            }
+                            else
+                            {
+                                ResSTR += "<td style=\"text-align:center\">";
+                                ResSTR += "<div class=\"badge badge-pill badge-light-success\" style=\"width:70px\">Active</div>";
+                                ResSTR += "</td>";
+                            }
+                            ResSTR += "<td style=\"text-align:center\">";
+                            ResSTR += "<div class=\"btn-group dropleft\">";
+                            ResSTR += "<button type=\"button\" class=\"btn\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">";
+                            ResSTR += "<div class=\"MenuToolbox text-primary\"/>";
+                            ResSTR += "</button>";
+                            ResSTR += "<div class=\"dropdown-menu\" style=\"font-size:12px\">";
+                            ResSTR += "<a class=\"dropdown-item\" href=\"javascript:void(0)\" onclick=\"Condition_Remover('" + RW[0].ToString().Trim() + "','" + RW[1].ToString().Trim() + "')\"><i class=\"fa fa-trash-o text-primary\" style=\"width:24px;font-size:14px\"></i> Remove condition </a>";
+                            ResSTR += "<a class=\"dropdown-item\" href=\"javascript:void(0)\" onclick=\"Condition_ChangeStatus('" + RW[0].ToString().Trim() + "','" + RW[1].ToString().Trim() + "')\"><i class=\"fa fa-refresh text-primary\" style=\"width:24px;font-size:14px\"></i> Change status </a>";
+                            ResSTR += "<a class=\"dropdown-item\" href=\"javascript:void(0)\" onclick=\"Condition_Editor('" + RW[0].ToString().Trim() + "','" + RW[1].ToString().Trim() + "')\"><i class=\"fa fa-pencil-square-o text-primary\" style=\"width:24px;font-size:14px\"></i> Edit condition </a>";
+                            ResSTR += "</div>";
+                            ResSTR += "</div>";
+                            ResSTR += "</div>";
+                            ResSTR += "</td>";
+                            ResSTR += "</tr>";
+                        }
+                    }
+                    else
+                    {
+                        ResVal = "1"; ResSTR = "The server encountered an error while reloading information";
+                    }
+                }
+                IList<SelectListItem> FeedBack = new List<SelectListItem> { new SelectListItem { Value = ResVal, Text = ResSTR.Trim() } };
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                IList<SelectListItem> FeedBack = new List<SelectListItem>
+                { new SelectListItem{Text = "The server encountered an error while executing your request" , Value = "1"}};
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RegisterForms_Conditions_RemoveForm(string CID)
+        {
+            try
+            {
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                // Test Menu Access :
+                ViewBag.MenuCode = 40;
+                if (AAuth.User_Authentication_Action(ViewBag.MenuCode) == false) { IList<SelectListItem> FB = new List<SelectListItem> { new SelectListItem { Text = "You do not have permission to access this section", Value = "1" } }; return Json(FB, JsonRequestBehavior.AllowGet); }
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                string ResVal = "0";
+                string ResSTR = "";
+                string UID = "0";
+                try { UID = Session["User_UID"].ToString().Trim(); } catch (Exception) { UID = "0"; }
+                UID = UID.Trim();
+                if (UID == "0") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (UID == "") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (ResVal == "0")
+                {
+                    CID = CID.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    DataTable DT = new DataTable();
+                    DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Condition_Tag_Name From Users_07_Hospitality_SingleUser_RegisterForms_Conditions Where (Condition_ID = '" + CID + "') And (Removed = '0')");
+                    if (DT.Rows != null)
+                    {
+                        if (DT.Rows.Count == 1)
+                        {
+                            string InsDate = Sq.Sql_Date();
+                            string InsTime = Sq.Sql_Time();
+                            Sq.Execute_TSql(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Update Users_07_Hospitality_SingleUser_RegisterForms_Conditions Set [Removed] = '1',[LastUpdate_Date] = '" + InsDate + "',[LastUpdate_Time] = '" + InsTime + "' Where (Condition_ID = '" + CID + "')");
+                            ResSTR = "The " + DT.Rows[0][0].ToString().Trim() + " condition was successfully deleted";
+                        }
+                        else
+                        {
+                            ResVal = "1"; ResSTR = "The specified condition is invalid";
+                        }
+                    }
+                    else
+                    {
+                        ResVal = "1"; ResSTR = "The server encountered an error while receiving condition information";
+                    }
+                }
+                IList<SelectListItem> FeedBack = new List<SelectListItem> { new SelectListItem { Value = ResVal, Text = ResSTR.Trim() } };
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                IList<SelectListItem> FeedBack = new List<SelectListItem>
+                { new SelectListItem{Text = "The server encountered an error while executing your request" , Value = "1"}};
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RegisterForms_Conditions_ChangeStatus(string CID)
+        {
+            try
+            {
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                // Test Menu Access :
+                ViewBag.MenuCode = 40;
+                if (AAuth.User_Authentication_Action(ViewBag.MenuCode) == false) { IList<SelectListItem> FB = new List<SelectListItem> { new SelectListItem { Text = "You do not have permission to access this section", Value = "1" } }; return Json(FB, JsonRequestBehavior.AllowGet); }
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                string ResVal = "0";
+                string ResSTR = "";
+                string UID = "0";
+                try { UID = Session["User_UID"].ToString().Trim(); } catch (Exception) { UID = "0"; }
+                UID = UID.Trim();
+                if (UID == "0") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (UID == "") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (ResVal == "0")
+                {
+                    CID = CID.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    DataTable DT = new DataTable();
+                    DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Condition_ID,Status_Code,Condition_Tag_Name From Users_07_Hospitality_SingleUser_RegisterForms_Conditions Where (Condition_ID = '" + CID + "') And (Removed = '0')");
+                    if (DT.Rows != null)
+                    {
+                        if (DT.Rows.Count == 1)
+                        {
+                            string InsDate = Sq.Sql_Date();
+                            string InsTime = Sq.Sql_Time();
+                            if (DT.Rows[0][1].ToString().Trim() == "1")
+                            {
+                                Sq.Execute_TSql(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Update Users_07_Hospitality_SingleUser_RegisterForms_Conditions Set [Status_Code] = '0',[Status_Text] = 'Disabled',[LastUpdate_Date] = '" + InsDate + "',[LastUpdate_Time] = '" + InsTime + "' Where (Condition_ID = '" + CID + "') And (Removed = '0')");
+                                ResSTR = "The " + DT.Rows[0][2].ToString().Trim() + " condition was successfully change status to disabled";
+                            }
+                            else
+                            {
+                                Sq.Execute_TSql(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Update Users_07_Hospitality_SingleUser_RegisterForms_Conditions Set [Status_Code] = '1',[Status_Text] = 'Active',[LastUpdate_Date] = '" + InsDate + "',[LastUpdate_Time] = '" + InsTime + "' Where (Condition_ID = '" + CID + "') And (Removed = '0')");
+                                ResSTR = "The " + DT.Rows[0][2].ToString().Trim() + " condition was successfully change status to active";
+                            }
+                        }
+                        else
+                        {
+                            ResVal = "1"; ResSTR = "The specified condition is invalid";
+                        }
+                    }
+                    else
+                    {
+                        ResVal = "1"; ResSTR = "The server encountered an error while receiving condition information";
+                    }
+                }
+                IList<SelectListItem> FeedBack = new List<SelectListItem> { new SelectListItem { Value = ResVal, Text = ResSTR.Trim() } };
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                IList<SelectListItem> FeedBack = new List<SelectListItem>
+                { new SelectListItem{Text = "The server encountered an error while executing your request" , Value = "1"}};
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RegisterForms_Conditions_GetInfo(string CID)
+        {
+            try
+            {
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                // Test Menu Access :
+                ViewBag.MenuCode = 40;
+                if (AAuth.User_Authentication_Action(ViewBag.MenuCode) == false) { IList<SelectListItem> FB = new List<SelectListItem> { new SelectListItem { Text = "You do not have permission to access this section", Value = "1" } }; return Json(FB, JsonRequestBehavior.AllowGet); }
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                string ResVal = "0";
+                string ResSTR = "";
+                string UID2 = "0";
+                try { UID2 = Session["User_UID"].ToString().Trim(); } catch (Exception) { UID2 = "0"; }
+                UID2 = UID2.Trim();
+                if (UID2 == "0") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (UID2 == "") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (ResVal == "0")
+                {
+                    CID = CID.Trim();
+                    DataTable DT = new DataTable();
+                    DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select * From Users_07_Hospitality_SingleUser_RegisterForms_Conditions Where (Condition_ID = '" + CID + "') And (UserID = '" + UID2 + "') And (Removed = '0')");
+                    if (DT.Rows != null)
+                    {
+                        ResSTR = "";
+                        for (int i = 0; i < 110; i++)
+                        {
+                            ResSTR += DT.Rows[0][i].ToString().Trim() + "$$$";
+                        }
+                    }
+                    else
+                    {
+                        ResVal = "1"; ResSTR = "The server encountered an error while reloading information";
+                    }
+                }
+                IList<SelectListItem> FeedBack = new List<SelectListItem> { new SelectListItem { Value = ResVal, Text = ResSTR.Trim() } };
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                IList<SelectListItem> FeedBack = new List<SelectListItem>
+                { new SelectListItem{Text = "The server encountered an error while executing your request" , Value = "1"}};
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RegisterForms_Conditions_SaveEdit(string U, string C, string TN, string VTC, string VTT, string VCC, string VCT, string EV, string VFC, string VFT, string VLCC, string VLCT, string VRT, string VEM, string IMCC, string IMCT, string IMT, string IM, string T1, string T2, string T3, string T4, string T5, string T6, string T7, string T8, string T9, string T10, string T11, string T12, string T13, string T14, string T15, string T16, string T17, string T18, string T19, string T20, string T21, string T22, string T23, string T24, string T25, string T26, string T27, string T28, string T29, string T30, string T31, string T32, string T33, string T34, string T35, string T36, string T37, string T38, string T39, string T40, string T41, string T42, string T43, string T44, string T45, string T46, string T47, string T48, string T49, string T50, string T51, string T52, string T53, string T54, string T55, string T56, string T57, string T58, string T59, string T60, string T61, string T62, string T63, string T64, string T65, string T66, string T67, string T68, string T69, string T70, string T71, string T72, string T73, string T74, string T75, string T76, string T77, string T78, string T79, string T80, string T81, string T82)
+        {
+            try
+            {
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                // Test Menu Access :
+                ViewBag.MenuCode = 40;
+                if (AAuth.User_Authentication_Action(ViewBag.MenuCode) == false) { IList<SelectListItem> FB = new List<SelectListItem> { new SelectListItem { Text = "You do not have permission to access this section", Value = "1" } }; return Json(FB, JsonRequestBehavior.AllowGet); }
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                string ResVal = "0";
+                string ResSTR = "";
+                string UID2 = "0";
+                try { UID2 = Session["User_UID"].ToString().Trim(); } catch (Exception) { UID2 = "0"; }
+                UID2 = UID2.Trim();
+                if (UID2 == "0") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (UID2 == "") { ResVal = "2"; ResSTR = "Your license has expired, Please login again"; }
+                if (ResVal == "0")
+                {
+                    U = U.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    C = C.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    TN = TN.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VTC = VTC.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VTT = VTT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VCC = VCC.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VCT = VCT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    EV = EV.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VFC = VFC.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VFT = VFT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VLCC = VLCC.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VLCT = VLCT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VRT = VRT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    VEM = VEM.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    IMCC = IMCC.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    IMCT = IMCT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    IMT = IMT.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    IM = IM.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T1 = T1.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T2 = T2.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T3 = T3.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T4 = T4.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T5 = T5.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T6 = T6.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T7 = T7.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T8 = T8.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T9 = T9.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T10 = T10.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T11 = T11.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T12 = T12.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T13 = T13.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T14 = T14.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T15 = T15.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T16 = T16.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T17 = T17.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T18 = T18.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T19 = T19.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T20 = T20.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T21 = T21.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T22 = T22.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T23 = T23.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T24 = T24.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T25 = T25.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T26 = T26.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T27 = T27.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T28 = T28.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T29 = T29.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T30 = T30.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T31 = T31.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T32 = T32.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T33 = T33.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T34 = T34.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T35 = T35.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T36 = T36.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T37 = T37.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T38 = T38.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T39 = T39.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T40 = T40.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T41 = T41.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T42 = T42.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T43 = T43.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T44 = T44.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T45 = T45.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T46 = T46.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T47 = T47.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T48 = T48.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T49 = T49.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T50 = T50.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T51 = T51.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T52 = T52.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T53 = T53.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T54 = T54.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T55 = T55.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T56 = T56.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T57 = T57.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T58 = T58.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T59 = T59.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T60 = T60.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T61 = T61.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T62 = T62.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T63 = T63.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T64 = T64.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T65 = T65.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T66 = T66.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T67 = T67.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T68 = T68.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T69 = T69.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T70 = T70.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T71 = T71.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T72 = T72.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T73 = T73.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T74 = T74.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T75 = T75.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T76 = T76.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T77 = T77.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T78 = T78.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T79 = T79.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T80 = T80.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T81 = T81.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    T82 = T82.Replace(",", " ").Replace("#", "").Replace("  ", " ").Trim();
+                    if ((U == "0") || (U == "")) { ResVal = "1"; ResSTR = "The server encountered an error while getting user information"; }
+                    if ((C == "0") || (C == "")) { ResVal = "1"; ResSTR = "The server encountered an error while getting form information"; }
+                    if (ResVal == "0")
+                    {
+                        if (TN == "") { ResVal = "1"; ResSTR = "It is necessary to enter the tag name to edit condition"; } else { TN = Pb.Text_UpperCase_AfterSpase(TN); }
+                        if (ResVal == "0")
+                        {
+                            DataTable DT = new DataTable();
+                            DT = Sq.Get_DTable_TSQL(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Select Condition_ID From Users_07_Hospitality_SingleUser_RegisterForms_Conditions Where (Condition_ID = '" + C + "') And (UserID = '" + U + "') And (Removed = '0')");
+                            if (DT.Rows.Count == 1)
+                            {
+                                string InsDate = Sq.Sql_Date();
+                                string InsTime = Sq.Sql_Time();
+                                Sq.Execute_TSql(iCore_Administrator.Modules.DataBase_Selector.Administrator, "Update Users_07_Hospitality_SingleUser_RegisterForms_Conditions Set [LastUpdate_Date] = '" + InsDate + "',[LastUpdate_Time] = '" + InsTime + "',[Condition_Tag_Name] = '" + TN + "',[Value_Type_Code] = '" + VTC + "',[Value_Type_Text] = '" + VTT + "',[Value_Condition_Code] = '" + VCC + "',[Value_Condition_Text] = '" + VCT + "',[Condition_Value] = '" + EV + "',[Validation_Failed_Code] = '" + VFC + "',[Validation_Failed_Text] = '" + VFT + "',[Validation_Color_Code] = '" + VLCC + "',[Validation_Color_Text] = '" + VLCT + "',[Validation_Error_Title] = '" + VRT + "',[Validation_Error_Message] = '" + VEM + "',[Instant_Color_Code] = '" + IMCC + "',[Instant_Color_Text] = '" + IMCT + "',[Instant_Title] = '" + IMT + "',[Instant_Message] = '" + IM + "',[Section_Displayed_Code_1] = '" + T1 + "',[Section_Displayed_Code_2] = '" + T2 + "',[Section_Displayed_Code_3] = '" + T3 + "',[Section_Displayed_Code_4] = '" + T4 + "',[Section_Displayed_Code_5] = '" + T5 + "',[Section_Displayed_Code_6] = '" + T6 + "',[Section_Displayed_Code_7] = '" + T7 + "',[Section_Displayed_Code_8] = '" + T8 + "',[Section_Displayed_Code_9] = '" + T9 + "',[Section_Displayed_Code_10] = '" + T10 + "',[Section_Hiden_Code_1] = '" + T11 + "',[Section_Hiden_Code_2] = '" + T12 + "',[Section_Hiden_Code_3] = '" + T13 + "',[Section_Hiden_Code_4] = '" + T14 + "',[Section_Hiden_Code_5] = '" + T15 + "',[Section_Hiden_Code_6] = '" + T16 + "',[Section_Hiden_Code_7] = '" + T17 + "',[Section_Hiden_Code_8] = '" + T18 + "',[Section_Hiden_Code_9] = '" + T19 + "',[Section_Hiden_Code_10] = '" + T20 + "',[Element_Displayed_Section_Code_1] = '" + T21 + "',[Element_Displayed_Element_Code_1] = '" + T22 + "',[Element_Displayed_Section_Code_2] = '" + T23 + "',[Element_Displayed_Element_Code_2] = '" + T24 + "',[Element_Displayed_Section_Code_3] = '" + T25 + "',[Element_Displayed_Element_Code_3] = '" + T26 + "',[Element_Displayed_Section_Code_4] = '" + T27 + "',[Element_Displayed_Element_Code_4] = '" + T28 + "',[Element_Displayed_Section_Code_5] = '" + T29 + "',[Element_Displayed_Element_Code_5] = '" + T30 + "',[Element_Displayed_Section_Code_6] = '" + T31 + "',[Element_Displayed_Element_Code_6] = '" + T32 + "',[Element_Displayed_Section_Code_7] = '" + T33 + "',[Element_Displayed_Element_Code_7] = '" + T34 + "',[Element_Displayed_Section_Code_8] = '" + T35 + "',[Element_Displayed_Element_Code_8] = '" + T36 + "',[Element_Displayed_Section_Code_9] = '" + T37 + "',[Element_Displayed_Element_Code_9] = '" + T38 + "',[Element_Displayed_Section_Code_10] = '" + T39 + "',[Element_Displayed_Element_Code_10] = '" + T40 + "',[Element_Hiden_Section_Code_1] = '" + T41 + "',[Element_Hiden_Element_Code_1] = '" + T42 + "',[Element_Hiden_Section_Code_2] = '" + T43 + "',[Element_Hiden_Element_Code_2] = '" + T44 + "',[Element_Hiden_Section_Code_3] = '" + T45 + "',[Element_Hiden_Element_Code_3] = '" + T46 + "',[Element_Hiden_Section_Code_4] = '" + T47 + "',[Element_Hiden_Element_Code_4] = '" + T48 + "',[Element_Hiden_Section_Code_5] = '" + T49 + "',[Element_Hiden_Element_Code_5] = '" + T50 + "',[Element_Hiden_Section_Code_6] = '" + T51 + "',[Element_Hiden_Element_Code_6] = '" + T52 + "',[Element_Hiden_Section_Code_7] = '" + T53 + "',[Element_Hiden_Element_Code_7] = '" + T54 + "',[Element_Hiden_Section_Code_8] = '" + T55 + "',[Element_Hiden_Element_Code_8] = '" + T56 + "',[Element_Hiden_Section_Code_9] = '" + T57 + "',[Element_Hiden_Element_Code_9] = '" + T58 + "',[Element_Hiden_Section_Code_10] = '" + T59 + "',[Element_Hiden_Element_Code_10] = '" + T60 + "',[Condition_Elements_Validation_Code] = '" + T61 + "',[Condition_Elements_Validation_Text] = '" + T62 + "',[Condition_Elements_Validation_Section_Code_1] = '" + T63 + "',[Condition_Elements_Validation_Element_Code_1] = '" + T64 + "',[Condition_Elements_Validation_Section_Code_2] = '" + T65 + "',[Condition_Elements_Validation_Element_Code_2] = '" + T66 + "',[Condition_Elements_Validation_Section_Code_3] = '" + T67 + "',[Condition_Elements_Validation_Element_Code_3] = '" + T68 + "',[Condition_Elements_Validation_Section_Code_4] = '" + T69 + "',[Condition_Elements_Validation_Element_Code_4] = '" + T70 + "',[Condition_Elements_Validation_Section_Code_5] = '" + T71 + "',[Condition_Elements_Validation_Element_Code_5] = '" + T72 + "',[Condition_Elements_Validation_Section_Code_6] = '" + T73 + "',[Condition_Elements_Validation_Element_Code_6] = '" + T74 + "',[Condition_Elements_Validation_Section_Code_7] = '" + T75 + "',[Condition_Elements_Validation_Element_Code_7] = '" + T76 + "',[Condition_Elements_Validation_Section_Code_8] = '" + T77 + "',[Condition_Elements_Validation_Element_Code_8] = '" + T78 + "',[Condition_Elements_Validation_Section_Code_9] = '" + T79 + "',[Condition_Elements_Validation_Element_Code_9] = '" + T80 + "',[Condition_Elements_Validation_Section_Code_10] = '" + T81 + "',[Condition_Elements_Validation_Element_Code_10] = '" + T82 + "' Where (Condition_ID = '" + C + "') And (UserID = '" + U + "') And (Removed = '0')");
+                                ResSTR = "The condition named " + TN + " successfully edited";
+                            }
+                            else
+                            {
+                                ResVal = "1"; ResSTR = "Condition details not founded, please after check try again";
+                            }
+                        }
+                    }
+                }
+                IList<SelectListItem> FeedBack = new List<SelectListItem> { new SelectListItem { Value = ResVal, Text = ResSTR.Trim() } };
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                IList<SelectListItem> FeedBack = new List<SelectListItem>
+                { new SelectListItem{Text = "The server encountered an error while executing your request" , Value = "1"}};
+                return Json(FeedBack, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         //====================================================================================================================
     }
 }

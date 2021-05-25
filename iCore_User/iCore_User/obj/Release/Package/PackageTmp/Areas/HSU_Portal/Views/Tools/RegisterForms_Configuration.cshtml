@@ -1116,6 +1116,56 @@
         </div>
     </div>
 </section>
+<section>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="content-header-left col-md-9 col-12">
+                        <div class="row breadcrumbs-top">
+                            <div class="col-12" style="padding-left:10px">
+                                <h2 class="content-header-title float-left mb-0">Styles</h2>
+                                <div class="breadcrumb-wrapper col-12">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active">Form design styles management</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content" style="padding-bottom:20px" id="Sec5">
+                    <div class="card-body card-dashboard">
+                        <div class="col-lg-12 form-inline" id="Sec5_Main" style="pointer-events:none;opacity:0.7">
+                            <div class="col-lg-2">
+                                <div class="text-bold-300 font-medium-1" style="margin-top:10px;margin-left:5px">
+                                    Show form sections as page :
+                                </div>
+                                <select class="select2 form-control" id="S5_V1">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="text-align:right;margin-top:30px">
+                            <div style="display:block" id="Sec5_Wait">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:10px"></span>
+                                    Please wait ...
+                                </button>
+                            </div>
+                            <div class="btn-group" role="group" style="display:none" id="Sec5_Btn">
+                                <button type="button" class="btn btn-primary" onclick="SaveSection('5')"><i class="fa fa-plus" style="margin-right:10px"></i>Save style setting</button>
+                                <button type="button" class="btn btn-danger" onclick="ClearSection('5','1')"><i class="fa fa-trash" style="margin-right:10px"></i>Clear</button>
+                                <button type="button" class="btn btn-success" onclick="ReloadSection('5','1')"><i class="fa fa-refresh" style="margin-right:10px"></i>Reload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @section JSScript {
     <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
     <script src="~/Theme/Base/app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js"></script>
@@ -1322,6 +1372,11 @@
                         }
                         break;
                     }
+                    case '5': {
+                        $('#S5_V1').val("0");
+                        $('#S5_V1').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                        break;
+                    }
                 }
             } catch (e) {
                 toastr.error('An error occurred while processing your request', 'An error has occurred! [C01]', { "showMethod": "slideDown", "hideMethod": "slideUp", positionClass: 'toast-bottom-right', "progressBar": true, "closeButton": true, "timeOut": 8000 });
@@ -1512,6 +1567,62 @@
                         formData.append("V3", document.getElementById('S4_V3').value.trim());
                         formData.append("V4", document.getElementById('S4_V4').value.trim());
                         formData.append("V5", document.getElementById('S4_V5').value.trim());
+                        formData.append("V6", null);
+                        formData.append("V7", null);
+                        formData.append("V8", null);
+                        formData.append("V9", null);
+                        formData.append("V10", null);
+                        formData.append("V11", null);
+                        formData.append("V12", null);
+                        formData.append("V13", null);
+                        formData.append("V14", null);
+                        formData.append("V15", null);
+                        formData.append("V16", null);
+                        formData.append("V17", null);
+                        formData.append("V18", null);
+                        formData.append("V19", null);
+                        formData.append("V20", null);
+                        formData.append("V21", null);
+                        formData.append("V22", null);
+                        formData.append("V23", null);
+                        formData.append("V24", null);
+                        formData.append("V25", null);
+                        formData.append("V26", null);
+                        formData.append("V27", null);
+                        formData.append("V28", null);
+                        formData.append("V29", null);
+                        formData.append("V30", null);
+                        formData.append("V31", null);
+                        formData.append("V32", null);
+                        formData.append("V33", null);
+                        formData.append("V34", null);
+                        formData.append("V35", null);
+                        formData.append("V36", null);
+                        formData.append("V37", null);
+                        formData.append("V38", null);
+                        formData.append("V39", null);
+                        formData.append("V40", null);
+                        formData.append("V41", null);
+                        formData.append("V42", null);
+                        formData.append("V43", null);
+                        formData.append("V44", null);
+                        formData.append("V45", null);
+                        formData.append("V46", null);
+                        formData.append("V47", null);
+                        formData.append("V48", null);
+                        formData.append("V49", null);
+                        formData.append("V50", null);
+                        formData.append("V51", null);
+                        formData.append("V52", null);
+                        formData.append("V53", null);
+                        break;
+                    }
+                    case '5': {
+                        formData.append("V1", $("#S5_V1 :selected").val().trim());
+                        formData.append("V2", null);
+                        formData.append("V3", null);
+                        formData.append("V4", null);
+                        formData.append("V5", null);
                         formData.append("V6", null);
                         formData.append("V7", null);
                         formData.append("V8", null);
@@ -1758,6 +1869,11 @@
                                         document.getElementById('S4_V5').value = fields[4].trim();
                                         break;
                                     }
+                                    case '5': {
+                                        $('#S5_V1').val(fields[0].trim());
+                                        $('#S5_V1').select2({ dropdownAutoWidth: true, width: '100%' }).trigger('change');
+                                        break;
+                                    }
                                 }
                             } catch (e) { }
                             document.getElementById('Sec' + SecID + '_Btn').style.display = 'block';
@@ -1850,8 +1966,8 @@
         }
         $(document).ready(function () {
             $('.dropify').dropify({ messages: { 'default': 'Drag and drop a file here or click', 'replace': 'Drag and drop or click to replace', 'remove': 'Remove', 'error': 'Ooops, something wrong happended.' } });
-            ClearSection('1', '0'); ClearSection('2', '0'); ClearSection('3', '0'); ClearSection('4', '0');
-            ReloadSection('1', '0'); ReloadSection('2', '0'); ReloadSection('3', '0'); ReloadSection('4', '0');
+            ClearSection('1', '0'); ClearSection('2', '0'); ClearSection('3', '0'); ClearSection('4', '0'); ClearSection('5', '0');
+            ReloadSection('1', '0'); ReloadSection('2', '0'); ReloadSection('3', '0'); ReloadSection('4', '0'); ReloadSection('5', '0');
         });
     </script>
 

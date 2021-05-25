@@ -894,7 +894,7 @@
                                                                             }
                                                                         case "14"://Group Input
                                                                             {
-                                                                                bool Coll1 = false; bool Coll2 = false; bool Coll3 = false; bool Coll4 = false; bool Coll5 = false; bool Coll6 = false;
+                                                                                bool Coll1 = false; bool Coll2 = false; bool Coll3 = false; bool Coll4 = false; bool Coll5 = false; bool Coll6 = false; bool Coll7 = false; bool Coll8 = false;
                                                                                 if ((ElRw[32].ToString().Trim() != "") || (ElRw[33].ToString().Trim() != ""))
                                                                                 {
                                                                                     <div class="form-inline" style="width:100%">
@@ -938,6 +938,16 @@
                                                                                                     Coll6 = true;
                                                                                                     <th>@ElRw[57].ToString().Trim()</th>
                                                                                                 }
+                                                                                                @if (ElRw[61].ToString().Trim() != "")
+                                                                                                {
+                                                                                                    Coll7 = true;
+                                                                                                    <th>@ElRw[61].ToString().Trim()</th>
+                                                                                                }
+                                                                                                @if (ElRw[84].ToString().Trim() != "")
+                                                                                                {
+                                                                                                    Coll8 = true;
+                                                                                                    <th>@ElRw[84].ToString().Trim()</th>
+                                                                                                }
                                                                                             </tr>
                                                                                         </thead>
                                                                                         <tbody>
@@ -970,6 +980,14 @@
                                                                                                             @if (Coll6 == true)
                                                                                                             {
                                                                                                                 <td>@DRGI[11].ToString().Trim()</td>
+                                                                                                            }
+                                                                                                            @if (Coll7 == true)
+                                                                                                            {
+                                                                                                                <td>@DRGI[12].ToString().Trim()</td>
+                                                                                                            }
+                                                                                                            @if (Coll8 == true)
+                                                                                                            {
+                                                                                                                <td>@DRGI[25].ToString().Trim()</td>
                                                                                                             }
                                                                                                         </tr>
                                                                                                     }
